@@ -1,0 +1,8 @@
+@media (max-width:600px){
+    .mobile_nav{
+        display: block !important;
+    }
+    .navbar{
+        display: none;
+    }
+}

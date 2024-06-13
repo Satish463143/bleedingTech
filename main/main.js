@@ -1,11 +1,16 @@
-function handleScroll(){
-    if(window.scrollY > 100){
-    document.querySelector('.navbar').style.background='#000';
-    }else{
-        document.querySelector('.navbar').style.background='none';
+// Function to handle the scroll event
+function handleScroll() {
+    if (window.scrollY > 10) {
+      document.querySelector('.back').style.top = '0px';
+      document.querySelector('.navbar').style.background='var(--g)';
+      
+    } else {
+      document.querySelector('.back').style.top = '-60px';
+      document.querySelector('.navbar').style.background='none';
     }
-}
+  }
 
+  
 const hamburgerMenu = document.querySelector("#hamburger-menu");
 const overlay = document.querySelector("#overlay");
 
@@ -25,16 +30,9 @@ function navAnimation(val1, val2) {
   });
 }
 
-// Function to handle the scroll event
-function handleScroll() {
-  if (window.scrollY > 10) {
-    document.querySelector('.back').style.top = '0px';
-  } else {
-    document.querySelector('.back').style.top = '-60px';
-  }
-}
+
 // Function to handle the navigation toggle
-function toggleNav() {
+function toggleNav() {  
   // Toggle: Hamburger Open/Close
   hamburgerMenu.classList.toggle("active");
 
@@ -50,6 +48,7 @@ function toggleNav() {
 
     // Set .back style to top: 0px
     document.querySelector('.back').style.top = '0px';
+    
   } else {
     // Animate Out - Overlay
     overlay.classList.replace("overlay-slide-right", "overlay-slide-left");
@@ -57,32 +56,24 @@ function toggleNav() {
     // Animate Out - Nav Items
     navAnimation("in", "out");
 
-    // Check if hamburgerMenu is not active
-    if (!hamburgerMenu.classList.contains("active")) {
-      // Set .back style to normal (-60px) if hamburgerMenu is not active
-      document.querySelector('.back').style.top = '-60px';
-    }
+   
   }
+  
+   if(hamburgerMenu.classList.contains("active")){
+    document.querySelector('.back').style.top = '0px';
+    console.log("sastisih")
+    }else{
+    document.querySelector('.back').style.top = '-60px';
+    }
 }
 
-// Event listener for hamburger menu click
+
+// // Event listener for hamburger menu click
 hamburgerMenu.addEventListener("click", toggleNav);
 
 
-// Events Listeners
-hamburgerMenu.addEventListener("click", toggleNav);
-navItems.forEach((nav) => {
-  nav.addEventListener("click", toggleNav);
-});
 
-// // Hover event listener for hamburger menu
-// hamburgerMenu.addEventListener("mouseenter", () => {
-//   document.querySelector('.back').style.top = '0px';
-// });
 
-// hamburgerMenu.addEventListener("mouseleave", () => {
-//   handleScroll(); // Revert back to scrollY function
-// });
 
 // Hover event listener for grid div
 gridDiv.addEventListener("mouseenter", () => {

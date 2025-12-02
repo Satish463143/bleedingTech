@@ -68,7 +68,7 @@ const Navbar = () => {
             whileTap={{ scale: 0.95 }}
           >
             <Sparkles className="logo-icon" />
-            <span className="logo-text">Bleeding</span>
+            <span className="logo-text">Bleeding Tech</span>
           </motion.div>
 
           {/* Desktop Navigation */}

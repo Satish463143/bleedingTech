@@ -95,6 +95,7 @@ const Testimonal = () => {
 
   return (
     <section
+      id="testimonials"
       ref={ref}
       className="relative overflow-hidden py-24 lg:py-20"
       style={{

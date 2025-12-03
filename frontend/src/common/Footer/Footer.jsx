@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import {
   Mail,
   Phone,
@@ -15,14 +15,18 @@ import {
 } from "lucide-react";
 import "./Footer.css";
 
+// Create motion-enabled Link component
+const MotionLink = motion.create(Link);
+
 const Footer = () => {
   // Footer data - can be replaced with API later
   const companyLinks = [
-    { name: "About Us", href: "#about" },
-    { name: "Our Services", href: "#services" },
-    { name: "Portfolio", href: "#portfolio" },
-    { name: "Our Team", href: "#team" },
-    { name: "Contact", href: "#contact" },
+    { name: "About Us", href: "/about-us" },
+    { name: "Our Services", href: "/services" },
+    { name: "Portfolio", href: "/portfolio" },
+    { name: "Clients", href: "/clients" },
+    { name: "Blogs", href: "/blogs" },
+    { name: "Contact", href: "/contact-us" },
   ];
 
   const serviceLinks = [
@@ -38,8 +42,8 @@ const Footer = () => {
 
   const quickLinks = [
     { name: "Packages", href: "#packages" },
-    { name: "Testimonials", href: "#testimonials" },
-    { name: "FAQs", href: "#faq" },
+    { name: "Testimonials", href: "/#testimonials" },
+    { name: "FAQs", href: "/#faq" },
     { name: "Blog", href: "#blog" },
     { name: "Careers", href: "#careers" },
     { name: "Privacy Policy", href: "#privacy" },
@@ -430,39 +434,93 @@ const Footer = () => {
 // Footer Link Component
 const FooterLink = ({ href, name }) => {
   const [isHovered, setIsHovered] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  // Check if it's an external link or hash link
+  const isExternal = href.startsWith("http") || href.startsWith("mailto:") || href.startsWith("tel:");
+  const isHash = href.startsWith("#");
+  const hasPathWithHash = href.includes("#") && !isHash && !isExternal;
+
+  // Scroll to element with retry mechanism (waits for page to render)
+  const scrollToElement = (hash, attempts = 0) => {
+    const element = document.getElementById(hash);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    } else if (attempts < 20) {
+      // Retry after a delay if element not found yet (up to 2 seconds)
+      setTimeout(() => scrollToElement(hash, attempts + 1), 100);
+    }
+  };
+
+  // Handle click for paths with hash (e.g., "/#faq")
+  const handleHashNavigation = (e) => {
+    if (hasPathWithHash) {
+      e.preventDefault();
+      const [path, hash] = href.split("#");
+      const targetPath = path || "/";
+
+      // If already on the target page, just scroll
+      if (location.pathname === targetPath) {
+        scrollToElement(hash);
+      } else {
+        // Navigate to the page first, then scroll after render
+        navigate(targetPath);
+        // Start trying to scroll after a short initial delay
+        setTimeout(() => scrollToElement(hash), 50);
+      }
+    }
+  };
+
+  const linkContent = (
+    <>
+      <span className="relative">
+        {name}
+        {/* Animated underline */}
+        <motion.span
+          className="absolute bottom-0 left-0 h-[1px] w-full origin-left"
+          style={{ background: "hsl(var(--primary))" }}
+          initial={{ scaleX: 0 }}
+          animate={{ scaleX: isHovered ? 1 : 0 }}
+          transition={{ duration: 0.3 }}
+        />
+      </span>
+      <motion.span
+        animate={{ opacity: isHovered ? 1 : 0, x: isHovered ? 0 : -5 }}
+        transition={{ duration: 0.2 }}
+      >
+        <ArrowUpRight
+          className="w-3 h-3"
+          style={{ color: "hsl(var(--primary))" }}
+        />
+      </motion.span>
+    </>
+  );
+
+  const commonProps = {
+    className: "group relative inline-flex items-center gap-2 text-sm transition-colors",
+    style: { color: "hsl(var(--muted-foreground))" },
+    onMouseEnter: () => setIsHovered(true),
+    onMouseLeave: () => setIsHovered(false),
+    whileHover: { x: 4 },
+    transition: { type: "spring", stiffness: 400, damping: 25 },
+  };
 
   return (
     <li>
-      <motion.a
-        href={href}
-        className="group relative inline-flex items-center gap-2 text-sm transition-colors"
-        style={{ color: "hsl(var(--muted-foreground))" }}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-        whileHover={{ x: 4 }}
-        transition={{ type: "spring", stiffness: 400, damping: 25 }}
-      >
-        <span className="relative">
-          {name}
-          {/* Animated underline */}
-          <motion.span
-            className="absolute bottom-0 left-0 h-[1px] w-full origin-left"
-            style={{ background: "hsl(var(--primary))" }}
-            initial={{ scaleX: 0 }}
-            animate={{ scaleX: isHovered ? 1 : 0 }}
-            transition={{ duration: 0.3 }}
-          />
-        </span>
-        <motion.span
-          animate={{ opacity: isHovered ? 1 : 0, x: isHovered ? 0 : -5 }}
-          transition={{ duration: 0.2 }}
-        >
-          <ArrowUpRight
-            className="w-3 h-3"
-            style={{ color: "hsl(var(--primary))" }}
-          />
-        </motion.span>
-      </motion.a>
+      {isExternal || isHash ? (
+        <motion.a href={href} {...commonProps}>
+          {linkContent}
+        </motion.a>
+      ) : hasPathWithHash ? (
+        <motion.a href={href} onClick={handleHashNavigation} {...commonProps}>
+          {linkContent}
+        </motion.a>
+      ) : (
+        <MotionLink to={href} {...commonProps}>
+          {linkContent}
+        </MotionLink>
+      )}
     </li>
   );
 };

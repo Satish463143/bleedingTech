@@ -1,15 +1,19 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Moon, Sun, Sparkles } from "lucide-react";
+import { Link } from "react-router-dom";
 import "./Navbar.css";
 
+// Create motion-enabled Link component
+const MotionLink = motion.create(Link);
+
 const navLinks = [
-    { name: "About Us", href: "#About Us" },
-    { name: "Services", href: "#Services" },
-    { name: "Package", href: "#Package" },
-    { name: "Portfolio", href: "#Portfolio" },
-    { name: "Clients", href: "#Clients" },
-    { name: "Contact Us", href: "#Contact Us" },
+    { name: "About Us", href: "/about-us" },
+    { name: "Services", href: "/services" },
+    { name: "Package", href: "/packages" },
+    { name: "Portfolio", href: "/portfolio" },
+    { name: "Clients", href: "/clients" },
+    { name: "Blogs", href: "/blogs" },
 ];
 
 
@@ -62,22 +66,29 @@ const Navbar = () => {
       >
         <div className="navbar-content container">
           {/* Logo */}
-          <motion.div
-            className="navbar-logo"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <Sparkles className="logo-icon" />
-            <span className="logo-text">Bleeding Tech</span>
-          </motion.div>
+          
+            <motion.div
+              
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <Link to="/">
+                <div className="navbar-logo">
+                  <Sparkles className="logo-icon" />
+
+                  <span className="logo-text">Bleeding Tech</span>
+                </div>
+              </Link>
+            </motion.div>
+          
 
           {/* Desktop Navigation */}
           <div className="navbar-links-container">
             <div className="navbar-links-pill">
               {navLinks.map((link, index) => (
-                <motion.a
+                <MotionLink
                   key={link.name}
-                  href={link.href}
+                  to={link.href}
                   className={`nav-link ${activeLink === link.name ? "active" : ""}`}
                   onMouseEnter={() => setActiveLink(link.name)}
                   onMouseLeave={() => setActiveLink("")}
@@ -93,7 +104,7 @@ const Navbar = () => {
                       transition={{ type: "spring", stiffness: 380, damping: 30 }}
                     />
                   )}
-                </motion.a>
+                </MotionLink>
               ))}
             </div>
           </div>
@@ -133,22 +144,14 @@ const Navbar = () => {
               </AnimatePresence>
             </motion.button>
 
-            {/* Login Button */}
-            <motion.button
-              className="btn-login"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              Login
-            </motion.button>
-
+            
             {/* Sign Up Button */}
             <motion.button
               className="btn-signup"
               whileHover={{ scale: 1.05, boxShadow: "0 0 20px hsl(var(--glow))" }}
               whileTap={{ scale: 0.95 }}
             >
-              Sign up
+              <Link to="/contact-us">Contact Us</Link>
             </motion.button>
 
             {/* Mobile Menu Toggle - Unique Circular Design */}
@@ -204,15 +207,15 @@ const Navbar = () => {
               exit={{ scale: 0, opacity: 0, borderRadius: "100%" }}
               transition={{ type: "spring", stiffness: 100, damping: 20 }}
             >
-                <div className="mobile_menu_overlay" onClick={toggleMobileMenu}></div>
+              <div className="mobile_menu_overlay" onClick={toggleMobileMenu}></div>
               <div className="mobile-menu-content">
                 <button className="mobile-menu-close" onClick={toggleMobileMenu}>
                   
                 </button>
                 {navLinks.map((link, index) => (
-                  <motion.a
+                  <MotionLink
                     key={link.name}
-                    href={link.href}
+                    to={link.href}
                     className="mobile-nav-link"
                     onClick={toggleMobileMenu}
                     initial={{ opacity: 0, x: -50 }}
@@ -221,22 +224,10 @@ const Navbar = () => {
                     whileHover={{ scale: 1.05, x: 10 }}
                   >
                     {link.name}
-                  </motion.a>
+                  </MotionLink>
                 ))}
 
-                <div className="mobile-menu-divider" />
-
-                <motion.button
-                  className="mobile-btn-login"
-                  onClick={toggleMobileMenu}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.5 }}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  Login
-                </motion.button>
+                <div className="mobile-menu-divider" />               
 
                 <motion.button
                   className="mobile-btn-signup"
@@ -247,7 +238,7 @@ const Navbar = () => {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  Sign up
+                  <Link to="/contact-us">Contact Us</Link>
                 </motion.button>
               </div>
             </motion.div>

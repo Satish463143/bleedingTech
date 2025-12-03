@@ -160,32 +160,8 @@
     box-shadow: 0 0 16px hsl(var(--glow));
   }
   
-  /* Login Button */
-  .btn-login {
-    display: none;
-    padding: 0.625rem 1.5rem;
-    font-size: 0.9375rem;
-    font-weight: 600;
-    color: hsl(var(--text-color));
-    background: transparent;
-    border: 1px solid hsl(var(--border-color) / 0.6);
-    border-radius: 100px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
   
-  @media (min-width: 640px) {
-    .btn-login {
-      display: block;
-    }
-  }
-  
-  .btn-login:hover {
-    background: hsl(var(--bg-foreground) / 0.05);
-    border-color: hsl(var(--primary) / 0.4);
-    color: hsl(var(--primary));
-  }
-  
+   
   /* Sign Up Button */
   .btn-signup {
     display: none;
@@ -230,10 +206,13 @@
     opacity: 1;
   }
   
-  .btn-signup span {
-    position: relative;
-    z-index: 1;
-  }
+.btn-signup span,
+.btn-signup a {
+  position: relative;
+  z-index: 1;
+  color: inherit;
+  text-decoration: none;
+}
   
   /* ===========================
      MOBILE MENU TOGGLE

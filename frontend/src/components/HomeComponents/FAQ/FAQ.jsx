@@ -83,6 +83,7 @@ const FAQ = () => {
 
   return (
     <section
+      id="faq"
       ref={ref}
       className="relative overflow-hidden py-24 lg:py-20 bg-background"
       style={{

@@ -28,6 +28,15 @@ class ContactController {
                 filter.name = { $regex: req.query.search, $options: 'i' }
             }
             const {count, inquiries} = await ContactService.getAllInquiries({filter, limit, skip})
+            res.json({
+                details:inquiries,
+                message:"Inquiries fetched successfully",
+                meta:{
+                    total:count,
+                    page:page,
+                    limit:limit
+                }
+            })
 
         }catch(exception){
             console.log(exception);

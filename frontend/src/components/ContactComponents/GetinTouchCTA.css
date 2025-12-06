@@ -1,0 +1,133 @@
+/* ============================================
+   GET IN TOUCH CTA - Call to Action Section
+   ============================================ */
+
+/* CTA button pulse animation */
+@keyframes cta-pulse {
+  0%, 100% {
+    box-shadow: 0 15px 50px hsl(var(--glow));
+  }
+  50% {
+    box-shadow: 0 20px 60px hsl(var(--glow)), 0 0 0 8px hsl(var(--primary) / 0.1);
+  }
+}
+
+.cta-button {
+  animation: cta-pulse 3s ease-in-out infinite;
+}
+
+.cta-button:hover {
+  animation: none;
+}
+
+/* Shine sweep effect */
+@keyframes shine-sweep {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.cta-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: left 0.5s ease;
+}
+
+.cta-button:hover::before {
+  left: 100%;
+}
+
+/* Trust indicator hover */
+.trust-indicator {
+  transition: transform 0.3s ease;
+}
+
+.trust-indicator:hover {
+  transform: translateY(-2px);
+}
+
+/* Title gradient animation */
+@keyframes gradient-shift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.cta-title-gradient {
+  background-size: 200% auto;
+  animation: gradient-shift 5s ease infinite;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .cta-section h2 {
+    font-size: 2.5rem !important;
+  }
+  
+  .cta-section p {
+    font-size: 1rem !important;
+  }
+  
+  .cta-button {
+    padding: 1rem 2rem !important;
+    font-size: 1rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .cta-section h2 {
+    font-size: 2rem !important;
+  }
+  
+  .trust-indicators {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+}
+
+/* Dark mode enhancements */
+[data-theme="dark"] .cta-section,
+.dark .cta-section {
+  --cta-glow-intensity: 0.5;
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .cta-button {
+    animation: none;
+  }
+  
+  .cta-button::before {
+    display: none;
+  }
+}
+
+/* Focus states */
+.cta-button:focus-visible {
+  outline: 3px solid hsl(var(--primary));
+  outline-offset: 3px;
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .cta-button {
+    border: 2px solid white;
+  }
+}
+

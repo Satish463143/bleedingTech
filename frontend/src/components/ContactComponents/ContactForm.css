@@ -1,0 +1,120 @@
+/* ============================================
+   CONTACT FORM - Premium Form Styling
+   ============================================ */
+
+/* Input focus states */
+.contact-input:focus {
+  border-color: hsl(var(--primary)) !important;
+  box-shadow: 0 0 0 3px hsl(var(--primary) / 0.1), 0 0 20px hsl(var(--glow));
+}
+
+.contact-input::placeholder {
+  color: hsl(var(--muted-foreground) / 0.6);
+}
+
+/* Input hover state */
+.contact-input:hover:not(:focus) {
+  border-color: hsl(var(--primary) / 0.5);
+}
+
+/* Form group animations */
+.form-group {
+  position: relative;
+}
+
+.form-group label {
+  transition: color 0.3s ease;
+}
+
+.form-group:focus-within label {
+  color: hsl(var(--primary)) !important;
+}
+
+/* Icon transition on focus */
+.form-group:focus-within svg {
+  color: hsl(var(--primary)) !important;
+  transition: color 0.3s ease;
+}
+
+/* Textarea specific */
+textarea.contact-input {
+  min-height: 140px;
+  line-height: 1.6;
+}
+
+/* Button loading animation */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Success state pulse */
+@keyframes success-pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(16, 185, 129, 0);
+  }
+}
+
+button:has(.animate-spin) {
+  pointer-events: none;
+}
+
+/* Form validation styles */
+.contact-input:invalid:not(:placeholder-shown) {
+  border-color: hsl(var(--destructive)) !important;
+}
+
+.contact-input:valid:not(:placeholder-shown) {
+  border-color: hsl(var(--primary) / 0.5);
+}
+
+/* Dark mode adjustments */
+[data-theme="dark"] .contact-input,
+.dark .contact-input {
+  background: hsl(var(--background) / 0.3) !important;
+}
+
+[data-theme="dark"] .contact-input:focus,
+.dark .contact-input:focus {
+  background: hsl(var(--background) / 0.5) !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .contact-form-container {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .contact-input {
+    padding: 0.875rem 1rem 0.875rem 2.75rem !important;
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .contact-input,
+  .form-group * {
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Focus visible for keyboard navigation */
+.contact-input:focus-visible {
+  outline: 2px solid hsl(var(--primary));
+  outline-offset: 2px;
+}
+
+button:focus-visible {
+  outline: 2px solid hsl(var(--primary));
+  outline-offset: 2px;
+}
+

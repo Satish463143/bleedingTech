@@ -1,0 +1,73 @@
+/* MissionVision Component Styles - Premium Editorial Layout */
+
+/* Block transitions */
+.mission-vision-block {
+  transition: all 0.3s ease;
+}
+
+/* Accent line glow animation */
+@keyframes lineGlow {
+  0%, 100% {
+    box-shadow: 0 0 10px hsl(var(--glow));
+  }
+  50% {
+    box-shadow: 0 0 25px hsl(var(--glow));
+  }
+}
+
+.accent-line-glow {
+  animation: lineGlow 3s ease-in-out infinite;
+}
+
+/* Icon float animation */
+@keyframes iconFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.icon-float {
+  animation: iconFloat 3s ease-in-out infinite;
+}
+
+/* Highlight pill hover */
+.highlight-pill {
+  transition: all 0.2s ease;
+}
+
+.highlight-pill:hover {
+  transform: translateY(-2px);
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .mission-vision-content {
+    grid-template-columns: 1fr;
+    gap: 4rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .mission-vision-block {
+    padding-left: 1.5rem;
+  }
+  
+  .accent-line {
+    width: 2px;
+  }
+}
+
+/* Background pattern overlay */
+.pattern-overlay {
+  background-image: 
+    radial-gradient(circle at 1px 1px, hsl(var(--foreground) / 0.03) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+/* Smooth scrolling for anchor links */
+html {
+  scroll-behavior: smooth;
+}

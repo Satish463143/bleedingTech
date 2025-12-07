@@ -1,0 +1,34 @@
+/* WorkingProcess Component Styles */
+
+/* Step transitions */
+.step-card {
+  transition: all 0.3s ease;
+}
+
+/* Line glow animation */
+@keyframes lineGlow {
+  0%, 100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.line-glow {
+  animation: lineGlow 2s ease-in-out infinite;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .desktop-stepper {
+    display: none;
+  }
+}
+
+@media (min-width: 1024px) {
+  .mobile-stepper {
+    display: none;
+  }
+}
+

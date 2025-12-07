@@ -6,10 +6,10 @@ import "./BottomNav.css";
 
 const bottomNavLinks = [
   { name: "Home", href: "/", icon: Home },
-  { name: "Services", href: "#Services", icon: Briefcase },
-  { name: "Portfolio", href: "#Portfolio", icon: FolderKanban },
-  { name: "Package", href: "#Package", icon: Package },
-  { name: "Contact", href: "#Contact Us", icon: Mail },
+  { name: "Services", href: "/services", icon: Briefcase },
+  { name: "Portfolio", href: "/portfolio", icon: FolderKanban },
+  { name: "Package", href: "/packages", icon: Package },
+  { name: "Contact", href: "/contact-us", icon: Mail },
 ];
 
 const BottomNav = () => {
@@ -51,6 +51,14 @@ const BottomNav = () => {
   useEffect(() => {
     if (location.pathname === "/") {
       setActiveLink("Home");
+    } else if (location.pathname === "/services") {
+      setActiveLink("Services");
+    } else if (location.pathname === "/portfolio") {
+      setActiveLink("Portfolio");
+    } else if (location.pathname === "/packages") {
+      setActiveLink("Package");
+    } else if (location.pathname === "/contact-us") {
+      setActiveLink("Contact");
     }
   }, [location]);
 

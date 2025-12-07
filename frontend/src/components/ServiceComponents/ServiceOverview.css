@@ -1,0 +1,140 @@
+/* ============================================
+   SERVICE OVERVIEW - All Services Listing
+   ============================================ */
+
+/* Service item transitions */
+.service-item {
+  transition: all 0.3s ease;
+}
+
+/* Features card hover effect */
+.features-card {
+  transition: border-color 0.3s ease, transform 0.3s ease;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .service-overview-section {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+  
+  .service-item {
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .service-overview-section h2 {
+    font-size: 2rem !important;
+  }
+  
+  .service-overview-section h3 {
+    font-size: 1.5rem !important;
+  }
+  
+  .service-item {
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .service-overview-section h2 {
+    font-size: 1.75rem !important;
+  }
+  
+  .service-overview-section h3 {
+    font-size: 1.25rem !important;
+  }
+  
+  .service-overview-section p {
+    font-size: 0.95rem !important;
+  }
+  
+  .features-card {
+    padding: 1.25rem;
+  }
+}
+
+/* Icon animation on hover */
+@keyframes icon-pulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 8px 30px var(--glow-color);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 12px 40px var(--glow-color);
+  }
+}
+
+.service-icon:hover {
+  animation: icon-pulse 1s ease-in-out infinite;
+}
+
+/* Feature item hover */
+.feature-item {
+  transition: transform 0.2s ease;
+}
+
+.feature-item:hover {
+  transform: translateX(4px);
+}
+
+/* Dark mode enhancements */
+[data-theme="dark"] .service-overview-section,
+.dark .service-overview-section {
+  --glow-intensity: 0.4;
+}
+
+[data-theme="dark"] .features-card,
+.dark .features-card {
+  background: linear-gradient(135deg, hsl(var(--card) / 0.8), hsl(var(--card) / 0.5)) !important;
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .service-overview-section *,
+  .service-item *,
+  .features-card * {
+    animation: none !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Focus states */
+.features-card:focus-within {
+  outline: 2px solid hsl(var(--primary));
+  outline-offset: 4px;
+}
+
+/* Alternating layout for reversed items */
+@media (min-width: 1024px) {
+  .service-item-reversed {
+    direction: rtl;
+  }
+  
+  .service-item-reversed > * {
+    direction: ltr;
+  }
+}
+
+/* Service number badge */
+.service-number {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Decorative line animation */
+@keyframes line-grow {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.decorative-line {
+  transform-origin: left;
+  animation: line-grow 0.8s ease-out forwards;
+}

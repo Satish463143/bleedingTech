@@ -55,6 +55,21 @@ const Navbar = () => {
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
+  useEffect(() => {
+    if (location.pathname === "/about-us") {
+      setActiveLink("About Us");
+    } else if (location.pathname === "/services") {
+      setActiveLink("Services");
+    } else if (location.pathname === "/packages") {
+      setActiveLink("Package");
+    } else if (location.pathname === "/portfolio") {
+      setActiveLink("Portfolio");
+    } else if (location.pathname === "/clients") {
+      setActiveLink("Clients");
+    } else if (location.pathname === "/blogs") {
+      setActiveLink("Blogs");
+    }
+  }, [location.pathname]);
 
   return (
     <>
@@ -145,7 +160,7 @@ const Navbar = () => {
             </motion.button>
 
             
-            {/* Sign Up Button */}
+            {/* Contact Us Button */}
             <motion.button
               className="btn-signup"
               whileHover={{ scale: 1.05, boxShadow: "0 0 20px hsl(var(--glow))" }}
@@ -216,7 +231,7 @@ const Navbar = () => {
                   <MotionLink
                     key={link.name}
                     to={link.href}
-                    className="mobile-nav-link"
+                    className={`mobile-nav-link ${activeLink === link.name ? "active" : ""}`}
                     onClick={toggleMobileMenu}
                     initial={{ opacity: 0, x: -50 }}
                     animate={{ opacity: 1, x: 0 }}

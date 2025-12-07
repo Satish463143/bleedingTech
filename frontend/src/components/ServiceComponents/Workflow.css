@@ -1,0 +1,67 @@
+/* ============================================
+   WORKFLOW SECTION - Timeline Styling
+   ============================================ */
+
+/* Timeline responsive behavior */
+@media (max-width: 1024px) {
+  .workflow-section {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+  
+  .workflow-step {
+    padding-left: 4rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .workflow-section h2 {
+    font-size: 2rem !important;
+  }
+  
+  .workflow-step h3 {
+    font-size: 1.25rem !important;
+  }
+}
+
+/* Step animations */
+.workflow-step {
+  transition: transform 0.3s ease;
+}
+
+/* Icon pulse animation */
+@keyframes step-pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 hsl(var(--primary) / 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 10px hsl(var(--primary) / 0);
+  }
+}
+
+.step-icon-active {
+  animation: step-pulse 2s ease-in-out infinite;
+}
+
+/* Dark mode */
+[data-theme="dark"] .workflow-section,
+.dark .workflow-section {
+  --timeline-opacity: 0.4;
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .workflow-section *,
+  .workflow-step * {
+    animation: none !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Focus states */
+.workflow-step:focus-within {
+  outline: 2px solid hsl(var(--primary));
+  outline-offset: 4px;
+  border-radius: 1rem;
+}
+

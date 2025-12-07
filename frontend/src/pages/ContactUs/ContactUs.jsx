@@ -1,6 +1,5 @@
 import React from "react";
 import CommonBanner from "../../common/CommonBanner/CommonBanner";
-import Footer from "../../common/Footer/Footer";
 import ContactCards from "../../components/ContactComponents/ContactCards";
 import ContactForm from "../../components/ContactComponents/ContactForm";
 import MapSection from "../../components/ContactComponents/MapSection";

@@ -302,7 +302,7 @@ const CommonBanner = ({
 
           {/* Decorative badge */}
           <motion.div
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full border backdrop-blur-md mb-6 lg:mt-9"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full border backdrop-blur-md mb-6 mt-9 lg:mt-10 "
             style={{
               background: "hsl(var(--primary) / 0.05)",
               borderColor: "hsl(var(--primary) / 0.2)",

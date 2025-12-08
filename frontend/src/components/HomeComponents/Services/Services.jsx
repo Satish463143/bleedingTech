@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
+import { Link } from "react-router-dom";
 import {
   TrendingUp,
   Code,
@@ -32,18 +33,6 @@ const Services = () => {
     },
   };
 
-  const cardVariants = {
-    hidden: { opacity: 0, y: 50, scale: 0.9 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      transition: {
-        duration: 0.7,
-        ease: [0.22, 1, 0.36, 1],
-      },
-    },
-  };
 
   const services = [
     {
@@ -394,18 +383,17 @@ const ServiceCard = ({ service, index }) => {
         </p>
 
         {/* Learn more CTA */}
-        <motion.div
-          className="inline-flex items-center gap-2 text-sm font-semibold group-hover:gap-3 transition-all duration-300"
+        <Link 
+          to="/services#services-section"
+          className="inline-flex items-center gap-2 text-sm font-semibold hover:gap-3 transition-all duration-300 cursor-pointer relative z-10"
           style={{ color: "hsl(var(--primary))" }}
         >
           <span>Learn more</span>
-          <motion.svg
+          <svg
             className="w-4 h-4"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
-            initial={{ x: 0 }}
-            whileHover={{ x: 5 }}
           >
             <path
               strokeLinecap="round"
@@ -413,8 +401,8 @@ const ServiceCard = ({ service, index }) => {
               strokeWidth={2}
               d="M17 8l4 4m0 0l-4 4m4-4H3"
             />
-          </motion.svg>
-        </motion.div>
+          </svg>
+        </Link>
 
         {/* Bottom corner accent */}
         <motion.div

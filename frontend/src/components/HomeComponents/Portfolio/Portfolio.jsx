@@ -4,6 +4,8 @@ import { useInView } from "react-intersection-observer";
 import Heading from "../../../common/Heading/Heading";
 import "./Portfolio.css";
 import ProjectCard from "../../../common/ProjectCard/ProjectCard";
+import { Link } from "react-router-dom";
+import { ArrowRight } from "lucide-react";
 
 const Portfolio = () => {
   const controls = useAnimation();
@@ -21,6 +23,15 @@ const Portfolio = () => {
         staggerChildren: 0.2,
         delayChildren: 0.1,
       },
+    },
+  };
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30, scale: 0.95 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
     },
   };
 
@@ -302,6 +313,35 @@ const Portfolio = () => {
           {projects.map((project, index) => (
             <ProjectCard key={project.id} project={project} index={index} />
           ))}
+        </motion.div>
+        <motion.div variants={itemVariants} className="flex justify-center items-center mt-10">
+            <Link to="/portfolio#portfolio-section">
+              <motion.span
+                className="group relative inline-flex items-center gap-3 px-10 py-5 rounded-2xl font-bold text-lg overflow-hidden"
+                style={{
+                  background:
+                    "linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-accent)))",
+                  color: "white",
+                  boxShadow: "0 15px 50px hsl(var(--glow))",
+                }}
+                whileHover={{
+                  scale: 1.05,
+                  boxShadow: "0 20px 60px hsl(var(--glow))",
+                }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <span className="relative z-10">View All Projects</span>
+                <ArrowRight className="w-6 h-6 relative z-10 group-hover:translate-x-1 transition-transform" />
+
+                {/* Shine effect */}
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"
+                />
+
+                {/* Hover overlay */}
+                <div className="absolute inset-0 bg-gradient-to-r from-[hsl(var(--primary-accent))] to-[hsl(var(--primary))] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              </motion.span>
+            </Link>
         </motion.div>
       </div>
     </section>

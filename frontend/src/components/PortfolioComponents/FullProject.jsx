@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import ProjectCard from "../../common/ProjectCard/ProjectCard";
+import NewProjectCard from "../../common/NewProjectCard/NewProjectCard";
 import "./FullProject.css";
 
 const FullProject = () => {
@@ -140,6 +140,7 @@ const FullProject = () => {
       style={{
         background: "hsl(var(--bg-foreground) / 0.03)",
       }}
+      
     >
       {/* Background - Even section style */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -167,7 +168,7 @@ const FullProject = () => {
         />
       </div>
 
-      <div className="container mx-auto px-6 lg:px-12 relative z-10">
+      <div className="container mx-auto px-6 lg:px-12 relative z-10" id="portfolio-section">
         {/* Section Header */}
         <motion.div
           className="text-center mb-12"
@@ -208,29 +209,18 @@ const FullProject = () => {
           ))}
         </motion.div>
 
-        {/* Projects Grid */}
+        {/* Projects Grid - Using NewProjectCard */}
         <AnimatePresence mode="wait">
           <motion.div
             key={activeFilter}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
           >
             {filteredProjects.map((project, index) => (
-              <motion.div
-                key={project.id}
-                initial={{ opacity: 0, scale: 0.95, y: 20 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                transition={{
-                  duration: 0.4,
-                  delay: index * 0.05,
-                  ease: [0.22, 1, 0.36, 1],
-                }}
-              >
-                <ProjectCard project={project} index={index} />
-              </motion.div>
+              <NewProjectCard key={project.id} project={project} index={index} />
             ))}
           </motion.div>
         </AnimatePresence>

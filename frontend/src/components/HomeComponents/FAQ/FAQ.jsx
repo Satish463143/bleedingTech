@@ -3,9 +3,78 @@ import { motion, AnimatePresence, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { Plus, Minus, HelpCircle } from "lucide-react";
 import Heading from "../../../common/Heading/Heading";
+import { Link } from "react-router-dom";
 import "./FAQ.css";
 
-const FAQ = () => {
+// Default FAQ data
+const defaultFaqs = [
+  {
+    id: 1,
+    question: "What services does Bleeding Tech provide?",
+    answer:
+      "We offer complete digital solutions including web/app development, WordPress development, SEO, UI/UX, system design, and digital marketing.",
+    color: "rgb(59, 130, 246, 0.5)",
+    gradient: "from-blue-500 to-cyan-400",
+  },
+  {
+    id: 2,
+    question: "How long does it take to complete a project?",
+    answer:
+      "Timeline depends on project size, but most websites take 2–4 weeks, while advanced systems may take longer.",
+    color: "rgb(168, 85, 247, 0.5)",
+    gradient: "from-purple-500 to-pink-500",
+  },
+  {
+    id: 3,
+    question: "Do you provide post-launch support or maintenance?",
+    answer:
+      "Yes. We offer ongoing maintenance, updates, security checks, and performance optimization.",
+    color: "rgb(34, 197, 94, 0.5)",
+    gradient: "from-green-500 to-emerald-400",
+  },
+  {
+    id: 4,
+    question: "Can you redesign or fix an existing website or app?",
+    answer:
+      "Absolutely. We can upgrade, redesign, or optimize your existing platform—whether custom-built or WordPress.",
+    color: "rgb(249, 115, 22, 0.5)",
+    gradient: "from-orange-500 to-amber-400",
+  },
+  {
+    id: 5,
+    question: "What technologies do you use?",
+    answer:
+      "We work with MERN, React Native, WordPress, Node.js, and modern design tools to deliver optimized solutions.",
+    color: "rgb(236, 72, 153, 0.5)",
+    gradient: "from-pink-500 to-rose-500",
+  },
+  {
+    id: 6,
+    question: "How do I get started with Bleeding Tech?",
+    answer:
+      "Simply contact us with your requirements. We'll discuss your goals and create a custom plan or package that fits your needs.",
+    color: "rgb(99, 102, 241, 0.5)",
+    gradient: "from-indigo-500 to-purple-500",
+  },
+];
+
+// Color palette for custom FAQs
+const faqColors = [
+  { color: "rgb(59, 130, 246, 0.5)", gradient: "from-blue-500 to-cyan-400" },
+  { color: "rgb(168, 85, 247, 0.5)", gradient: "from-purple-500 to-pink-500" },
+  { color: "rgb(34, 197, 94, 0.5)", gradient: "from-green-500 to-emerald-400" },
+  { color: "rgb(249, 115, 22, 0.5)", gradient: "from-orange-500 to-amber-400" },
+  { color: "rgb(236, 72, 153, 0.5)", gradient: "from-pink-500 to-rose-500" },
+  { color: "rgb(99, 102, 241, 0.5)", gradient: "from-indigo-500 to-purple-500" },
+];
+
+const FAQ = ({ 
+  customFaqs = null, 
+  title = "Frequently Asked Questions",
+  subhead = "Answers",
+  headTitle = "That Matter",
+  description = "Quick responses to the most common queries about our services, process, and workflow."
+}) => {
   const [activeIndex, setActiveIndex] = useState(null);
   const controls = useAnimation();
   const [ref, inView] = useInView({ threshold: 0.1, triggerOnce: true });
@@ -14,57 +83,15 @@ const FAQ = () => {
     if (inView) controls.start("visible");
   }, [controls, inView]);
 
-  // FAQ data - will be replaced with API later
-  const faqs = [
-    {
-      id: 1,
-      question: "What services does Bleeding Tech provide?",
-      answer:
-        "We offer complete digital solutions including web/app development, WordPress development, SEO, UI/UX, system design, and digital marketing.",
-      color: "rgb(59, 130, 246, 0.5)",
-      gradient: "from-blue-500 to-cyan-400",
-    },
-    {
-      id: 2,
-      question: "How long does it take to complete a project?",
-      answer:
-        "Timeline depends on project size, but most websites take 2–4 weeks, while advanced systems may take longer.",
-      color: "rgb(168, 85, 247, 0.5)",
-      gradient: "from-purple-500 to-pink-500",
-    },
-    {
-      id: 3,
-      question: "Do you provide post-launch support or maintenance?",
-      answer:
-        "Yes. We offer ongoing maintenance, updates, security checks, and performance optimization.",
-      color: "rgb(34, 197, 94, 0.5)",
-      gradient: "from-green-500 to-emerald-400",
-    },
-    {
-      id: 4,
-      question: "Can you redesign or fix an existing website or app?",
-      answer:
-        "Absolutely. We can upgrade, redesign, or optimize your existing platform—whether custom-built or WordPress.",
-      color: "rgb(249, 115, 22, 0.5)",
-      gradient: "from-orange-500 to-amber-400",
-    },
-    {
-      id: 5,
-      question: "What technologies do you use?",
-      answer:
-        "We work with MERN, React Native, WordPress, Node.js, and modern design tools to deliver optimized solutions.",
-      color: "rgb(236, 72, 153, 0.5)",
-      gradient: "from-pink-500 to-rose-500",
-    },
-    {
-      id: 6,
-      question: "How do I get started with Bleeding Tech?",
-      answer:
-        "Simply contact us with your requirements. We'll discuss your goals and create a custom plan or package that fits your needs.",
-      color: "rgb(99, 102, 241, 0.5)",
-      gradient: "from-indigo-500 to-purple-500",
-    },
-  ];
+  // Use custom FAQs if provided, otherwise use defaults
+  const faqs = customFaqs 
+    ? customFaqs.map((faq, index) => ({
+        ...faq,
+        id: faq.id || index + 1,
+        color: faq.color || faqColors[index % faqColors.length].color,
+        gradient: faq.gradient || faqColors[index % faqColors.length].gradient,
+      }))
+    : defaultFaqs;
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -169,10 +196,10 @@ const FAQ = () => {
       {/* MAIN CONTENT */}
       <div className="container mx-auto px-6 lg:px-12 relative z-10">
         <Heading
-          head="Frequently Asked Questions"
-          subhead="Answers"
-          title="That Matter"
-          desc="Quick responses to the most common queries about our services, process, and workflow."
+          head={title}
+          subhead={subhead}
+          title={headTitle}
+          desc={description}
         />
 
         {/* FAQ Grid */}
@@ -217,7 +244,7 @@ const FAQ = () => {
             whileHover={{ scale: 1.05, boxShadow: "0 12px 40px hsl(var(--glow))" }}
             whileTap={{ scale: 0.98 }}
           >
-            Contact Us
+            <Link to ="/contact-us">Contact Us</Link>
           </motion.button>
         </motion.div>
       </div>

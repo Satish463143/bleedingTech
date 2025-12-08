@@ -2,17 +2,17 @@ import React from 'react'
 import CommonBanner from "../../common/CommonBanner/CommonBanner";
 import ContactCTA from '../../common/ContactCTA/ContactCTA';
 
-const Blogs = () => {
-  const breadcrumbs = [
-    { label: "Home", href: "/" },
-    { label: "Blogs" },
-  ];
+const CaseStudy = () => {
+    const breadcrumbs = [
+        { label: "Home", href: "/" },
+        { label: "Case Studies" },
+      ];
   return (
     <div className="min-h-screen">
       {/* Hero Banner */}
       <CommonBanner
-        title="Blogs"
-        slogan="Read our latest blogs and stay updated with the latest trends in the industry."
+        title="Case Studies"
+        slogan="See how our clients have achieved success with our services."
         breadcrumbs={breadcrumbs}
       />
        <ContactCTA />
@@ -20,4 +20,4 @@ const Blogs = () => {
   )
 }
 
-export default Blogs
+export default CaseStudy

@@ -382,7 +382,7 @@ const Testimonal = () => {
               </div>
               <div
                 className="text-sm font-medium"
-                style={{ color: "hsl(var(--muted-foreground))" }}
+                style={{ color: "#fff" }}
               >
                 {stat.label}
               </div>

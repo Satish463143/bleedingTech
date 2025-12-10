@@ -64,10 +64,14 @@ const Navbar = () => {
       setActiveLink("Package");
     } else if (location.pathname === "/portfolio") {
       setActiveLink("Portfolio");
-    } else if (location.pathname === "/clients") {
-      setActiveLink("Clients");
+    } else if (location.pathname === "/case-studies") {
+      setActiveLink("Case Studies");
     } else if (location.pathname === "/blogs") {
       setActiveLink("Blogs");
+    }else if (location.pathname === "/blogs-details/:slug/:id") { 
+      setActiveLink("Blogs");
+    }else if (location.pathname === "/case-study-detail/:slug/:id") {
+      setActiveLink("Case Studies");
     }
   }, [location.pathname]);
 

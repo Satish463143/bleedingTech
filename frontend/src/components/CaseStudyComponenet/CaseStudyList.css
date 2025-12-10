@@ -1,0 +1,407 @@
+/* CaseStudy List Component Styles */
+
+/* Section Base */
+.case-study-list-section {
+  position: relative;
+  overflow: hidden;
+  padding: 5rem 0;
+  background: hsl(var(--bg-foreground) / 0.03);
+}
+
+/* Animated Background Elements */
+.case-study-list-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.case-study-list-grid {
+  position: absolute;
+  inset: 0;
+  opacity: 0.02;
+  background-image: 
+    linear-gradient(hsl(var(--foreground)) 1px, transparent 1px),
+    linear-gradient(90deg, hsl(var(--foreground)) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+/* Gradient Orbs */
+.case-study-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+}
+
+.case-study-orb-1 {
+  top: 5%;
+  left: 15%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, hsl(var(--primary) / 0.25), transparent 70%);
+}
+
+.case-study-orb-2 {
+  bottom: 10%;
+  right: 10%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, hsl(var(--primary-accent) / 0.2), transparent 70%);
+}
+
+.case-study-orb-3 {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, hsl(var(--primary) / 0.15), transparent 70%);
+}
+
+/* Diagonal Beam */
+.case-study-beam {
+  position: absolute;
+  top: -20%;
+  right: -20%;
+  width: 150%;
+  height: 300px;
+  background: linear-gradient(90deg, transparent 0%, hsl(var(--primary) / 0.1) 50%, transparent 100%);
+  filter: blur(50px);
+  transform: rotate(-25deg);
+}
+
+/* Floating Particles */
+.case-study-particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: hsl(var(--primary));
+  box-shadow: 0 0 10px hsl(var(--glow));
+}
+
+/* Floating Geometric Shapes */
+.case-study-shape {
+  position: absolute;
+}
+
+.case-study-shape-1 {
+  top: 15%;
+  right: 8%;
+  width: 80px;
+  height: 80px;
+}
+
+.case-study-shape-2 {
+  bottom: 20%;
+  left: 5%;
+  width: 100px;
+  height: 100px;
+}
+
+/* Grid Layout */
+.case-study-grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 2rem;
+}
+
+@media (min-width: 768px) {
+  .case-study-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .case-study-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Case Study Card */
+.case-study-card {
+  position: relative;
+  height: 380px;
+  border-radius: 1.25rem;
+  cursor: pointer;
+}
+
+.card-glow {
+  position: absolute;
+  inset: -8px;
+  border-radius: 1.5rem;
+  filter: blur(20px);
+  z-index: -1;
+  background: radial-gradient(circle, hsl(var(--primary) / 0.4), transparent 70%);
+  transition: opacity 0.4s ease;
+}
+
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 1.25rem;
+  overflow: hidden;
+  border: 1px solid hsl(var(--border));
+  background: hsl(var(--card));
+}
+
+/* Background Image */
+.card-image-wrapper {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+/* Single Color Gradient Overlay (from left) - Using theme primary color */
+.card-gradient-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: hsl(var(--primary) / 0.85);
+}
+
+/* Content Overlay (from right) */
+.card-content-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  text-align: center;
+}
+
+/* Company Info (hover state) */
+.card-company {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  background: hsl(var(--background) / 0.2);
+  backdrop-filter: blur(8px);
+}
+
+.company-logo {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  border: 2px solid hsl(var(--background) / 0.3);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.company-name {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Card Title */
+.card-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 0.75rem;
+  line-height: 1.3;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Tagline */
+.card-tagline {
+  font-size: 0.9375rem;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.5;
+  margin-bottom: 1rem;
+  max-width: 280px;
+}
+
+/* Category Badge */
+.card-category {
+  display: inline-block;
+  padding: 0.375rem 1rem;
+  border-radius: 9999px;
+  background: hsl(var(--background) / 0.25);
+  backdrop-filter: blur(8px);
+  border: 1px solid hsl(var(--background) / 0.3);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 1.5rem;
+}
+
+/* View Button - Fixed for both light and dark mode */
+.card-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.75rem;
+  background: hsl(var(--background));
+  color: hsl(var(--foreground));
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+.card-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  background: hsl(var(--primary));
+  color: white;
+}
+
+/* Default Content (before hover) */
+.card-default-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1.5rem;
+  background: linear-gradient(to top, hsl(var(--card)) 70%, transparent);
+  z-index: 3;
+}
+
+.default-category {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.75rem;
+  background: hsl(var(--primary));
+}
+
+.default-company {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.default-logo {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  border: 1px solid hsl(var(--border));
+}
+
+.default-company-name {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: hsl(var(--muted-foreground));
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.default-title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: hsl(var(--foreground));
+  line-height: 1.3;
+}
+
+/* Top Accent Line - Using theme primary color */
+.card-accent-line {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  z-index: 4;
+  transform-origin: left;
+  background: linear-gradient(90deg, hsl(var(--primary)), hsl(var(--primary-accent)));
+}
+
+/* Corner Decoration */
+.card-corner {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 150px;
+  height: 150px;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(circle, hsl(var(--primary) / 0.3), transparent);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1024px) {
+  .case-study-card {
+    height: 350px;
+  }
+
+  .card-title {
+    font-size: 1.25rem;
+  }
+
+  .card-tagline {
+    font-size: 0.875rem;
+  }
+
+  .case-study-shape-1 {
+    width: 60px;
+    height: 60px;
+  }
+
+  .case-study-shape-2 {
+    width: 80px;
+    height: 80px;
+  }
+}
+
+@media (max-width: 640px) {
+  .case-study-list-section {
+    padding: 3rem 0;
+  }
+
+  .case-study-card {
+    height: 320px;
+  }
+
+  .card-content-overlay {
+    padding: 1.5rem;
+  }
+
+  .card-title {
+    font-size: 1.125rem;
+  }
+
+  .card-tagline {
+    font-size: 0.8125rem;
+    max-width: 240px;
+  }
+
+  .company-logo {
+    width: 36px;
+    height: 36px;
+  }
+
+  .case-study-orb-1,
+  .case-study-orb-2,
+  .case-study-orb-3 {
+    width: 300px;
+    height: 300px;
+  }
+}

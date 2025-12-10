@@ -230,14 +230,14 @@ const Clients = () => {
           </div>
         ) : (
           /* Mobile: Infinite Marquee */
-          <div className="block lg:hidden overflow-hidden py-8">
+          <div className="block lg:hidden overflow-hidden  marquee_height">
             <InfiniteMarquee clients={clients} />
           </div>
         )}
 
         {/* Trust Badge */}
         <motion.div
-          className="mt-16 lg:mt-20 text-center"
+          className="mt-10 lg:mt-20 text-center"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -392,7 +392,7 @@ const InfiniteMarquee = ({ clients }) => {
   const duplicatedClients = [...clients, ...clients, ...clients];
 
   return (
-    <div className="relative w-full overflow-hidden">
+    <div className="relative w-full overflow-hidden pt-10 h-55">
       <motion.div
         className="flex gap-8"
         animate={{

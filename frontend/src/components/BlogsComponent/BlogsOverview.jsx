@@ -3,17 +3,17 @@ import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { 
   Sparkles, 
+  BookOpen, 
   TrendingUp, 
-  Target, 
-  Award,
-  BarChart3,
-  Rocket,
-  Users,
-  CheckCircle
+  Lightbulb,
+  PenTool,
+  Layers,
+  Zap,
+  MessageSquare
 } from "lucide-react";
-import "./Overview.css";
+import "./BlogsOverview.css";
 
-const Overview = () => {
+const BlogsOverview = () => {
   const controls = useAnimation();
   const [ref, inView] = useInView({ threshold: 0.15, triggerOnce: true });
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -51,41 +51,35 @@ const Overview = () => {
   };
 
   const highlights = [
-    { icon: TrendingUp, label: "Proven Results" },
-    { icon: Target, label: "Strategic Approach" },
-    { icon: Award, label: "Industry Recognition" },
-  ];
-
-  const stats = [
-    { value: "150+", label: "Projects Delivered" },
-    { value: "98%", label: "Client Satisfaction" },
-    { value: "45%", label: "Avg. Growth Rate" },
+    { icon: Lightbulb, label: "Expert Insights" },
+    { icon: TrendingUp, label: "Industry Trends" },
+    { icon: Zap, label: "Tech Updates" },
   ];
 
   const floatingIcons = [
-    { Icon: BarChart3, delay: 0, x: 55, y: 15, size: 28 },
-    { Icon: Rocket, delay: 0.5, x: 80, y: 40, size: 24 },
-    { Icon: Users, delay: 1, x: 35, y: 65, size: 26 },
-    { Icon: Target, delay: 1.5, x: 70, y: 75, size: 22 },
-    { Icon: Award, delay: 2, x: 50, y: 45, size: 30 },
-    { Icon: TrendingUp, delay: 0.8, x: 25, y: 30, size: 20 },
+    { Icon: BookOpen, delay: 0, x: 55, y: 15, size: 28 },
+    { Icon: PenTool, delay: 0.5, x: 80, y: 40, size: 24 },
+    { Icon: Layers, delay: 1, x: 35, y: 65, size: 26 },
+    { Icon: MessageSquare, delay: 1.5, x: 70, y: 75, size: 22 },
+    { Icon: Lightbulb, delay: 2, x: 50, y: 45, size: 30 },
+    { Icon: Zap, delay: 0.8, x: 25, y: 30, size: 20 },
   ];
 
   return (
     <section
       ref={ref}
-      className="case-study-overview-section"
+      className="blogs-overview-section"
       onMouseMove={handleMouseMove}
     >
       {/* Background Elements */}
-      <div className="case-study-overview-bg">
-        <div className="case-study-overview-grid" />
+      <div className="blogs-overview-bg">
+        <div className="blogs-overview-grid" />
         
         {/* Floating particles */}
         {[...Array(6)].map((_, i) => (
           <motion.div
             key={i}
-            className="case-study-overview-particle"
+            className="blogs-overview-particle"
             style={{
               top: `${20 + i * 12}%`,
               left: `${8 + i * 16}%`,
@@ -112,57 +106,40 @@ const Overview = () => {
             animate={controls}
           >
             {/* Badge */}
-            <motion.div className="case-study-overview-badge" variants={fadeUpVariants}>
+            <motion.div className="blogs-overview-badge" variants={fadeUpVariants}>
               <Sparkles className="w-4 h-4" />
-              <span>Success Stories</span>
+              <span>Our Blog</span>
             </motion.div>
 
             {/* Title */}
-            <motion.h2 className="case-study-overview-title" variants={fadeUpVariants}>
-              Real Results,{" "}
-              <span className="case-study-overview-title-accent">
-                Real Impact
+            <motion.h2 className="blogs-overview-title" variants={fadeUpVariants}>
+              Insights &{" "}
+              <span className="blogs-overview-title-accent">
+                Ideas
               </span>
             </motion.h2>
 
             {/* Decorative line */}
             <motion.div
-              className="case-study-overview-underline"
+              className="blogs-overview-underline"
               initial={{ scaleX: 0, originX: 0 }}
               animate={inView ? { scaleX: 1 } : {}}
               transition={{ duration: 0.8, delay: 0.3 }}
             />
 
             {/* Description */}
-            <motion.p className="case-study-overview-description" variants={fadeUpVariants}>
-              Discover how we've helped businesses transform their digital presence, 
-              increase revenue, and achieve sustainable growth. Each case study showcases 
-              our strategic approach, innovative solutions, and measurable outcomes that 
-              drive real business value.
+            <motion.p className="blogs-overview-description" variants={fadeUpVariants}>
+              Discover expert perspectives on technology, design, and digital strategy. 
+              Our blog covers the latest trends, best practices, and actionable insights 
+              to help your business thrive in the digital landscape.
             </motion.p>
 
-            {/* Stats */}
-            <motion.div className="case-study-overview-stats" variants={fadeUpVariants}>
-              {stats.map((stat, index) => (
-                <motion.div
-                  key={index}
-                  className="case-study-stat"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={inView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ delay: 0.5 + index * 0.1 }}
-                >
-                  <span className="stat-value">{stat.value}</span>
-                  <span className="stat-label">{stat.label}</span>
-                </motion.div>
-              ))}
-            </motion.div>
-
             {/* Highlights */}
-            <motion.div className="case-study-overview-highlights" variants={fadeUpVariants}>
+            <motion.div className="blogs-overview-highlights" variants={fadeUpVariants}>
               {highlights.map((item, index) => (
                 <motion.div
                   key={index}
-                  className="case-study-overview-highlight"
+                  className="blogs-overview-highlight"
                   whileHover={{
                     borderColor: "hsl(var(--primary) / 0.5)",
                     background: "hsl(var(--card) / 0.8)",
@@ -179,7 +156,7 @@ const Overview = () => {
 
           {/* Right Side - Interactive Design */}
           <motion.div
-            className="case-study-overview-visual"
+            className="blogs-overview-visual"
             initial={{ opacity: 0, x: 50 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
@@ -228,32 +205,33 @@ const Overview = () => {
               >
                 <svg viewBox="0 0 100 100" className="w-full h-full">
                   <defs>
-                    <linearGradient id="caseGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <linearGradient id="blogGradient" x1="0%" y1="0%" x2="100%" y2="100%">
                       <stop offset="0%" stopColor="hsl(var(--primary))" stopOpacity="0.3" />
                       <stop offset="100%" stopColor="hsl(var(--primary-accent))" stopOpacity="0.1" />
                     </linearGradient>
                   </defs>
-                  <polygon
-                    points="50,5 95,27.5 95,72.5 50,95 5,72.5 5,27.5"
-                    fill="url(#caseGradient)"
+                  <rect
+                    x="15"
+                    y="10"
+                    width="70"
+                    height="80"
+                    rx="8"
+                    fill="url(#blogGradient)"
                     stroke="hsl(var(--primary))"
                     strokeWidth="1"
                     opacity="0.8"
                   />
-                  <polygon
-                    points="50,20 80,35 80,65 50,80 20,65 20,35"
-                    fill="none"
-                    stroke="hsl(var(--primary-accent))"
-                    strokeWidth="0.5"
-                    opacity="0.5"
-                  />
+                  <line x1="25" y1="25" x2="75" y2="25" stroke="hsl(var(--primary-accent))" strokeWidth="0.5" opacity="0.6" />
+                  <line x1="25" y1="35" x2="65" y2="35" stroke="hsl(var(--primary-accent))" strokeWidth="0.5" opacity="0.4" />
+                  <line x1="25" y1="45" x2="70" y2="45" stroke="hsl(var(--primary-accent))" strokeWidth="0.5" opacity="0.4" />
+                  <rect x="25" y="55" width="50" height="25" rx="4" fill="hsl(var(--primary))" opacity="0.2" />
                 </svg>
                 <motion.div
                   className="visual-center-icon"
                   animate={{ scale: [1, 1.1, 1] }}
                   transition={{ duration: 3, repeat: Infinity }}
                 >
-                  <BarChart3 className="w-10 h-10" />
+                  <BookOpen className="w-10 h-10" />
                 </motion.div>
               </motion.div>
             </motion.div>
@@ -323,5 +301,4 @@ const Overview = () => {
   );
 };
 
-export default Overview;
-
+export default BlogsOverview;

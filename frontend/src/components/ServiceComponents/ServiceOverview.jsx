@@ -1,17 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import {
-  TrendingUp,
-  Code,
-  Smartphone,
-  Search,
-  Palette,
-  Network,
-  Target,
-  CheckCircle,
-  Sparkles,
-} from "lucide-react";
+import { CheckCircle, Sparkles } from "lucide-react";
+import { services } from "../../assets/dummyData.js/data";
 import "./ServiceOverview.css";
 
 const ServiceOverview = () => {
@@ -21,136 +12,6 @@ const ServiceOverview = () => {
   useEffect(() => {
     if (inView) controls.start("visible");
   }, [controls, inView]);
-
-  // Complete services data with detailed information
-  const services = [
-    {
-      id: 1,
-      icon: TrendingUp,
-      title: "Digital Marketing & Growth Strategy",
-      shortDesc: "Data-driven campaigns that scale your brand reach and accelerate revenue growth.",
-      fullDesc: "We craft comprehensive digital marketing strategies that combine creativity with analytics. Our team specializes in multi-channel campaigns, content marketing, email automation, and conversion rate optimization to deliver measurable results and sustainable growth.",
-      features: [
-        "Social Media Marketing & Management",
-        "Content Strategy & Brand Storytelling",
-        "Email Marketing & Automation",
-        "Analytics & Performance Tracking",
-        "Conversion Rate Optimization",
-        "Marketing Funnel Development",
-      ],
-      gradient: "from-[hsl(var(--primary))] to-[hsl(var(--primary-accent))]",
-      glowColor: "hsl(var(--primary) / 0.4)",
-      color: "rgb(59, 130, 246, 0.5)",
-    },
-    {
-      id: 2,
-      icon: Code,
-      title: "Web Development & Optimization",
-      shortDesc: "High-performance web solutions with modern frameworks and seamless integrations.",
-      fullDesc: "From responsive websites to complex web applications, we build digital experiences that captivate users and drive conversions. Our development process emphasizes clean code, optimal performance, and scalable architecture using cutting-edge technologies.",
-      features: [
-        "Custom Website Development",
-        "E-commerce Solutions & Platforms",
-        "Progressive Web Apps (PWA)",
-        "API Development & Integration",
-        "WordPress & CMS Development",
-        "Performance Optimization & Speed",
-      ],
-      gradient: "from-blue-500 to-cyan-400",
-      glowColor: "rgb(59, 130, 246, 0.4)",
-      color: "rgb(59, 130, 246, 0.5)",
-    },
-    {
-      id: 3,
-      icon: Smartphone,
-      title: "Mobile App Development",
-      shortDesc: "Native & cross-platform mobile apps designed for exceptional user engagement.",
-      fullDesc: "We create mobile applications that users love. Whether you need a native iOS/Android app or a cross-platform solution, our team delivers intuitive, high-performance mobile experiences that keep users engaged and coming back.",
-      features: [
-        "iOS & Android Native Development",
-        "React Native Cross-Platform Apps",
-        "Flutter App Development",
-        "App Store Optimization (ASO)",
-        "Push Notifications & Engagement",
-        "Mobile App Maintenance & Updates",
-      ],
-      gradient: "from-purple-500 to-pink-500",
-      glowColor: "rgb(168, 85, 247, 0.4)",
-      color: "rgb(168, 85, 247, 0.5)",
-    },
-    {
-      id: 4,
-      icon: Search,
-      title: "SEO & Performance Ranking",
-      shortDesc: "Advanced SEO strategies that dominate search rankings and maximize visibility.",
-      fullDesc: "Our SEO experts use proven techniques and the latest algorithms to improve your search visibility. We focus on sustainable, white-hat strategies that build long-term organic traffic and establish your authority in search results.",
-      features: [
-        "Technical SEO & Site Audits",
-        "On-Page & Off-Page Optimization",
-        "Keyword Research & Strategy",
-        "Local SEO & Google Business",
-        "Link Building & Outreach",
-        "SEO Analytics & Reporting",
-      ],
-      gradient: "from-green-500 to-emerald-400",
-      glowColor: "rgb(34, 197, 94, 0.4)",
-      color: "rgb(34, 197, 94, 0.5)",
-    },
-    {
-      id: 5,
-      icon: Palette,
-      title: "UI/UX Design & Product Experience",
-      shortDesc: "Stunning, intuitive interfaces crafted with user psychology and brand identity.",
-      fullDesc: "Great design is invisible—it just works. Our design team creates user experiences that feel natural and delightful. We combine aesthetic excellence with user research to craft interfaces that convert visitors into loyal customers.",
-      features: [
-        "User Interface (UI) Design",
-        "User Experience (UX) Research",
-        "Wireframing & Prototyping",
-        "Design Systems & Style Guides",
-        "Interaction & Motion Design",
-        "Usability Testing & Iteration",
-      ],
-      gradient: "from-orange-500 to-yellow-400",
-      glowColor: "rgb(249, 115, 22, 0.4)",
-      color: "rgb(249, 115, 22, 0.5)",
-    },
-    {
-      id: 6,
-      icon: Network,
-      title: "System Architecture & Custom Development",
-      shortDesc: "Robust, scalable infrastructure engineered for mission-critical applications.",
-      fullDesc: "We architect systems that scale effortlessly and perform reliably under any load. Our engineers design and implement custom solutions using microservices, cloud-native technologies, and best-in-class DevOps practices.",
-      features: [
-        "Cloud Architecture (AWS, GCP, Azure)",
-        "Microservices & API Design",
-        "Database Design & Optimization",
-        "DevOps & CI/CD Pipelines",
-        "System Integration & Migration",
-        "Security & Compliance Implementation",
-      ],
-      gradient: "from-indigo-500 to-blue-500",
-      glowColor: "rgb(99, 102, 241, 0.4)",
-      color: "rgb(99, 102, 241, 0.5)",
-    },
-    {
-      id: 7,
-      icon: Target,
-      title: "Google & Meta Ads Management",
-      shortDesc: "Precision-targeted ad campaigns optimized for maximum ROI and engagement.",
-      fullDesc: "Our paid advertising specialists create and manage campaigns that deliver real results. We leverage advanced targeting, A/B testing, and continuous optimization to maximize your advertising budget and achieve your business goals.",
-      features: [
-        "Google Ads (Search, Display, Shopping)",
-        "Meta Ads (Facebook & Instagram)",
-        "YouTube & Video Advertising",
-        "Remarketing & Retargeting Campaigns",
-        "Landing Page Optimization",
-        "ROI Tracking & Attribution",
-      ],
-      gradient: "from-red-500 to-pink-500",
-      glowColor: "rgb(239, 68, 68, 0.4)",
-      color: "rgb(239, 68, 68, 0.5)",
-    },
-  ];
 
   const containerVariants = {
     hidden: { opacity: 0 },

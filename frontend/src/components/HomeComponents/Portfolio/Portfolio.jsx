@@ -1,11 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useEffect,lazy } from "react";
 import { motion, useAnimation} from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import Heading from "../../../common/Heading/Heading";
+const Heading = lazy(() => import ("../../../common/Heading/Heading"));
 import "./Portfolio.css";
-import ProjectCard from "../../../common/ProjectCard/ProjectCard";
+const ProjectCard = lazy(() => import ("../../../common/ProjectCard/ProjectCard"));
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
+import { projects } from "../../../assets/dummyData.js/data";
 
 const Portfolio = () => {
   const controls = useAnimation();
@@ -34,125 +35,6 @@ const Portfolio = () => {
       transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
     },
   };
-
-  // Dummy project data - will be replaced with API later
-  const projects = [
-    {
-      id: 1,
-      title: "MayaWears E-Commerce Platform",
-      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop",
-      tech: ["React", "Node.js", "MongoDB", "Tailwind", "Stripe"],
-      description:
-        "A modern, high-performance e-commerce platform with seamless shopping experience and advanced admin CMS.",
-      features: [
-        "Mobile-first responsive UI",
-        "Advanced admin dashboard",
-        "Secure payment integration",
-        "SEO optimized architecture",
-        "Real-time inventory tracking",
-      ],
-      liveLink: "#",
-      caseStudyLink: "#",
-      gradient: "from-blue-500 to-cyan-400",
-      glowColor: "rgb(59, 130, 246, 0.4)",
-    },
-    {
-      id: 2,
-      title: "Travel Agency Corporate Website",
-      image: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=800&h=600&fit=crop",
-      tech: ["Next.js", "Firebase", "Framer Motion", "TypeScript"],
-      description:
-        "Corporate website for a premium travel agency with integrated booking system and dynamic content management.",
-      features: [
-        "Dynamic route generation",
-        "Smart booking workflow",
-        "Lightning-fast performance",
-        "Stunning micro-interactions",
-        "Multi-language support",
-      ],
-      liveLink: "#",
-      caseStudyLink: "#",
-      gradient: "from-purple-500 to-pink-500",
-      glowColor: "rgb(168, 85, 247, 0.4)",
-    },
-    {
-      id: 3,
-      title: "FinTech Dashboard & Analytics",
-      image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop",
-      tech: ["React", "D3.js", "Express", "PostgreSQL"],
-      description:
-        "Advanced financial analytics platform with real-time data visualization and predictive insights.",
-      features: [
-        "Real-time data streaming",
-        "Interactive charts & graphs",
-        "Predictive analytics AI",
-        "Secure authentication",
-        "Export & reporting tools",
-      ],
-      liveLink: "#",
-      caseStudyLink: "#",
-      gradient: "from-green-500 to-emerald-400",
-      glowColor: "rgb(34, 197, 94, 0.4)",
-    },
-    {
-      id: 4,
-      title: "Healthcare Management System",
-      image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&h=600&fit=crop",
-      tech: ["Vue.js", "Django", "Redis", "Docker"],
-      description:
-        "Comprehensive healthcare platform for patient management, appointments, and medical records.",
-      features: [
-        "Patient portal & scheduling",
-        "Electronic health records",
-        "HIPAA compliant security",
-        "Telemedicine integration",
-        "Prescription management",
-      ],
-      liveLink: "#",
-      caseStudyLink: "#",
-      gradient: "from-orange-500 to-red-500",
-      glowColor: "rgb(249, 115, 22, 0.4)",
-    },
-    {
-      id: 5,
-      title: "AI-Powered Content Platform",
-      image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=600&fit=crop",
-      tech: ["Next.js", "OpenAI", "Supabase", "TailwindCSS"],
-      description:
-        "Next-generation content creation platform leveraging AI for copywriting, design, and optimization.",
-      features: [
-        "AI content generation",
-        "Smart SEO suggestions",
-        "Brand voice training",
-        "Multi-format export",
-        "Collaboration tools",
-      ],
-      liveLink: "#",
-      caseStudyLink: "#",
-      gradient: "from-indigo-500 to-purple-500",
-      glowColor: "rgb(99, 102, 241, 0.4)",
-    },
-    {
-      id: 6,
-      title: "Real Estate Property Portal",
-      image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&h=600&fit=crop",
-      tech: ["React", "GraphQL", "AWS", "Mapbox"],
-      description:
-        "Modern property listing platform with virtual tours, advanced search, and CRM integration.",
-      features: [
-        "Interactive map search",
-        "360° virtual tours",
-        "Advanced filtering system",
-        "Agent CRM dashboard",
-        "Mortgage calculator",
-      ],
-      liveLink: "#",
-      caseStudyLink: "#",
-      gradient: "from-cyan-500 to-blue-500",
-      glowColor: "rgb(6, 182, 212, 0.4)",
-    },
-  ];
-
   return (
     <section
       ref={ref}
@@ -347,5 +229,4 @@ const Portfolio = () => {
     </section>
   );
 };
-
 export default Portfolio;

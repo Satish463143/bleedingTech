@@ -1,8 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, lazy } from "react";
 import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { Sparkles } from "lucide-react";
 import "./TechStack.css";
+import { technologies } from "../../assets/dummyData.js/data";
+const TechItem = lazy(() => import ("./TechItem"));
+
 
 const TechStack = () => {
   const controls = useAnimation();
@@ -11,70 +14,6 @@ const TechStack = () => {
   useEffect(() => {
     if (inView) controls.start("visible");
   }, [controls, inView]);
-
-  // Technologies data
-  const technologies = [
-    {
-      name: "React",
-      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
-      color: "rgb(97, 218, 251, 0.5)",
-    },
-    {
-      name: "Next.js",
-      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg",
-      color: "rgb(100, 100, 100, 0.5)",
-    },
-    {
-      name: "Node.js",
-      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg",
-      color: "rgb(104, 160, 99, 0.5)",
-    },
-    {
-      name: "Express",
-      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg",
-      color: "rgb(100, 100, 100, 0.5)",
-    },
-    {
-      name: "MongoDB",
-      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg",
-      color: "rgb(77, 179, 61, 0.5)",
-    },
-    {
-      name: "TailwindCSS",
-      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg",
-      color: "rgb(56, 189, 248, 0.5)",
-    },
-    {
-      name: "Firebase",
-      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg",
-      color: "rgb(255, 196, 0, 0.5)",
-    },
-    {
-      name: "AWS",
-      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg",
-      color: "rgb(255, 153, 0, 0.5)",
-    },
-    {
-      name: "Git",
-      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg",
-      color: "rgb(240, 80, 51, 0.5)",
-    },
-    {
-      name: "Figma",
-      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg",
-      color: "rgb(162, 89, 255, 0.5)",
-    },
-    {
-      name: "TypeScript",
-      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg",
-      color: "rgb(49, 120, 198, 0.5)",
-    },
-    {
-      name: "PostgreSQL",
-      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg",
-      color: "rgb(51, 103, 145, 0.5)",
-    },
-  ];
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -186,64 +125,6 @@ const TechStack = () => {
         </motion.div>
       </div>
     </section>
-  );
-};
-
-// Tech Item Component
-const TechItem = ({ tech, variants }) => {
-  const [isHovered, setIsHovered] = useState(false);
-
-  return (
-    <motion.div
-      className="relative"
-      variants={variants}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
-      {/* Glow effect */}
-      <motion.div
-        className="absolute -inset-2 rounded-2xl blur-xl -z-10"
-        style={{
-          background: `radial-gradient(circle, ${tech.color}, transparent 70%)`,
-        }}
-        animate={{ opacity: isHovered ? 0.6 : 0 }}
-        transition={{ duration: 0.3 }}
-      />
-
-      {/* Card */}
-      <motion.div
-        className="relative p-4 lg:p-6 rounded-2xl border backdrop-blur-sm flex flex-col items-center gap-3"
-        style={{
-          background: "hsl(var(--card) / 0.5)",
-          borderColor: isHovered ? tech.color : "hsl(var(--border))",
-        }}
-        animate={{
-          y: isHovered ? -6 : 0,
-          scale: isHovered ? 1.05 : 1,
-        }}
-        transition={{ type: "spring", stiffness: 400, damping: 25 }}
-      >
-        {/* Icon */}
-        <motion.img
-          src={tech.icon}
-          alt={tech.name}
-          className="w-10 h-10 lg:w-12 lg:h-12 object-contain"
-          style={{
-            filter: "drop-shadow(0 4px 6px rgba(0,0,0,0.1))",
-          }}
-          animate={{ rotate: isHovered ? 5 : 0 }}
-          transition={{ duration: 0.2 }}
-        />
-
-        {/* Label */}
-        <span
-          className="text-xs lg:text-sm font-medium text-center"
-          style={{ color: "hsl(var(--foreground))" }}
-        >
-          {tech.name}
-        </span>
-      </motion.div>
-    </motion.div>
   );
 };
 

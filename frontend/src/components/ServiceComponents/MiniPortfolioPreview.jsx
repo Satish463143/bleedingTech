@@ -1,10 +1,16 @@
-import React, { useEffect } from "react";
+import React, { useEffect, lazy } from "react";
 import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { Sparkles, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
-import NewProjectCard from "../../common/NewProjectCard/NewProjectCard";
+import { projects } from "../../assets/dummyData.js/data";
+const NewProjectCard = lazy(() => import("../../common/NewProjectCard/NewProjectCard"));
 import "./MiniPortfolioPreview.css";
+
+// Get first 3 featured projects (or first 3 if no featured flag)
+const featuredProjects = projects.filter(p => p.isFeatured).slice(0, 3).length > 0
+  ? projects.filter(p => p.isFeatured).slice(0, 3)
+  : projects.slice(0, 3);
 
 const MiniPortfolioPreview = () => {
   const controls = useAnimation();
@@ -13,40 +19,6 @@ const MiniPortfolioPreview = () => {
   useEffect(() => {
     if (inView) controls.start("visible");
   }, [controls, inView]);
-
-  // Featured projects for service page
-  const featuredProjects = [
-    {
-      id: 1,
-      title: "E-Commerce Platform",
-      description: "A full-featured online shopping platform with advanced product filtering, cart management, and secure payment integration.",
-      image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&h=600&fit=crop",
-      tech: ["React", "Node.js", "MongoDB", "Stripe"],
-      category: "E-commerce",
-      glowColor: "rgb(59, 130, 246, 0.4)",
-      liveLink: "#",
-    },
-    {
-      id: 2,
-      title: "Healthcare Mobile App",
-      description: "A comprehensive healthcare application connecting patients with doctors, featuring appointment booking and telemedicine.",
-      image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?w=800&h=600&fit=crop",
-      tech: ["React Native", "Firebase", "Node.js"],
-      category: "Mobile Apps",
-      glowColor: "rgb(34, 197, 94, 0.4)",
-      liveLink: "#",
-    },
-    {
-      id: 3,
-      title: "FinTech Dashboard",
-      description: "Advanced financial analytics dashboard with real-time market data, portfolio tracking, and AI-powered insights.",
-      image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop",
-      tech: ["Next.js", "TypeScript", "TailwindCSS", "D3.js"],
-      category: "Web Development",
-      glowColor: "rgb(168, 85, 247, 0.4)",
-      liveLink: "#",
-    },
-  ];
 
   const containerVariants = {
     hidden: { opacity: 0 },

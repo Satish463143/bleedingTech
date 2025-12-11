@@ -3,28 +3,11 @@ import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { useNavigate } from "react-router-dom";
 import { ArrowRight, Calendar, Clock, Eye, Heart, Star } from "lucide-react";
+import { blogs } from "../../assets/dummyData.js/data";
 import "./FeaturedBlog.css";
 
-// Featured blog data
-const featuredBlog = {
-  id: 2,
-  slug: "complete-guide-to-building-modern-web-applications",
-  title: "The Complete Guide to Building Modern Web Applications in 2024",
-  subtitle: "From architecture decisions to deployment strategies",
-  excerpt: "A comprehensive deep-dive into modern web development practices, covering everything from choosing the right tech stack to implementing scalable architectures. Learn how leading companies are building performant, maintainable applications that delight users and drive business growth.",
-  thumbnail: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=1200&h=600&fit=crop",
-  category: "Development",
-  date: "Dec 10, 2024",
-  readTime: "15 min read",
-  views: 5420,
-  likes: 342,
-  author: {
-    name: "Alex Thompson",
-    avatar: "https://ui-avatars.com/api/?name=AT&background=3B82F6&color=fff&size=60",
-    role: "Lead Developer",
-  },
-  tags: ["Web Development", "Architecture", "Best Practices", "2024"],
-};
+// Get the featured blog from blogs data
+const featuredBlog = blogs.find((blog) => blog.isFeatured) || blogs[0];
 
 const FeaturedBlog = () => {
   const controls = useAnimation();

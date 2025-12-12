@@ -1,0 +1,73 @@
+/* ============================================
+   FULL PROJECT - Projects Grid with Filters
+   ============================================ */
+
+/* Filter tabs scrollable on mobile */
+@media (max-width: 640px) {
+  .filter-tabs-container {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  
+  .filter-tabs-container::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Grid responsive */
+@media (max-width: 1024px) {
+  .projects-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .full-project-section h2 {
+    font-size: 2rem !important;
+  }
+}
+
+/* Filter tab active state */
+.filter-tab-active {
+  position: relative;
+}
+
+.filter-tab-active::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 3px;
+  background: white;
+  border-radius: 2px;
+  opacity: 0.6;
+}
+
+/* Dark mode */
+[data-theme="dark"] .full-project-section,
+.dark .full-project-section {
+  --filter-bg: hsl(var(--card) / 0.6);
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .full-project-section * {
+    animation: none !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Focus states */
+.filter-tab:focus-visible {
+  outline: 2px solid hsl(var(--primary));
+  outline-offset: 2px;
+}
+

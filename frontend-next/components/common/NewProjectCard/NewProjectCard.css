@@ -1,0 +1,63 @@
+/* NewProjectCard Component Styles */
+
+.new-project-card {
+  transition: all 0.4s ease;
+}
+
+.new-project-card:hover {
+  transform: translateY(-4px);
+}
+
+/* Line clamp for description */
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Smooth image transition */
+.new-project-card img {
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Card shadow on hover */
+.new-project-card:hover {
+  box-shadow: 0 20px 40px -10px hsl(var(--primary) / 0.15);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .new-project-card {
+    height: 350px;
+  }
+  
+  .new-project-card .max-w-\[60\%\] {
+    max-width: 70%;
+  }
+}
+
+@media (max-width: 480px) {
+  .new-project-card {
+    height: 320px;
+  }
+  
+  .new-project-card .max-w-\[60\%\] {
+    max-width: 80%;
+  }
+}
+
+/* Hover state improvements */
+@media (hover: hover) {
+  .new-project-card:hover {
+    border-color: hsl(var(--primary) / 0.3);
+  }
+}
+
+/* Touch device adjustments */
+@media (hover: none) {
+  .new-project-card {
+    /* Always show some content on touch devices */
+  }
+}
+

@@ -1,8 +1,9 @@
-import React, { useState, useEffect, lazy } from "react";
+"use client";
+import  { useState, useEffect, lazy } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import "./Testimonal.css";
-import { testimonials } from "../../assets/dummyData.js/data";
+import { testimonials } from "../../../src/data/data";
 const TestimonialCard = lazy(() => import("./TestimonialCard"));
 
 const Testimonal = () => {
@@ -28,7 +29,7 @@ const Testimonal = () => {
   };
 
   const slideVariants = {
-    enter: (direction) => ({
+    enter: (direction: number) => ({
       x: direction > 0 ? 300 : -300,
       opacity: 0,
     }),
@@ -36,7 +37,7 @@ const Testimonal = () => {
       x: 0,
       opacity: 1,
     },
-    exit: (direction) => ({
+    exit: (direction: number) => ({
       x: direction > 0 ? -300 : 300,
       opacity: 0,
     }),

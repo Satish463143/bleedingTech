@@ -1,12 +1,13 @@
-import React from 'react'
-import CommonBanner from '../../common/CommonBanner/CommonBanner';
-import ContactCTA from '../../common/ContactCTA/ContactCTA';
-import OurTeam from '../../components/HomeComponents/OurTeam/OurTeam';
-import WhoWeAre from '../../components/AboutComponents/WhoWeAre';
-import MissionVision from '../../components/AboutComponents/Mission&Vision';
-import Values from '../../components/AboutComponents/Values';
-import WorkingProcess from '../../components/AboutComponents/WorkingProcess';
-import Achievements from '../../components/AboutComponents/Achievements';
+"use client";
+import { lazy } from 'react';
+const CommonBanner = lazy(() => import('../../components/common/CommonBanner/CommonBanner'));
+const ContactCTA = lazy(() => import('../../components/common/ContactCTA/ContactCTA'));
+const OurTeam = lazy(() => import('../../components/section/HomeComponents/OurTeam/OurTeam'));
+const WhoWeAre = lazy(() => import('../../components/section/AboutComponents/WhoWeAre'));
+const MissionVision = lazy(() => import('../../components/section/AboutComponents/Mission&Vision'));
+const Values = lazy(() => import('../../components/section/AboutComponents/Values'));
+const WorkingProcess = lazy(() => import('../../components/section/AboutComponents/WorkingProcess'));
+const Achievements = lazy(() => import('../../components/section/AboutComponents/Achievements'));
 
 const AboutUs = () => {
   const breadcrumbs = [

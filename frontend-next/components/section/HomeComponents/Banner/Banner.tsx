@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect} from "react";
 import { motion, useAnimation, useMotionValue, useTransform, useSpring } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { ArrowRight, Zap, Sparkles, Play } from "lucide-react";

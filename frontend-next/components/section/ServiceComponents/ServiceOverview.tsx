@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { motion, useAnimation } from "framer-motion";
+"use client";
+import { useEffect, useState } from "react";
+import { motion, useAnimation,type Variants } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { CheckCircle, Sparkles } from "lucide-react";
-import { services } from "../../assets/dummyData.js/data";
+import { services } from "../../../src/data/data";
 import "./ServiceOverview.css";
 
 const ServiceOverview = () => {
@@ -160,12 +161,17 @@ const ServiceOverview = () => {
   );
 };
 
+type ServiceItemProps = {
+  service: typeof services[number];
+  index: number;
+  isReversed: boolean;
+}
 // Individual Service Item Component
-const ServiceItem = ({ service, index, isReversed }) => {
+const ServiceItem = ({ service, index, isReversed }: ServiceItemProps) => {
   const [isHovered, setIsHovered] = useState(false);
   const Icon = service.icon;
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { opacity: 0, y: 50 },
     visible: {
       opacity: 1,

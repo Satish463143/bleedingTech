@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 const Heading = lazy(() => import("../../../common/Heading/Heading"));
 const TeamMemberCard = lazy(() => import("../../../common/TeamMemberCard/TeamMemberCard"));
-import { teamMembers } from "../../../../public/assets/dummyData/data";
+import { teamMembers } from "../../../../src/data/data";
 import "./OurTeam.css";
 
 const OurTeam: React.FC = () => {
@@ -168,18 +168,31 @@ const OurTeam: React.FC = () => {
           {/* Carousel */}
           <div className="relative overflow-hidden py-12">
             <AnimatePresence mode="wait" custom={direction}>
-              <TeamMemberCard
+              <motion.div
                 key={currentIndex}
-                member={teamMembers[currentIndex]}
-                direction={direction}
+                custom={direction}
                 variants={slideVariants}
-              />
+                initial="enter"
+                animate="center"
+                exit="exit"
+                transition={{
+                  x: { type: "spring" as const, stiffness: 300, damping: 30 },
+                  opacity: { duration: 0.4 },
+                }}
+              >
+                <Suspense fallback={<div>Loading...</div>}>
+                  <TeamMemberCard
+                    member={teamMembers[currentIndex]}
+                    index={currentIndex}
+                  />
+                </Suspense>
+              </motion.div>
             </AnimatePresence>
           </div>
 
           {/* Progress Indicators */}
           <div className="flex justify-center gap-3 mt-8">
-            {teamMembers.map((_, index) => (
+            {teamMembers.map((_: any, index: number) => (
               <motion.button
                 key={index}
                 className="relative"

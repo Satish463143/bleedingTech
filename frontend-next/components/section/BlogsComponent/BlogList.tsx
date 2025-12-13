@@ -9,7 +9,7 @@ const Heading = lazy(() => import("../../common/Heading/Heading"));
 const BlogItem = lazy(() => import("../../common/BlogItem/BlogItem"));
 
 // Import blogs data
-import { blogs } from "../../../public/assets/dummyData/data";
+import { blogs } from "../../../src/data/data";
 
 const BlogList = () => {
   const controls = useAnimation();

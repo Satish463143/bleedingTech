@@ -1,5 +1,6 @@
+"use client";
 import React, { useEffect, useState } from "react";
-import { motion, useAnimation } from "framer-motion";
+import { motion, useAnimation,type Variants } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import {
   MessageSquare,
@@ -252,11 +253,24 @@ const Workflow = ({
 };
 
 // Workflow Step Component
-const WorkflowStep = ({ step, index, isEven, totalSteps }) => {
-  const [isHovered, setIsHovered] = useState(false);
-  const Icon = iconMap[step.icon] || MessageSquare;
+type WorkflowStepProps = {
+  step: {
+    stepNumber: string;
+    title: string;
+    desc: string;
+    icon: string;
+    color: string;
+  };
+  index: number;
+  isEven: boolean;
+  totalSteps: number;
 
-  const itemVariants = {
+}
+const WorkflowStep = ({ step, index, isEven,totalSteps }: WorkflowStepProps) => {
+  const [isHovered, setIsHovered] = useState(false);
+  const Icon = iconMap[step.icon as keyof typeof iconMap] || MessageSquare;
+
+  const itemVariants: Variants = {
     hidden: {
       opacity: 0,
       x: isEven ? -60 : 60,

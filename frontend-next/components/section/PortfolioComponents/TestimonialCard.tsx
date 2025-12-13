@@ -1,7 +1,11 @@
+"use client";
 import { Quote,Star } from "lucide-react";
 
+type TestimonialCardProps = {
+    testimonial: any;
+}
 
-const TestimonialCard = ({ testimonial }) => {
+const TestimonialCard = ({ testimonial }: TestimonialCardProps) => {
     // Use glowColor if color is not available
     const cardColor = testimonial.color || testimonial.glowColor || "rgb(59, 130, 246, 0.5)";
     

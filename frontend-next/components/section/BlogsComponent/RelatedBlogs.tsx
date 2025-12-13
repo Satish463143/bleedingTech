@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef, lazy, Suspense } from "react";
 import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { blogs } from "../../../public/assets/dummyData/data";
+import { blogs } from "../../../src/data/data";
 import "./RelatedBlogs.css";
 
 // Lazy load RelatedBlogCard

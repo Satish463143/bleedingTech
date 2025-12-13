@@ -1,5 +1,6 @@
+"use client";
 import React, { useEffect, useState } from "react";
-import { motion, useAnimation } from "framer-motion";
+import { motion , useAnimation, type Variants } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { 
   Sparkles, 
@@ -9,9 +10,10 @@ import {
   BarChart3,
   Rocket,
   Users,
-  CheckCircle
 } from "lucide-react";
 import "./Overview.css";
+
+
 
 const Overview = () => {
   const controls = useAnimation();
@@ -22,7 +24,7 @@ const Overview = () => {
     if (inView) controls.start("visible");
   }, [controls, inView]);
 
-  const handleMouseMove = (e) => {
+  const handleMouseMove = (e:any) => {
     const rect = e.currentTarget.getBoundingClientRect();
     setMousePosition({
       x: (e.clientX - rect.left - rect.width / 2) / 25,
@@ -41,7 +43,7 @@ const Overview = () => {
     },
   };
 
-  const fadeUpVariants = {
+  const fadeUpVariants: Variants = {
     hidden: { opacity: 0, y: 40 },
     visible: {
       opacity: 1,
@@ -112,7 +114,7 @@ const Overview = () => {
             animate={controls}
           >
             {/* Badge */}
-            <motion.div className="case-study-overview-badge" variants={fadeUpVariants}>
+            <motion.div className="case-study-overview-badge" variants={fadeUpVariants }>
               <Sparkles className="w-4 h-4" />
               <span>Success Stories</span>
             </motion.div>

@@ -1,5 +1,6 @@
+"use client";
 import React, { useEffect, useState } from "react";
-import { motion, useAnimation } from "framer-motion";
+import { motion, useAnimation, type Variants } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { 
   Sparkles, 
@@ -16,6 +17,8 @@ import {
 } from "lucide-react";
 import "./PackageIntro.css";
 
+
+
 const PackageIntro = () => {
   const controls = useAnimation();
   const [ref, inView] = useInView({ threshold: 0.15, triggerOnce: true });
@@ -25,7 +28,7 @@ const PackageIntro = () => {
     if (inView) controls.start("visible");
   }, [controls, inView]);
 
-  const handleMouseMove = (e) => {
+  const handleMouseMove = (e:any) => {
     const rect = e.currentTarget.getBoundingClientRect();
     setMousePosition({
       x: (e.clientX - rect.left - rect.width / 2) / 25,
@@ -44,7 +47,7 @@ const PackageIntro = () => {
     },
   };
 
-  const fadeUpVariants = {
+  const fadeUpVariants: Variants = {
     hidden: { opacity: 0, y: 40 },
     visible: {
       opacity: 1,

@@ -1,8 +1,9 @@
-import React, { lazy, useEffect } from "react";
+"use client";
+import { lazy, useEffect } from "react";
 import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { Sparkles } from "lucide-react";
-import { projects } from "../../assets/dummyData.js/data";
+import { projects } from "../../../src/data/data";
 import "./FeaturedProject.css";
 const FeaturedProjectCard = lazy(() => import ("../../common/FeaturedProjectCard/FeaturedProjectCard"));
 

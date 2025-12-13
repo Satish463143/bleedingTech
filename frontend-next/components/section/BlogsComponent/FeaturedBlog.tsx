@@ -4,7 +4,7 @@ import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { useRouter } from "next/navigation";
 import { ArrowRight, Calendar, Clock, Eye, Heart, Star } from "lucide-react";
-import { blogs } from "../../../public/assets/dummyData/data";
+import { blogs } from "../../../src/data/data";
 import "./FeaturedBlog.css";
 
 // Get the featured blog from blogs data

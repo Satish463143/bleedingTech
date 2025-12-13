@@ -1,5 +1,6 @@
+"use client";
 import React, { useEffect } from "react";
-import { motion, useAnimation } from "framer-motion";
+import { motion, useAnimation,type Variants } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import {
   CheckCircle,
@@ -74,7 +75,7 @@ const DetailedServiceSection = ({
     },
   };
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { opacity: 0, y: 30 },
     visible: {
       opacity: 1,
@@ -211,7 +212,7 @@ const DetailedServiceSection = ({
 
             <div className="space-y-5">
               {keyFeatures.map((feature, index) => {
-                const Icon = iconMap[feature.icon] || CheckCircle;
+                const Icon = iconMap[feature.icon as keyof typeof iconMap] || CheckCircle;
                 return (
                   <FeatureItem
                     key={index}
@@ -230,8 +231,14 @@ const DetailedServiceSection = ({
   );
 };
 
+type FeatureItemProps = {
+  icon: any;
+  title: string;
+  desc: string;
+  index: number;
+}
 // Feature Item Component
-const FeatureItem = ({ icon: Icon, title, desc, index }) => {
+const FeatureItem = ({ icon: Icon, title, desc, index }: FeatureItemProps) => {
   const [isHovered, setIsHovered] = React.useState(false);
 
   return (

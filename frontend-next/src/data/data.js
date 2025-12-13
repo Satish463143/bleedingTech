@@ -9,7 +9,7 @@ import {
   Briefcase, Users, Clock, ThumbsUp, Megaphone,
   Globe,
 } from "lucide-react";
-import satish from '../image/satish.jpg'
+import satish from '../../public/assets/image/satish.jpg'
 
 const testimonials = [
     {
@@ -1588,6 +1588,62 @@ const technologies = [
   },
 ];
 
+const packageFaqs = [
+  {
+    question: "Which package is best for my business?",
+    answer:
+      "The best package depends on your current stage — whether you're building, growing, or optimizing. Our plans are structured to support startups, scaling businesses, and established brands. If you're unsure, we'll evaluate your goals and recommend the ideal fit.",
+  },
+  {
+    question: "Can I customize a package based on my needs?",
+    answer:
+      "Yes. All packages are flexible. You can add, remove, or adjust services such as SEO, app development, ads management, or design. We also offer fully custom packages if your requirements are unique.",
+  },
+  {
+    question: "Do you offer monthly or yearly billing options?",
+    answer:
+      "Yes. Packages can be billed monthly or annually. Yearly billing includes additional benefits such as priority support, discounted rates, and extended maintenance coverage.",
+  },
+  {
+    question: "Are design, development, and marketing included together?",
+    answer:
+      "Some packages combine multiple services, while others focus on specific areas. Full-stack bundles (Web + App + SEO + Ads) are available for businesses wanting an all-in-one digital solution.",
+  },
+  {
+    question: "What happens if I need more features later?",
+    answer:
+      "You can upgrade, downgrade, or extend your package anytime. As your business grows, we adjust your plan so it remains aligned with your goals and performance needs.",
+  },
+];
+
+const serviceFaqs = [
+  {
+    question: "What services does Bleeding Tech provide?",
+    answer:
+      "Bleeding Tech provides web development, mobile app development, UI/UX design, SEO optimization, digital marketing, Google and Meta ads management, and custom system development such as billing and ERP solutions.",
+  },
+  {
+    question: "What is the difference between a service package and a custom service?",
+    answer:
+      "A service package includes predefined features with fixed pricing, ideal for standard requirements. Custom services are tailored specifically to your business needs, integrations, scalability goals, and timeline.",
+  },
+  {
+    question: "How long does a typical web or mobile app project take?",
+    answer:
+      "Project timelines depend on complexity. A basic website may take 1–3 weeks, while complex web or mobile applications can take 4–12 weeks or more, including design, development, testing, and deployment.",
+  },
+  {
+    question: "Do you provide SEO and performance optimization with development?",
+    answer:
+      "Yes. We follow SEO-friendly development practices including clean code, fast load times, Core Web Vitals optimization, metadata setup, and optional ongoing SEO services.",
+  },
+  {
+    question: "Can I combine multiple services into one package?",
+    answer:
+      "Absolutely. We offer bundled packages such as web development with SEO or digital marketing. You can also request a fully custom package based on your business goals and budget.",
+  },
+];
+
 export { 
   testimonials, 
   clients, 
@@ -1600,5 +1656,7 @@ export {
   blogs,
   caseStudies,
   packageCategories,
-  technologies
+  technologies,
+  packageFaqs,
+  serviceFaqs,
 };

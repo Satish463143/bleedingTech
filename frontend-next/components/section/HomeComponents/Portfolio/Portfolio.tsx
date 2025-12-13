@@ -7,7 +7,7 @@ import "./Portfolio.css";
 const ProjectCard = lazy(() => import ("../../../common/ProjectCard/ProjectCard"));
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { projects } from "../../../../public/assets/dummyData/data";
+import { projects } from "../../../../src/data/data";
 
 const Portfolio: React.FC = () => {
   const controls = useAnimation();

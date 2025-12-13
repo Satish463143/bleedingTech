@@ -1,10 +1,16 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { Check, ArrowRight, Star } from "lucide-react";
 
 
-const PackageCard = ({ pkg, index, categoryColor }) => {
+type PackageCardProps = {
+    pkg: any;
+    index: string;
+    categoryColor: string;
+}
+
+const PackageCard = ({ pkg, index, categoryColor }: PackageCardProps) => {
     const [isHovered, setIsHovered] = useState(false);
   
     return (
@@ -14,14 +20,14 @@ const PackageCard = ({ pkg, index, categoryColor }) => {
         animate={{ opacity: 1, y: 0, scale: 1 }}
         transition={{
           duration: 0.5,
-          delay: index * 0.1,
+          delay: Number(index) * 0.1,
           ease: [0.22, 1, 0.36, 1],
         }}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         style={{
           "--card-accent": categoryColor,
-        }}
+        } as React.CSSProperties}
       >
         {/* Popular Badge */}
         {pkg.popular && (
@@ -54,7 +60,7 @@ const PackageCard = ({ pkg, index, categoryColor }) => {
   
           {/* Features */}
           <ul className="package-features">
-            {pkg.features.map((feature, idx) => (
+            {pkg.features.map((feature: string, idx: number) => (
               <motion.li
                 key={idx}
                 className="package-feature"
@@ -76,7 +82,7 @@ const PackageCard = ({ pkg, index, categoryColor }) => {
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >
-            <Link to ="/contact-us">{pkg.isCustom ? "Contact Us" : "Get This Package"}</Link>
+            <Link href ="/contact-us">{pkg.isCustom ? "Contact Us" : "Get This Package"}</Link>
             <ArrowRight className="w-4 h-4" />
           </motion.button>
         </div>

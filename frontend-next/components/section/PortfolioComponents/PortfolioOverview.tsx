@@ -1,5 +1,6 @@
+"use client";
 import React, { useEffect, useState } from "react";
-import { motion, useAnimation } from "framer-motion";
+import { motion, useAnimation, type Variants } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { Sparkles, Target, Zap, Shield, Code, Layers, Palette, Rocket, Globe, Database } from "lucide-react";
 import "./PortfolioOverview.css";
@@ -13,7 +14,7 @@ const PortfolioOverview = () => {
     if (inView) controls.start("visible");
   }, [controls, inView]);
 
-  const handleMouseMove = (e) => {
+  const handleMouseMove = (e:any) => {
     const rect = e.currentTarget.getBoundingClientRect();
     setMousePosition({
       x: (e.clientX - rect.left - rect.width / 2) / 25,
@@ -32,7 +33,7 @@ const PortfolioOverview = () => {
     },
   };
 
-  const fadeUpVariants = {
+  const fadeUpVariants: Variants = {
     hidden: { opacity: 0, y: 40 },
     visible: {
       opacity: 1,

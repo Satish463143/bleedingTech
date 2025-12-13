@@ -5,7 +5,7 @@ import { useInView } from "react-intersection-observer";
 import { Quote } from "lucide-react";
 import Heading from "../../../common/Heading/Heading";
 import "./Testimonal.css";
-import { testimonials } from "../../../../public/assets/dummyData/data";
+import { testimonials } from "../../../../src/data/data";
 import TestimonialCard from "../../../common/TestimonialCard/TestimonialCard";
 
 const Testimonal: React.FC = () => {

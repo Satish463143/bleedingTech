@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+"use client";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import NewProjectCard from "../../common/NewProjectCard/NewProjectCard";
-import { projects } from "../../assets/dummyData.js/data";
+import { projects } from "../../../src/data/data";
 import "./FullProject.css";
 
 const FullProject = () => {
@@ -132,7 +133,12 @@ const FullProject = () => {
 };
 
 // Filter Tab Component
-const FilterTab = ({ label, isActive, onClick }) => {
+type FilterTabProps = {
+  label: string;
+  isActive: boolean;
+  onClick: () => void;
+}
+const FilterTab = ({ label, isActive, onClick }: FilterTabProps) => {
   return (
     <motion.button
       onClick={onClick}

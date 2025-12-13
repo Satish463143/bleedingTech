@@ -1,8 +1,9 @@
-import React, { useState, useEffect,lazy } from "react";
+"use client";
+import { useState, useEffect,lazy } from "react";
 import { motion, AnimatePresence, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import { Link } from "react-router-dom";
-import { packageCategories } from "../../assets/dummyData.js/data";
+import Link from "next/link";
+import { packageCategories } from "../../../src/data/data";
 const CategoryTab = lazy(() => import ("./CategoryTab"));
 const PackageCard = lazy(() => import ("./PackageCard"));
 import { Sparkles,ArrowRight,} from "lucide-react";
@@ -124,7 +125,7 @@ const DetailedPackage = () => {
               <PackageCard
                 key={pkg.tier}
                 pkg={pkg}
-                index={index}
+                index={index.toString()}
                 categoryColor={activeData.color}
               />
             ))}
@@ -150,7 +151,7 @@ const DetailedPackage = () => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.98 }}
           >
-           <Link to ="/contact-us">Schedule a Consultation</Link>
+           <Link href ="/contact-us">Schedule a Consultation</Link>
             <ArrowRight className="w-4 h-4" />
           </motion.button>
         </motion.div>

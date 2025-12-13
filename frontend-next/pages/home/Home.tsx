@@ -1,12 +1,12 @@
-import React from 'react'
-import Banner from '../../components/HomeComponents/Banner/Banner'
-import Services from '../../components/HomeComponents/Services/Services'
-import Portfolio from '../../components/HomeComponents/Portfolio/Portfolio'
-import Testimonal from '../../components/HomeComponents/Testimonal/Testimonal'
-import Clients from '../../components/HomeComponents/Clients/Clients'
-import OurTeam from '../../components/HomeComponents/OurTeam/OurTeam'
-import WhyUs from '../../components/HomeComponents/WhyUs/WhyUs'
-import FAQ from '../../components/HomeComponents/FAQ/FAQ'
+import {lazy} from 'react'
+const Banner = lazy(() => import('../../components/section/HomeComponents/Banner/Banner'));
+const Services = lazy(() => import('../../components/section/HomeComponents/Services/Services'));
+const Portfolio = lazy(() => import('../../components/section/HomeComponents/Portfolio/Portfolio'));
+const Testimonal = lazy(() => import('../../components/section/HomeComponents/Testimonal/Testimonal'));
+const Clients = lazy(() => import('../../components/section/HomeComponents/Clients/Clients'));
+const OurTeam = lazy(() => import('../../components/section/HomeComponents/OurTeam/OurTeam'));
+const WhyUs = lazy(() => import('../../components/section/HomeComponents/WhyUs/WhyUs'));
+const FAQ = lazy(() => import('../../components/section/HomeComponents/FAQ/FAQ'));
 
 const Home = () => {
   return (

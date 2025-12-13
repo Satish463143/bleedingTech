@@ -1,8 +1,8 @@
-import React from 'react'
-import CommonBanner from "../../common/CommonBanner/CommonBanner";
-import ContactCTA from '../../common/ContactCTA/ContactCTA';
-import Overview from '../../components/CaseStudyComponenet/Overview';
-import CaseStudyList from '../../components/CaseStudyComponenet/CaseStudyList';
+import { lazy } from 'react';
+const CommonBanner = lazy(() => import('../../components/common/CommonBanner/CommonBanner'));
+const ContactCTA = lazy(() => import('../../components/common/ContactCTA/ContactCTA'));
+const Overview = lazy(() => import('../../components/section/CaseStudyComponenet/Overview'));
+const CaseStudyList = lazy(() => import('../../components/section/CaseStudyComponenet/CaseStudyList'));
 
 const CaseStudy = () => {
   const breadcrumbs = [

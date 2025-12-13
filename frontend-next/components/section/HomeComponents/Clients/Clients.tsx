@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { Sparkles } from "lucide-react";
 const Heading = lazy(() => import ("../../../common/Heading/Heading"));
 import { GridLogo, InfiniteMarquee } from "../../../common/ClientsFIles/ClientsFIles";
-import { clients } from "../../../../public/assets/dummyData/data";
+import { clients } from "../../../../src/data/data";
 import "./Clients.css";
 
 const Clients: React.FC = () => {

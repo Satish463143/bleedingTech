@@ -3,13 +3,14 @@
 import { useState } from "react";
 import { motion, type Variants } from "framer-motion";
 import { Linkedin, Twitter, Github, Mail } from "lucide-react";
+import type { StaticImageData } from "next/image";
 
 type Member = {
   id: number;
   name: string;
   position: string;
   tagline: string;
-  image: string;
+  image: string | StaticImageData;
   color: string;
   social: {
     linkedin?: string;
@@ -40,6 +41,9 @@ const variants: Variants = {
 
 export default function TeamMemberCard({ member, index }: Props) {
   const [isHovered, setIsHovered] = useState(false);
+  
+  // Handle both string and StaticImageData
+  const imageSrc = typeof member.image === 'string' ? member.image : member.image.src;
 
   return (
     <motion.div
@@ -124,7 +128,7 @@ export default function TeamMemberCard({ member, index }: Props) {
               style={{ borderColor: "hsl(var(--border))" }}
             >
               <motion.img
-                src={member.image}
+                src={imageSrc}
                 alt={member.name}
                 className="w-full h-full object-cover"
                 animate={{ scale: isHovered ? 1.1 : 1 }}

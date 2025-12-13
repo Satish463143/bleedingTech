@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { motion, useAnimation } from "framer-motion";
+"use client";
+import { useEffect, useState } from "react";
+import { motion, useAnimation,type Variants } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import {
   Zap,
@@ -78,7 +79,7 @@ const WhyChooseUs = ({
     },
   };
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,
@@ -203,9 +204,18 @@ const WhyChooseUs = ({
 };
 
 // Reason Item Component - Minimal Pill Style
-const ReasonItem = ({ reason, index, variants }) => {
+type ReasonItemProps = {
+  reason: {
+    icon: string;
+    title: string;
+    desc: string;
+  };
+  index: number;
+  variants: Variants;
+}
+const ReasonItem = ({ reason, index, variants }: ReasonItemProps) => {
   const [isHovered, setIsHovered] = useState(false);
-  const Icon = iconMap[reason.icon] || CheckCircle;
+  const Icon = iconMap[reason.icon as keyof typeof iconMap] || CheckCircle;
 
   const colors = [
     "rgb(59, 130, 246, 0.5)",

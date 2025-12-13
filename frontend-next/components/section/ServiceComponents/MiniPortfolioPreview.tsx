@@ -1,9 +1,10 @@
+"use client";
 import React, { useEffect, lazy } from "react";
 import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { Sparkles, ArrowRight } from "lucide-react";
-import { Link } from "react-router-dom";
-import { projects } from "../../assets/dummyData.js/data";
+import Link from "next/link";
+import { projects } from "../../../src/data/data";
 const NewProjectCard = lazy(() => import("../../common/NewProjectCard/NewProjectCard"));
 import "./MiniPortfolioPreview.css";
 
@@ -123,7 +124,7 @@ const MiniPortfolioPreview = () => {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.6 }}
         >
-          <Link to="/portfolio">
+          <Link href="/portfolio">
             <motion.button
               className="group inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm"
               style={{

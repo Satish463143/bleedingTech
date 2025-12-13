@@ -1,7 +1,12 @@
+"use client";
 import { useState } from "react";
 import { motion } from "framer-motion";
 
-const TechItem = ({ tech, variants }) => {
+type TechItemProps = {
+  tech: any;
+  variants: any;
+}
+const TechItem = ({ tech, variants }: TechItemProps) => {
     const [isHovered, setIsHovered] = useState(false);
   
     return (

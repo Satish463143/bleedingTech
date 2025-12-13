@@ -1,10 +1,11 @@
-import React, { useEffect,lazy } from "react";
+"use client";
+import { useEffect,lazy } from "react";
 import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 
 const Heading = lazy(() => import ("../../common/Heading/Heading"));
 import "./CaseStudyList.css";
-import {caseStudies} from '../../../public/assets/dummyData/data'
+import {caseStudies} from '../../../src/data/data'
 const CaseStudyCard = lazy(()=> import ('../../common/CaseStudyCard/CaseStudyCard'))
 
 const CaseStudyList = () => {

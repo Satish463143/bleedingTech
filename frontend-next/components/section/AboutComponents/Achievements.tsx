@@ -8,7 +8,7 @@ import "./Achievements.css";
 const StatCard = lazy(() => import("../../common/StatCard/StatCard"));
 
 // Import stats from data file
-import { stats } from "../../../public/assets/dummyData/data";
+import { stats } from "../../../src/data/data";
 
 const Achievements = () => {
   const controls = useAnimation();

@@ -1,9 +1,10 @@
-import React, { useEffect, lazy } from "react";
+"use client";
+import  { useEffect, lazy } from "react";
 import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { Sparkles } from "lucide-react";
 import "./TechStack.css";
-import { technologies } from "../../assets/dummyData.js/data";
+import { technologies } from "../../../src/data/data";
 const TechItem = lazy(() => import ("./TechItem"));
 
 

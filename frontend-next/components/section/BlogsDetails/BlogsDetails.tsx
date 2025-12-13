@@ -1,3 +1,4 @@
+"use client";
 import { motion,useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { useEffect } from "react";
@@ -15,7 +16,34 @@ import { Calendar,
     CheckCircle, 
 } from "lucide-react";
 
-export const HeroImage = ({ blog }) => {
+type Blog = {
+    title: string;
+    category: string;
+    author: {
+        name: string;
+        avatar: string;
+        role: string;
+        bio: string;
+    };
+    date: string;
+    readTime: string;
+    heroImage: string;
+    content: string;
+    tags: string[];
+    views: number;
+    likes: number;
+};
+type BlogProps = {
+    blog: Blog;
+    liked: boolean;
+    setLiked: (liked: boolean) => void;
+    saved: boolean;
+    setSaved: (saved: boolean) => void;
+    copied: boolean;
+    handleCopyLink: () => void;
+};
+
+export const HeroImage = ({ blog }: BlogProps) => {
     return (
       <section className="blog-detail-hero">
         <div className="container mx-auto px-6 lg:px-12">
@@ -35,7 +63,7 @@ export const HeroImage = ({ blog }) => {
   };
   
   // Meta Info Bar
-export  const MetaInfo = ({ blog }) => {
+export  const MetaInfo = ({ blog }: BlogProps) => {
     return (
       <section className="blog-detail-meta">
         <div className="container mx-auto px-6 lg:px-12">
@@ -72,7 +100,7 @@ export  const MetaInfo = ({ blog }) => {
   };
   
   // Article Content
- export  const ArticleContent = ({ blog, liked, setLiked, saved, setSaved, copied, handleCopyLink }) => {
+ export  const ArticleContent = ({ blog, liked, setLiked, saved, setSaved, copied, handleCopyLink }: BlogProps) => {
     const controls = useAnimation();
     const [ref, inView] = useInView({ threshold: 0.1, triggerOnce: true });
   
@@ -167,7 +195,7 @@ export  const MetaInfo = ({ blog }) => {
   };
   
   // Author Section
-export   const AuthorSection = ({ blog }) => {
+export   const AuthorSection = ({ blog }: BlogProps) => {
     const controls = useAnimation();
     const [ref, inView] = useInView({ threshold: 0.2, triggerOnce: true });
   

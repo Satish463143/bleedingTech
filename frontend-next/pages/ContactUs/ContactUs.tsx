@@ -1,9 +1,10 @@
-import React from "react";
-import CommonBanner from "../../common/CommonBanner/CommonBanner";
-import ContactCards from "../../components/ContactComponents/ContactCards";
-import ContactForm from "../../components/ContactComponents/ContactForm";
-import MapSection from "../../components/ContactComponents/MapSection";
-import GetinTouchCTA from "../../components/ContactComponents/GetinTouchCTA";
+"use client";
+import { lazy } from "react";
+const CommonBanner = lazy(() => import('../../components/common/CommonBanner/CommonBanner'));
+const ContactCards = lazy(() => import('../../components/section/ContactComponents/ContactCards'));
+const ContactForm = lazy(() => import('../../components/section/ContactComponents/ContactForm'));
+const MapSection = lazy(() => import('../../components/section/ContactComponents/MapSection'));
+const GetinTouchCTA = lazy(() => import('../../components/section/ContactComponents/GetinTouchCTA'));
 
 const ContactUs = () => {
   // Breadcrumb data

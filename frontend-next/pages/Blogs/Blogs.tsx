@@ -1,10 +1,10 @@
-import React from 'react'
-import CommonBanner from "../../common/CommonBanner/CommonBanner";
-import ContactCTA from '../../common/ContactCTA/ContactCTA';
-import BlogsOverview from '../../components/BlogsComponent/BlogsOverview';
-import FeaturedBlog from '../../components/BlogsComponent/FeaturedBlog';
-import BlogList from '../../components/BlogsComponent/BlogList';
-import NewsLetter from '../../components/BlogsComponent/NewsLetter';
+import { lazy } from 'react';
+const CommonBanner = lazy(() => import('../../components/common/CommonBanner/CommonBanner'));
+const ContactCTA = lazy(() => import('../../components/common/ContactCTA/ContactCTA'));
+const BlogsOverview = lazy(() => import('../../components/section/BlogsComponent/BlogsOverview'));
+const FeaturedBlog = lazy(() => import('../../components/section/BlogsComponent/FeaturedBlog'));
+const BlogList = lazy(() => import('../../components/section/BlogsComponent/BlogList'));
+const NewsLetter = lazy(() => import('../../components/section/BlogsComponent/NewsLetter'));
 
 const Blogs = () => {
   const breadcrumbs = [

@@ -27,12 +27,10 @@ pipeline {
     }
 
     stage('Deploy Frontend-Next (Docker)') {
-      when {
-        anyOf { branch 'master' }
-      }
-      steps {
-        sh 'docker-compose -f docker-compose.frontend.yml up -d --build'
-      }
-    }
+        when { anyOf { branch 'master'; branch 'main' } }
+        steps {
+            sh 'docker-compose -f docker-compose.frontend.yml up -d --build'
+        }
+        }
   }
 }

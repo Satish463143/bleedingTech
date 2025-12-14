@@ -19,11 +19,17 @@ pipeline {
     }
 
     stage('Backend - Test') {
-      steps {
+    steps {
         dir('backend') {
-          sh 'npm test --if-present'
+        sh '''
+            if node -e "const p=require('./package.json'); process.exit(p.scripts && p.scripts.test && !p.scripts.test.includes('no test specified') ? 0 : 1)"; then
+            npm test
+            else
+            echo "Skipping backend tests (no real tests configured)"
+            fi
+        '''
         }
-      }
+    }
     }
 
     stage('Frontend-Next - Install') {

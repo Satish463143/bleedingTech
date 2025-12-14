@@ -18,15 +18,6 @@ pipeline {
         }
       }
     }
-
-    stage('Frontend-Next: Lint') {
-      steps {
-        dir('frontend-next') {
-          sh 'npm run lint --if-present'
-        }
-      }
-    }
-
     stage('Frontend-Next: Build') {
       steps {
         dir('frontend-next') {

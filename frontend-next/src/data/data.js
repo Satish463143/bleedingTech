@@ -307,7 +307,7 @@ const projects = [
     id: 2,
     title: "Healthcare Telemedicine App",
     subtitle: "Connecting Patients with Healthcare",
-    image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?w=800&h=600&fit=crop",
+    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop",
     tech: ["React Native", "Firebase", "WebRTC", "Node.js"],
     description: "Revolutionary telemedicine platform enabling virtual consultations and health monitoring for over 50,000 patients.",
     features: ["Video consultations", "Prescription management", "Health tracking", "Appointment booking", "Medical records"],

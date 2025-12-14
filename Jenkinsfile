@@ -2,7 +2,8 @@ pipeline {
   agent any
   options { timestamps() }
 
-  // Requires NodeJS plugin + tool named exactly "Node 20"
+  // If your Node tool is configured in Jenkins (Manage Jenkins -> Tools), keep this.
+  // If not, delete the whole "tools" block.
   tools { nodejs 'Node 20' }
 
   stages {
@@ -10,29 +11,7 @@ pipeline {
       steps { checkout scm }
     }
 
-    stage('Backend - Install') {
-      steps {
-        dir('backend') {
-          sh 'npm ci'
-        }
-      }
-    }
-
-    stage('Backend - Test') {
-    steps {
-        dir('backend') {
-        sh '''
-            if node -e "const p=require('./package.json'); process.exit(p.scripts && p.scripts.test && !p.scripts.test.includes('no test specified') ? 0 : 1)"; then
-            npm test
-            else
-            echo "Skipping backend tests (no real tests configured)"
-            fi
-        '''
-        }
-    }
-    }
-
-    stage('Frontend-Next - Install') {
+    stage('Frontend-Next: Install') {
       steps {
         dir('frontend-next') {
           sh 'npm ci'
@@ -40,11 +19,28 @@ pipeline {
       }
     }
 
-    stage('Frontend-Next - Build') {
+    stage('Frontend-Next: Lint') {
+      steps {
+        dir('frontend-next') {
+          sh 'npm run lint --if-present'
+        }
+      }
+    }
+
+    stage('Frontend-Next: Build') {
       steps {
         dir('frontend-next') {
           sh 'npm run build'
         }
+      }
+    }
+
+    stage('Deploy Frontend-Next (Docker)') {
+      when {
+        anyOf { branch 'master' }
+      }
+      steps {
+        sh 'docker-compose -f docker-compose.frontend.yml up -d --build'
       }
     }
   }

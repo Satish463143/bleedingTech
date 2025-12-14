@@ -1,13 +1,16 @@
 "use client";
-import React, { useEffect, lazy, Suspense } from "react";
+import dynamic from "next/dynamic";
+import { useEffect, Suspense } from "react";
 import { motion, useAnimation} from "framer-motion";
 import { useInView } from "react-intersection-observer";
-const Heading = lazy(() => import ("../../../common/Heading/Heading"));
+const Heading = dynamic(() => import ("../../../common/Heading/Heading"));
 import "./Portfolio.css";
-const ProjectCard = lazy(() => import ("../../../common/ProjectCard/ProjectCard"));
+const ProjectCard = dynamic(() => import ("../../../common/ProjectCard/ProjectCard"));
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { projects } from "../../../../src/data/data";
+
+
 
 const Portfolio: React.FC = () => {
   const controls = useAnimation();

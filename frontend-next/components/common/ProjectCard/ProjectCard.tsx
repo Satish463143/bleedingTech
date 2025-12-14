@@ -3,6 +3,10 @@
 import { useState } from "react";
 import { motion, useMotionValue, useTransform, type Variants } from "framer-motion";
 import { Sparkles, ExternalLink, FileText, Check } from "lucide-react";
+import Image from "next/image";
+
+const MotionImage = motion(Image);
+
 
 type Project = {
   title: string;
@@ -100,12 +104,15 @@ export default function ProjectCard({ project, index }: Props) {
         />
 
         <div className="relative h-64 overflow-hidden">
-          <motion.img
+          <MotionImage
             src={project.image}
             alt={project.title}
+            priority={true}
             className="w-full h-full object-cover"
             whileHover={{ scale: 1.08 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
+            width={600}
+            height={400}
           />
 
           <div

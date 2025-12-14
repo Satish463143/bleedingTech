@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect} from "react";
+import React, { useEffect, useState} from "react";
 import { motion, useAnimation, useMotionValue, useTransform, useSpring } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { ArrowRight, Zap, Sparkles, Play } from "lucide-react";
@@ -11,9 +11,29 @@ const Banner: React.FC = () => {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
+  // Fix hydration: Generate particles only on client side
+  const [particles, setParticles] = useState<Array<{
+    top: number;
+    left: number;
+    duration: number;
+    delay: number;
+  }>>([]);
+
   useEffect(() => {
     if (inView) controls.start("visible");
   }, [controls, inView]);
+
+  // Generate random particles only on client side to avoid SSR hydration mismatch
+  useEffect(() => {
+    setParticles(
+      Array.from({ length: 8 }, () => ({
+        top: Math.random() * 100,
+        left: Math.random() * 100,
+        duration: 3 + Math.random() * 2,
+        delay: Math.random() * 2,
+      }))
+    );
+  }, []);
 
   // Smooth parallax mouse effect with spring physics
   const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
@@ -177,24 +197,24 @@ const Banner: React.FC = () => {
         </motion.div>
 
         {/* Particle dots */}
-        {[...Array(8)].map((_, i) => (
+        {particles.map((particle, i) => (
           <motion.div
             key={i}
             className="absolute w-2 h-2 rounded-full"
             style={{
               background: "hsl(var(--primary))",
               boxShadow: "0 0 10px hsl(var(--glow))",
-              top: `${Math.random() * 100}%`,
-              left: `${Math.random() * 100}%`,
+              top: `${particle.top}%`,
+              left: `${particle.left}%`,
             }}
             animate={{
               opacity: [0.2, 0.8, 0.2],
               scale: [1, 1.5, 1],
             }}
             transition={{
-              duration: 3 + Math.random() * 2,
+              duration: particle.duration,
               repeat: Infinity,
-              delay: Math.random() * 2,
+              delay: particle.delay,
             }}
           />
         ))}

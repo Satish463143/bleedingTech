@@ -397,10 +397,8 @@ function FooterLink({ href, name }: FooterLinkProps) {
         <motion.a href={href} onClick={handleHashNavigation} {...commonMotionProps}>
           {linkContent}
         </motion.a>
-      ) : (
-        <Link href={href} legacyBehavior passHref>
+      ) : (        
           <motion.a {...commonMotionProps}>{linkContent}</motion.a>
-        </Link>
       )}
     </li>
   );

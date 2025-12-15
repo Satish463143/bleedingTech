@@ -1,45 +1,43 @@
+const serviceService = require('./service.service')
 const { deleteFile } = require("../../utils/helper")
-const teamService = require("./team.service")
-
-class TeamController{
-    teaammember ;
-    createTeam = async (req, res,next)=>{
+class ServiceController{
+    service;
+    createService = async (req, res,next) => {
         try{
             const data = req.body
 
-            const team = await teamService.createTeam(data)
+            const service = await serviceService.createService(data)
 
             const allFiles =[...( req.files || [])]
 
             for (const file of allFiles){
-                await deleteFile('./public/uploads/team/'+ file.filename)
+                await deleteFile('./public/uploads/service/'+ file.filename)
             }
 
             res.json({
-                details:team,
-                message:"Team created successfully",
+                details:service,
+                message:"Service created successfully",
                 meta:null
             })
 
         }catch(exception){
-            console.log(exception);
             next(exception)
         }
     }
-    index = async (req, res,next)=>{
+    index = async (req, res,next) => {
         try{
             const limit = parseInt(req.query.limit) || 10
             const page = parseInt(req.query.page) || 1
             const skip = (page - 1) * limit
             const filter = {}
             if(req.query.search){
-                filter.name = { $regex: req.query.search, $options: 'i' }
+                filter.title = { $regex: req.query.search, $options: 'i' }
             }
-            const {count, teams} = await teamService.index({filter, limit, skip})
+            const {count, services} = await serviceService.index({filter, limit, skip})
             
             res.json({
-                details:teams,
-                message:"Teams fetched successfully",
+                details:services,
+                message:"Services fetched successfully",
                 meta:{
                     total:count,
                     page:page,
@@ -48,81 +46,68 @@ class TeamController{
             })
 
         }catch(exception){
-            console.log(exception);
             next(exception)
         }
     }
-
-    #validate = async(id)=>{
+    #validate = async(id) => {
         try{
             if(!id){
-                throw {status:400, message:"Team ID is required"}
+                throw {status:400, message:"Service ID is required"}
             }
-            this.teammember = await teamService.getIdByFIlter({_id:id})
-
-            if(!this.teammember){
-                throw {status:404, message:"Team member not found"}
+            this.service = await serviceService.getIdByFIlter({_id:id})
+            if(!this.service){
+                throw {status:404, message:"Service not found"}
             }
-
         }catch(exception){
             throw exception
         }
     }
-    showById = async (req, res,next)=>{
+    showById = async (req, res,next) => {
         try{
             const id = req.params.id
             await this.#validate(id)
             res.json({
-                details:this.teammember,
-                message:"Team fetched successfully",
+                details:this.service,
+                message:"Service fetched successfully",
                 meta:null
             })
-
         }catch(exception){
-            console.log(exception);
             next(exception)
         }
     }
-    updateTeam = async (req, res,next)=>{
+    updateService = async (req, res,next) => {
         try{
             const id = req.params.id
             await this.#validate(id)
             const data = req.body
-
             const allFiles =[...( req.files || [])]
             for (const file of allFiles){
-                await deleteFile('./public/uploads/team/'+ file.filename)
+                await deleteFile('./public/uploads/service/'+ file.filename)
             }
-
-            const team = await teamService.updateTeam(id, data)
+            const service = await serviceService.updateService(id, data)
             res.json({
-                details:team,
-                message:"Team updated successfully",
+                details:service,
+                message:"Service updated successfully",
                 meta:null
             })
-
         }catch(exception){
-            console.log(exception);
             next(exception)
         }
-
     }
-    deleteTeam = async (req, res,next)=>{
+    deleteService = async (req, res,next) => {
         try{
             const id = req.params.id
             await this.#validate(id)
-            const team = await teamService.deleteTeam(id)
+            const service = await serviceService.deleteService(id)
             res.json({
-                details:team,
-                message:"Team deleted successfully",
+                details:service,
+                message:"Service deleted successfully",
                 meta:null
             })
 
         }catch(exception){
-            console.log(exception);
             next(exception)
         }
     }
 }
-
-module.exports = new TeamController()
+module.exports = new ServiceController()

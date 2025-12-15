@@ -3,7 +3,7 @@ const path = require('path');
 const {s3}  = require('../config/aws.config');
 const { uploadToS3 } = require('../utils/s3.upload');
 const { randomStringGenerator } = require('../utils/helper');
-const { FileFilterType } = require('../config/constants.config');
+const { FileFilterType } = require('../config/constant.config');
 require("dotenv").config();
 
 const BUCKET = process.env.S3_BUCKET_NAME;

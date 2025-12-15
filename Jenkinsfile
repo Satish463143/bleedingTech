@@ -31,6 +31,6 @@ pipeline {
         steps {
             sh 'docker-compose -f docker-compose.frontend.yml up -d --build'
         }
-        }
+    }
   }
 }

@@ -1,128 +1,110 @@
+const projectService = require('./project.service')
 const { deleteFile } = require("../../utils/helper")
-const teamService = require("./team.service")
 
-class TeamController{
-    teaammember ;
-    createTeam = async (req, res,next)=>{
+
+class ProjectController{
+    project;
+    createProject = async (req, res,next) => {
         try{
             const data = req.body
 
-            const team = await teamService.createTeam(data)
-
             const allFiles =[...( req.files || [])]
-
             for (const file of allFiles){
-                await deleteFile('./public/uploads/team/'+ file.filename)
+                await deleteFile('./public/uploads/service/'+ file.filename)
             }
-
+            
+            const project = await projectService.createProject(data)
+            
             res.json({
-                details:team,
-                message:"Team created successfully",
-                meta:null
+                meta:null,
+                message: "Project created successfully",
+                result: project
             })
-
         }catch(exception){
-            console.log(exception);
             next(exception)
         }
     }
-    index = async (req, res,next)=>{
+    index = async (req, res,next) => {
         try{
             const limit = parseInt(req.query.limit) || 10
             const page = parseInt(req.query.page) || 1
             const skip = (page - 1) * limit
             const filter = {}
             if(req.query.search){
-                filter.name = { $regex: req.query.search, $options: 'i' }
+                filter.title = { $regex: req.query.search, $options: 'i' }
             }
-            const {count, teams} = await teamService.index({filter, limit, skip})
-            
+            const {count, projects} = await projectService.index({filter, limit, skip})
             res.json({
-                details:teams,
-                message:"Teams fetched successfully",
+                details:projects,
+                message:"Projects fetched successfully",
                 meta:{
                     total:count,
                     page:page,
                     limit:limit
                 }
             })
-
         }catch(exception){
-            console.log(exception);
             next(exception)
         }
     }
-
-    #validate = async(id)=>{
+    #validate = async(id) => {
         try{
             if(!id){
-                throw {status:400, message:"Team ID is required"}
+                throw {status:400, message:"Project ID is required"}
             }
-            this.teammember = await teamService.getIdByFIlter({_id:id})
-
-            if(!this.teammember){
-                throw {status:404, message:"Team member not found"}
+            this.project = await projectService.getIdByFIlter({_id:id})
+            if(!this.project){
+                throw {status:404, message:"Project not found"}
             }
-
         }catch(exception){
             throw exception
         }
     }
-    showById = async (req, res,next)=>{
+    showById = async (req, res,next) => {
         try{
             const id = req.params.id
             await this.#validate(id)
             res.json({
-                details:this.teammember,
-                message:"Team fetched successfully",
+                details:this.project,
+                message:"Project fetched successfully",
                 meta:null
             })
-
         }catch(exception){
-            console.log(exception);
             next(exception)
         }
     }
-    updateTeam = async (req, res,next)=>{
+    updateProject = async (req, res,next) => {
         try{
             const id = req.params.id
             await this.#validate(id)
             const data = req.body
-
             const allFiles =[...( req.files || [])]
             for (const file of allFiles){
-                await deleteFile('./public/uploads/team/'+ file.filename)
+                await deleteFile('./public/uploads/project/'+ file.filename)
             }
-
-            const team = await teamService.updateTeam(id, data)
+            const project = await projectService.updateProject(id, data)
             res.json({
-                details:team,
-                message:"Team updated successfully",
+                details:project,
+                message:"Project updated successfully",
                 meta:null
             })
-
         }catch(exception){
-            console.log(exception);
             next(exception)
         }
-
     }
-    deleteTeam = async (req, res,next)=>{
+    deleteProject = async (req, res,next) => {
         try{
             const id = req.params.id
             await this.#validate(id)
-            const team = await teamService.deleteTeam(id)
+            const project = await projectService.deleteProject(id)
             res.json({
-                details:team,
-                message:"Team deleted successfully",
+                details:project,
+                message:"Project deleted successfully",
                 meta:null
             })
-
         }catch(exception){
-            console.log(exception);
             next(exception)
         }
     }
 }
-
-module.exports = new TeamController()
+module.exports = new ProjectController()

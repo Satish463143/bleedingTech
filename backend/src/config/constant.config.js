@@ -6,4 +6,13 @@ const FileFilterType = {
 
 }
 
-module.exports = { FileFilterType }
+const ProjectCategory = {
+    WEB_DEVELOPMENT : 'Web Development',
+    MOBILE_APP_DEVELOPMENT : 'Mobile App Development',
+    UI_UX_DESIGN : 'UI/UX Design',
+    SEO : 'SEO',
+    CONTENT_WRITING : 'Content Writing',
+    GRAPHIC_DESIGN : 'Graphic Design',
+}
+
+module.exports = { FileFilterType, ProjectCategory }

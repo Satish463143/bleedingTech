@@ -27,6 +27,34 @@ class TeamService{
             throw exception
         }
     }
+    getIdByFIlter = async (filter) => {
+        try{
+            return await teamModel.findOne(filter).lean()
+        }catch(exception){
+            console.log(exception);
+            throw exception
+        }
+    }
+    updateTeam = async (id, data) => {
+        try{
+            return await teamModel.findByIdAndUpdate(id, {$set:data}, {new:true, runValidators:true,timestamps:true}).lean()
+        }catch(exception){
+            console.log(exception);
+            throw exception
+        }
+    }
+    deleteTeam = async (id) => {
+        try{
+            const response =  await teamModel.findByIdAndDelete(id).lean()
+            if(!response){
+                throw {status:404, message:"Team not found"}
+            }
+            return response
+        }catch(exception){
+            console.log(exception);
+            throw exception
+        }
+    }
 
 
 }

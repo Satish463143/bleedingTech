@@ -13,6 +13,7 @@ const CMSLayout = ({children}: {children: React.ReactNode}) => {
   const toggleMenu = () => {
     setIsMenuActive(!isMenuActive);
   };
+  // this is the cmslayout file 
   return (
     <div className='body_grid'>
       <CheckPermission allowedBy="admin">

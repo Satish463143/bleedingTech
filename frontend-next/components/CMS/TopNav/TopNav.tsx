@@ -1,15 +1,12 @@
-import React from 'react'
-import {  useNavigate } from 'react-router-dom'
+'use client'
 import { useDispatch, useSelector } from 'react-redux'
-
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
-import { logoutUser } from '../../../reducer/user.reducer'
+import { logoutUser } from '../../../src/reducer/user.reducer'
 
-const TopNav = ({ isMenuActive, toggleMenu }) => {
-    const dispatch = useDispatch()
-    const navigate = useNavigate()
-    const loggedInUser = useSelector((root)=>{
+const TopNav = ({ isMenuActive, toggleMenu }: { isMenuActive: boolean, toggleMenu: () => void }) => {
+    const dispatch: any = useDispatch()
+    const loggedInUser: any = useSelector((root: any)=>{
         return root.user.loggedInUser
     })
     const logout = async () => {
@@ -17,7 +14,7 @@ const TopNav = ({ isMenuActive, toggleMenu }) => {
             toast.loading("Logging out...");
            
             // Call the logout endpoint to clear tokens in the database
-            await fetch(`${import.meta.env.VITE_API_URL}/auth/logout`,{
+            await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/logout`,{
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('_at')}`,
                 },
@@ -52,7 +49,7 @@ const TopNav = ({ isMenuActive, toggleMenu }) => {
                 <div className='menu_2'></div>
                 <div className='menu_3'></div>
             </div>
-            <p>Hi, Welcome Back {loggedInUser.name}</p>
+            <p>Hi, Welcome Back {loggedInUser?.name}</p>
         </div>
           
           
@@ -61,7 +58,7 @@ const TopNav = ({ isMenuActive, toggleMenu }) => {
                 <div className='admin_box ' style={{margin:'0', cursor:'pointer'}} onClick={logout}>
                     <div>
                     <span>
-                        <svg height="24" version="1.1" width="24" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                        <svg height="24" version="1.1" width="24" xmlns="http://www.w3.org/2000/svg">
                         <g transform="translate(0 -1028.4)"><path d="m12 1039.4c-1.277 0-2.4943 0.2-3.5938 0.7 0.6485 1.3 2.0108 2.3 3.5938 2.3s2.945-1 3.594-2.3c-1.1-0.5-2.317-0.7-3.594-0.7z" fill="#95a5a6"/>
                             <path d="m8.4062 1041.1c-2.8856 1.3-4.9781 4-5.3437 7.3 0 1.1 0.8329 2 1.9375 2h14c1.105 0 1.938-0.9 1.938-2-0.366-3.3-2.459-6-5.344-7.3-0.649 1.3-2.011 2.3-3.594 2.3s-2.9453-1-3.5938-2.3z" fill="#d35400"/>
                             <path d="m8.4062 1040.1c-2.8856 1.3-4.9781 4-5.3437 7.3 0 1.1 0.8329 2 1.9375 2h14c1.105 0 1.938-0.9 1.938-2-0.366-3.3-2.459-6-5.344-7.3-0.649 1.3-2.011 2.3-3.594 2.3s-2.9453-1-3.5938-2.3z" fill="#e67e22"/>

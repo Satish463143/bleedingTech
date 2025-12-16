@@ -29,6 +29,11 @@ body {
 }
 
 :root {
+  --pri_text:#000;
+  --white:#fff;
+  --pri_color:#edc9af; /* #F7E6D3 */
+  --sec_color: #edc9;
+  --sec_dark: #8D6B4D;
 --bg-white: 210 40% 98%;           /* #F8FAFC - soft ice white */
 --bg-foreground: 222 84% 11%;      /* #0F172A - deep navy background */
 

@@ -16,16 +16,15 @@ const CMSLayout = ({children}: {children: React.ReactNode}) => {
   // this is the cmslayout file 
   return (
     <div className='body_grid'>
-      <CheckPermission allowedBy="admin">
+      {/* <CheckPermission allowedBy=""> */}
         <div><Navbar/></div>         
         <div className='body_box'> 
           <TopNav isMenuActive={isMenuActive} toggleMenu={toggleMenu}/>
           <MobileNav isMenuActive={isMenuActive} toggleMenu={toggleMenu}/>              
           {children}
         </div> 
-      </CheckPermission>
+      {/* </CheckPermission> */}
     </div>
   )
 }
-
 export default CMSLayout

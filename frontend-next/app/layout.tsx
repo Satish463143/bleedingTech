@@ -1,8 +1,8 @@
 import "./globals.css";
-import Navbar from "@/components/common/Navbar/Navbar";
-import Footer from "@/components/common/Footer/Footer";
 import type { Metadata } from "next";
 import Script from "next/script";
+import LayoutWrapper from "@/components/common/LayoutWrapper/LayoutWrapper";
+import ReduxProvider from "@/components/common/ReduxProvider/ReduxProvider";
 
 import { Inter, DM_Serif_Display } from "next/font/google";
 
@@ -81,9 +81,9 @@ export default function RootLayout({
           strategy="afterInteractive"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
         />
-        <Navbar />
-        {children}
-        <Footer />
+        <ReduxProvider>
+          <LayoutWrapper>{children}</LayoutWrapper>
+        </ReduxProvider>
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-XXXX"
           strategy="afterInteractive"

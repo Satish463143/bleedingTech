@@ -4,53 +4,60 @@ import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { Send, User, Mail, MessageSquare, FileText, Loader2, CheckCircle } from "lucide-react";
 import "./ContactForm.css";
+import { TextAreaInput, TextInputComponent } from "@/components/common/InputBox/InputBox";
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { toast } from 'react-toastify';
+import * as Yup from 'yup';
+import { useCreateContactsMutation } from "@/components/api/contact.api";
 
 // TypeScript interface for form data
 interface FormData {
   fullName: string;
   email: string;
-  subject: string;
+  phone: string;
   message: string;
 }
 
 const ContactForm = () => {
+  const [loading, setLoading] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const controls = useAnimation();
   const [ref, inView] = useInView({ threshold: 0.1, triggerOnce: true });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const [formData, setFormData] = useState<FormData>({
-    fullName: "",
-    email: "",
-    subject: "",
-    message: "",
-  });
+  const [createContact] = useCreateContactsMutation();
 
   useEffect(() => {
     if (inView) controls.start("visible");
   }, [controls, inView]);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
+  const contactDTO = Yup.object({
+    name: Yup.string().required("Full Name is required"),
+    email: Yup.string().email("Invalid email address").required("Email is required"),
+    phone: Yup.string().required("Phone number is required"),
+    message: Yup.string().required("Message is required"),
+  });
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setIsSubmitting(true);
+  const { control, handleSubmit, formState: { errors } } = useForm({
+    resolver: yupResolver(contactDTO),
+});
 
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-
-    console.log("Form submitted:", formData);
-    
-    setIsSubmitting(false);
-    setIsSubmitted(true);
-
-    // Reset after showing success
-    setTimeout(() => {
-      setIsSubmitted(false);
-      setFormData({ fullName: "", email: "", subject: "", message: "" });
-    }, 3000);
+  const contactForm = async (data: FormData) => {
+    setLoading(true);
+    setIsSubmitted(false);
+    try{
+      const submitData = {
+        ...data,
+      }
+      const response = await createContact(submitData).unwrap();
+      toast.success(response.message || "Message sent successfully!");
+      setIsSubmitted(true);
+    } catch(exception: any){
+      toast.error(exception?.data?.message || "Something went wrong");
+    }   
+    finally{
+      setLoading(false);
+    }
+   
   };
 
   const containerVariants = {
@@ -190,7 +197,7 @@ const ContactForm = () => {
             animate={controls}
           >
             <motion.form
-              onSubmit={handleSubmit}
+              onSubmit={handleSubmit(contactForm)}
               className="relative p-8 rounded-3xl backdrop-blur-xl border overflow-hidden"
               style={{
                 background:
@@ -214,7 +221,7 @@ const ContactForm = () => {
                 {/* Full Name */}
                 <motion.div variants={itemVariants} className="form-group">
                   <label
-                    htmlFor="fullName"
+                    htmlFor="name"
                     className="block text-sm font-medium mb-2"
                     style={{ color: "hsl(var(--foreground))" }}
                   >
@@ -225,21 +232,22 @@ const ContactForm = () => {
                       className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5"
                       style={{ color: "hsl(var(--muted-foreground))" }}
                     />
-                    <input
-                      type="text"
-                      id="fullName"
-                      name="fullName"
-                      value={formData.fullName}
-                      onChange={handleChange}
-                      required
-                      placeholder="John Doe"
-                      className="contact-input w-full pl-12 pr-4 py-4 rounded-xl border outline-none transition-all duration-300"
-                      style={{
-                        background: "hsl(var(--background) / 0.5)",
-                        borderColor: "hsl(var(--border))",
-                        color: "hsl(var(--foreground))",
-                      }}
+                    <TextInputComponent
+                    defaultValue=""
+                    type="text"
+                    control={control}
+                    name="name"
+                    required={true}
+                    errMsg={errors.name?.message as string | null}
+                    placeholder="Enter your full name"
+                    className ="contact-input w-full pl-12 pr-4 py-4 rounded-xl border outline-none transition-all duration-300"
+                    style={{
+                      background: "hsl(var(--background) / 0.5)",
+                      borderColor: "hsl(var(--border))",
+                      color: "hsl(var(--foreground))",
+                    }}
                     />
+                    
                   </div>
                 </motion.div>
 
@@ -257,15 +265,15 @@ const ContactForm = () => {
                       className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5"
                       style={{ color: "hsl(var(--muted-foreground))" }}
                     />
-                    <input
-                      type="email"
-                      id="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleChange}
-                      required
-                      placeholder="john@example.com"
-                      className="contact-input w-full pl-12 pr-4 py-4 rounded-xl border outline-none transition-all duration-300"
+                    <TextInputComponent
+                    defaultValue=""
+                    type="email"
+                    control={control}
+                    name="email"
+                    required={true}
+                    errMsg={errors.email?.message as string | null}
+                    placeholder="Enter your email address"
+                    className="contact-input w-full pl-12 pr-4 py-4 rounded-xl border outline-none transition-all duration-300"
                       style={{
                         background: "hsl(var(--background) / 0.5)",
                         borderColor: "hsl(var(--border))",
@@ -278,26 +286,26 @@ const ContactForm = () => {
                 {/* Subject */}
                 <motion.div variants={itemVariants} className="form-group">
                   <label
-                    htmlFor="subject"
+                    htmlFor="phone"
                     className="block text-sm font-medium mb-2"
                     style={{ color: "hsl(var(--foreground))" }}
                   >
-                    Subject
+                    Phone Number
                   </label>
                   <div className="relative">
                     <FileText
                       className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5"
                       style={{ color: "hsl(var(--muted-foreground))" }}
                     />
-                    <input
-                      type="text"
-                      id="subject"
-                      name="subject"
-                      value={formData.subject}
-                      onChange={handleChange}
-                      required
-                      placeholder="Project Inquiry"
-                      className="contact-input w-full pl-12 pr-4 py-4 rounded-xl border outline-none transition-all duration-300"
+                    <TextInputComponent
+                      defaultValue=""
+                      type="number"
+                      control={control}
+                      name="phone"
+                      placeholder="Enter your phone number"
+                      required={true}
+                      errMsg={errors.phone?.message as string | null}
+                      className ="contact-input w-full pl-12 pr-4 py-4 rounded-xl border outline-none transition-all duration-300"
                       style={{
                         background: "hsl(var(--background) / 0.5)",
                         borderColor: "hsl(var(--border))",
@@ -321,14 +329,14 @@ const ContactForm = () => {
                       className="absolute left-4 top-4 w-5 h-5"
                       style={{ color: "hsl(var(--muted-foreground))" }}
                     />
-                    <textarea
-                      id="message"
-                      name="message"
-                      value={formData.message}
-                      onChange={handleChange}
-                      required
-                      rows={5}
+                    <TextAreaInput
+                      defaultValue=""
                       placeholder="Tell us about your project, goals, and timeline..."
+                      control={control}
+                      name="message"
+                      required={true}
+                      errMsg={errors.message?.message as string | null}
+                      row={5}
                       className="contact-input w-full pl-12 pr-4 py-4 rounded-xl border outline-none transition-all duration-300 resize-none"
                       style={{
                         background: "hsl(var(--background) / 0.5)",
@@ -343,7 +351,7 @@ const ContactForm = () => {
                 <motion.div variants={itemVariants}>
                   <motion.button
                     type="submit"
-                    disabled={isSubmitting || isSubmitted}
+                    disabled={loading || isSubmitted}
                     className="group relative w-full py-4 px-8 rounded-xl font-bold text-base overflow-hidden disabled:cursor-not-allowed"
                     style={{
                       background: isSubmitted
@@ -352,11 +360,11 @@ const ContactForm = () => {
                       color: "white",
                       boxShadow: "0 10px 40px hsl(var(--glow))",
                     }}
-                    whileHover={!isSubmitting && !isSubmitted ? { scale: 1.02 } : {}}
-                    whileTap={!isSubmitting && !isSubmitted ? { scale: 0.98 } : {}}
+                    whileHover={!loading && !isSubmitted ? { scale: 1.02 } : {}}
+                    whileTap={!loading && !isSubmitted ? { scale: 0.98 } : {}}
                   >
                     <span className="relative z-10 flex items-center justify-center gap-2">
-                      {isSubmitting ? (
+                      {loading ? (
                         <>
                           <Loader2 className="w-5 h-5 animate-spin" />
                           Sending...
@@ -375,7 +383,7 @@ const ContactForm = () => {
                     </span>
 
                     {/* Hover overlay */}
-                    {!isSubmitting && !isSubmitted && (
+                    {!loading && !isSubmitted && (
                       <motion.div
                         className="absolute inset-0 bg-gradient-to-r from-[hsl(var(--primary-accent))] to-[hsl(var(--primary))] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                         style={{ zIndex: 0 }}

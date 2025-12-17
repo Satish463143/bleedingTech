@@ -1,7 +1,6 @@
 const projectService = require('./project.service')
 const { deleteFile } = require("../../utils/helper")
 
-
 class ProjectController{
     project;
     createProject = async (req, res,next) => {
@@ -10,9 +9,8 @@ class ProjectController{
 
             const allFiles =[...( req.files || [])]
             for (const file of allFiles){
-                await deleteFile('./public/uploads/service/'+ file.filename)
-            }
-            
+                await deleteFile('./public/uploads/project/'+ file.filename)
+            }            
             const project = await projectService.createProject(data)
             
             res.json({

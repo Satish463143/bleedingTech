@@ -6,8 +6,8 @@ import Footer from "@/components/common/Footer/Footer";
 export default function LayoutWrapper({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   
-  // Check if current route is admin or dashboard (CMS routes)
-  const isAdminRoute = pathname?.startsWith('/admin') || pathname?.startsWith('/dashboard');
+  // Check if current route is admin (CMS routes)
+  const isAdminRoute = pathname?.startsWith('/admin');
 
   return (
     <>

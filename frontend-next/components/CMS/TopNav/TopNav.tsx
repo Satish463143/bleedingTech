@@ -34,14 +34,14 @@ const TopNav = ({ isMenuActive, toggleMenu }: { isMenuActive: boolean, toggleMen
             
             // Reload the page to clear all cached data and reset the app state
             setTimeout(() => {
-                window.location.href = '/login';
+                window.location.href = '/admin';
             }, 1000);
         }
     };
 
   return (
     
-    <div className='top_nav'>
+    <div className='top_nav' style={{background:'#fff'}}>
         <ToastContainer/>
         <div className='welcome_message'>
             <div className={`hamburg_menu ${isMenuActive ? 'menuActive' : ''}`} onClick={toggleMenu}>

@@ -9,7 +9,7 @@ const { MulterError } = require('multer');
 const app = express();
 
 const allowedOrigins = [
-    'http://localhost:5173',
+    'http://localhost:3000',
 ]; 
 
 const corsOptions = {
@@ -24,7 +24,6 @@ const corsOptions = {
     credentials: true, // Allow cookies and credentials
 };
 app.use(cors(corsOptions));
-
 
 app.use(express.json());
 app.use(express.urlencoded({

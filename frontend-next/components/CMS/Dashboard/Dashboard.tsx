@@ -34,7 +34,7 @@ const Dashboard = () => {
 
   return (
     <div className='admin_margin_box'> 
-      <AdminTitle url="/dashboard" label1="Dashboard" label2="Dashboard" /> 
+      <AdminTitle url="/admin/dashboard" label1="Dashboard" label2="" /> 
       
 
       {/* Page Analytics Section */}

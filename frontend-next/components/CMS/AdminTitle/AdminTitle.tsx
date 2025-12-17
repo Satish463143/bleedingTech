@@ -7,7 +7,7 @@ const AdminTitle = ({url,label1,label2}: {url: string, label1: string, label2: s
     <div>
         <div className='back_link'>
             <h4> &gt;&gt; </h4>
-            <Link href='/dashboard'><h4> Dashboard </h4></Link>
+            <Link href='/admin/dashboard'><h4> Dashboard </h4></Link>
             <h4>/</h4>
             <Link href={url}><h4> {label1}</h4></Link>
             <h4>{label2}</h4>

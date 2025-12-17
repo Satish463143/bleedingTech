@@ -10,8 +10,8 @@ const MobileNav = ({ isMenuActive, toggleMenu }: { isMenuActive: boolean, toggle
   const activeLink: string | "" = useMemo(() => {
     if (!pathname) return "";
     if (pathname === "/") return "";
-    if (pathname.startsWith("/dashboard")) return "Dashboard";
-    if (pathname.startsWith("/blogs")) return "Blogs";
+    if (pathname.startsWith("/admin/dashboard")) return "Dashboard";
+    if (pathname.startsWith("/admin/blogs")) return "Blogs";
     if (pathname.startsWith("/case-study-detail") || pathname.startsWith("/case-studies"))
       return "Case Studies";
     if (pathname.startsWith("/services")) return "Services";
@@ -51,7 +51,7 @@ const MobileNav = ({ isMenuActive, toggleMenu }: { isMenuActive: boolean, toggle
           <div className='menu'>
             <nav>
               <ul>
-                <Link href="/dashboard">
+                <Link href="/admin/dashboard">
                   <li onClick={() => { toggleMenu(); setMenu("admin"); }} className={menu === "admin" ? "liActive" : "" }>
                     <span>
                       <svg  version="1.1" viewBox="0 0 24 24" xmlSpace="preserve" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">

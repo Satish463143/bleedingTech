@@ -20,7 +20,7 @@ const CheckPermission = ({ allowedBy, children }: { allowedBy: string, children:
       if (!loggedInUser) {
         toast.error("Please login first");
         setTimeout(() => {
-            router.push("/login");
+            router.push("/admin");
         }, 1500); // Give time for toast to show
         return;
       }

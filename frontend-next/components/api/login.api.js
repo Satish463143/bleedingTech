@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 const baseQueryWithReauth = async (args, api, extraOptions) => {
   const baseQuery = fetchBaseQuery({
-    baseUrl: import.meta.env.NEXT_PUBLIC_API_URL,
+    baseUrl: process.env.NEXT_PUBLIC_API_URL,
     credentials: 'include',
     prepareHeaders: (headers) => {
       const token = localStorage.getItem('_at') || null;
@@ -51,8 +51,16 @@ export const AuthApi = createApi({
                 {"Content-Type":"multipart/form-data"}
             ])          
             }),
-        }),        
-        
+        }), 
+        logout: builder.mutation({
+            query: () => ({
+                url: 'auth/logout',
+                method: 'POST',
+                headers:()=>([
+                    {"Content-Type":"multipart/form-data"}
+                ])
+            })
+        }),
       })
 
 })

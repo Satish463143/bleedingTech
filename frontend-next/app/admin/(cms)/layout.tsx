@@ -2,7 +2,7 @@
 import React from 'react'
 import CMSLayout from '@/pages/AdminPage/CMSLayout'
 
-export default function DashboardLayout({
+export default function CMSLayoutWrapper({
   children,
 }: {
   children: React.ReactNode;

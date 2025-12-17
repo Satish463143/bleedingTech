@@ -1,5 +1,4 @@
 "use client"
-import React from 'react'
 import Login from '@/components/CMS/Login/Login'
 
 const page = () => {

@@ -50,8 +50,22 @@ const blogsSchema = new mongoose.Schema({
         required: true
     },
     author: {
+       name: {
         type: String,
         required: true
+       },
+       bio: {    
+        type: String,
+        required: true
+       },
+       avatar: {
+        type: String,
+        required: true
+       },
+       role: {
+        type: String,
+        required: true
+       }
     },
     content: {
         type: String,

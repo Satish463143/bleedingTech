@@ -37,7 +37,6 @@ class ContactController {
                     limit:limit
                 }
             })
-
         }catch(exception){
             console.log(exception);
             next(exception)

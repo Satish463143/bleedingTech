@@ -1,12 +1,14 @@
 "use client"
 import React,{useState, useEffect} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import Navbar from '../../components/CMS/Navbar/Navbar'
+import Navbar from '../Navbar/Navbar'
 import './CMSLayout.css'
-import TopNav from '../../components/CMS/TopNav/TopNav'
-import MobileNav from '../../components/CMS/MobileNav/MobileNav'
-import CheckPermission from '../../src/config/rbac.config'
-import { getLoggedInUser } from '../../src/reducer/user.reducer'
+import TopNav from '../TopNav/TopNav'
+import MobileNav from '../MobileNav/MobileNav'
+import CheckPermission from '../../../src/config/rbac.config'
+import { getLoggedInUser } from '../../../src/reducer/user.reducer'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 const CMSLayout = ({children}: {children: React.ReactNode}) => {
   const dispatch = useDispatch();
@@ -58,16 +60,19 @@ const CMSLayout = ({children}: {children: React.ReactNode}) => {
   }
 
   return (
-    <div className='body_grid'>
-      <CheckPermission allowedBy="admin">
-        <div><Navbar/></div>         
-        <div className='body_box'> 
-          <TopNav isMenuActive={isMenuActive} toggleMenu={toggleMenu}/>
-          <MobileNav isMenuActive={isMenuActive} toggleMenu={toggleMenu}/>              
-          {children}
-        </div> 
-      </CheckPermission>
-    </div>
+    <>
+      <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
+      <div className='body_grid'>
+        <CheckPermission allowedBy="admin">
+          <div><Navbar/></div>         
+          <div className='body_box'> 
+            <TopNav isMenuActive={isMenuActive} toggleMenu={toggleMenu}/>
+            <MobileNav isMenuActive={isMenuActive} toggleMenu={toggleMenu}/>              
+            {children}
+          </div> 
+        </CheckPermission>
+      </div>
+    </>
   )
 }
 export default CMSLayout

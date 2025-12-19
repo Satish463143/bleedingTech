@@ -17,9 +17,7 @@ const Login = () => {
     const dispatch = useDispatch();
     const [loading, setLoading] = useState(false);
     const router = useRouter();
-    const [loginUser] = useLoginMutation()
-
-  
+    const [loginUser] = useLoginMutation()  
     // Check if user is already logged in from Redux store, not from API call
     const loggedInUser = useSelector((root:any) => root.user.loggedInUser);
   
@@ -29,7 +27,7 @@ const Login = () => {
       if(loggedInUser && token){
         return router.push('/admin/dashboard')
       }
-    },[loggedInUser, router])
+    },[])
   
     const loginDTO = Yup.object({
       email: Yup.string().email().required(),

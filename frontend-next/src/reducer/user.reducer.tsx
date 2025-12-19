@@ -29,7 +29,12 @@ const UserSlicer = createSlice({
             state.loggedInUser = action.payload
         },
         logoutUser: (state) => {
-            state.loggedInUser = null; 
+            state.loggedInUser = null;
+            // Clear tokens from localStorage
+            if (typeof window !== 'undefined') {
+                localStorage.removeItem('_at');
+                localStorage.removeItem('_rt');
+            }
         }
     },
     extraReducers:(builder)=>{

@@ -8,20 +8,22 @@ const { setPath, uplaodFile, persistAllToS3 } = require('../../middleware/aws.mi
 const { FileFilterType } = require('../../config/constant.config')
 
 router.route('/')
-    .post(loginCheck, hasPermission("admin"),bodyvalidator(caseStudiesDTO),setPath("caseStudies"), uplaodFile(FileFilterType.IMAGE).fields([
+    .post(loginCheck, hasPermission("admin"),setPath("caseStudies"), uplaodFile(FileFilterType.IMAGE).fields([
         { name: 'image', maxCount: 1 },
         { name: 'heroImage', maxCount: 1 },
-        { name: 'logo', maxCount: 1}
-    ]),persistAllToS3, caseStudiesController.createCaseStudies)
+        { name: 'logo', maxCount: 1},
+        { name: 'testimonialAvatar', maxCount: 1}
+    ]),persistAllToS3,bodyvalidator(caseStudiesDTO), caseStudiesController.createCaseStudies)
     .get(caseStudiesController.index)
 
 router.route('/:id')
     .get(loginCheck, hasPermission("admin"),caseStudiesController.showById)
-    .put(loginCheck, hasPermission("admin"),bodyvalidator(caseStudiesDTO),setPath("caseStudies"), uplaodFile(FileFilterType.IMAGE).fields([
+    .put(loginCheck, hasPermission("admin"),setPath("caseStudies"), uplaodFile(FileFilterType.IMAGE).fields([
         { name: 'image', maxCount: 1 },
         { name: 'heroImage', maxCount: 1 },
-        { name: 'logo', maxCount: 1}
-    ]),persistAllToS3, caseStudiesController.updateCaseStudies)
+        { name: 'logo', maxCount: 1},
+        { name: 'testimonialAvatar', maxCount: 1}
+    ]),persistAllToS3,bodyvalidator(caseStudiesDTO), caseStudiesController.updateCaseStudies)
     .delete(loginCheck, hasPermission("admin"),caseStudiesController.deleteCaseStudies)
 
 module.exports = router

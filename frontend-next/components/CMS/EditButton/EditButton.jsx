@@ -1,9 +1,9 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+"use client"
+import Link from 'next/link'
 
 const EditButton = ({editUrl}) => {
   return (
-    <Link to={editUrl}>
+    <Link href={editUrl}>
         <button className="edit_btn" style={{ marginBottom: '10px' }}>Edit</button>
     </Link>
   )

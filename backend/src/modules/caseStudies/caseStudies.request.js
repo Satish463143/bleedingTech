@@ -1,5 +1,10 @@
 const Joi = require('joi')
 
+const resultsSchema = Joi.object({
+    metric: Joi.string().required(),
+    label: Joi.string().required()
+})
+
 const caseStudiesDTO = Joi.object({
     projectName: Joi.string().required(),
     companyName: Joi.string().required(),
@@ -13,19 +18,14 @@ const caseStudiesDTO = Joi.object({
     teamSize: Joi.string().required(),
     year: Joi.string().required(),
     overview: Joi.string().required(),
+    results: Joi.array().items(resultsSchema).min(1).required(),
     challenge: Joi.array().items(Joi.string()).required(),
     solution: Joi.array().items(Joi.string()).required(),
-    results: Joi.array().items(Joi.object({
-        metric: Joi.string().required(),
-        label: Joi.string().required()
-    })).required(),
     technologies: Joi.array().items(Joi.string()).required(),
-    testimonial: Joi.object({
-        quote: Joi.string().required(),
-        author: Joi.string().required(),
-        role: Joi.string().required(),
-        avatar: Joi.string().required()
-    }).required()
+    testimonialQuote: Joi.string().required(),
+    testimonialAuthor: Joi.string().required(),
+    testimonialRole: Joi.string().required(),
+    testimonialAvatar: Joi.string().required()
 })
 
 module.exports = caseStudiesDTO

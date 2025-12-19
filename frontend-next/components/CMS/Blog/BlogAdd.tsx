@@ -9,7 +9,7 @@ import { useRouter } from 'next/navigation'
 const BlogAdd = () => {
   const [loading, setLoading] = useState(false)
   const [createBlog] = useCreateBlogMutation()
-const router = useRouter()
+  const router = useRouter()
 
   const submitEvent = async(data: any) => {
     setLoading(true)
@@ -27,20 +27,19 @@ const router = useRouter()
       data.tags.forEach((tag: string) => {
         formData.append('tags', tag)
       })
-      formData.append('isFeatured', data.isFeatured)
+      formData.append('isFeatured', data.isFeatured.value)
       formData.append('readTime', data.readTime)
-      formData.append('author.name', data.author.name)
-      formData.append('author.bio', data.author.bio)
-      formData.append('author.role', data.author.role)
-      formData.append('author.avatar', data.author.avatar)
+      formData.append('authorName', data.authorName)
+      formData.append('authorBio', data.authorBio)
+      formData.append('authorRole', data.authorRole)
+      formData.append('authorAvatar', data.authorAvatar)
 
     await createBlog(formData).unwrap()
       toast.success('Blog created successfully')
       router.push('/admin/blog')
       
     }catch(error){
-      toast.error('Error creating blog')
-
+      toast.error((error as any)?.data?.message || 'Error creating blog')
       console.log(error)
     }finally{
       setLoading(false)

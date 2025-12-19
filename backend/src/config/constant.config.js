@@ -6,6 +6,11 @@ const FileFilterType = {
 
 }
 
+isFeatued={
+    TRUE : 'true',
+    FALSE : 'false',
+}
+
 const ProjectCategory = {
     WEB_DEVELOPMENT : 'Web Development',
     MOBILE_APP_DEVELOPMENT : 'Mobile App Development',
@@ -15,4 +20,4 @@ const ProjectCategory = {
     GRAPHIC_DESIGN : 'Graphic Design',
 }
 
-module.exports = { FileFilterType, ProjectCategory }
+module.exports = { FileFilterType, ProjectCategory, isFeatued }

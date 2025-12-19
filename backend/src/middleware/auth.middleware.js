@@ -23,14 +23,13 @@ const loginCheck = async (req, res, next) => {
             throw{status:403, message: "Main Token is required"} 
         }
 
-        const user = await UserModel.findOne(filter,{
+        const user = await UserModel.findOne({
             _id: data.sub
         });
 
         if (!user) {
             throw { status: 404, message: "User does not exist" };
-        }
-        
+        }        
         req.authUser = {
             _id: user._id,
             name: user.name,

@@ -10,10 +10,14 @@ class BlogsController{
 
             data.slug = slugify(data.title, { lower: true, strict: true })
 
-            const allFiles =[...( req.files || [])]
-            for (const file of allFiles){
-                await deleteFile('./public/uploads/blogs/'+ file.filename)
+            // Convert tags to array if it's a string
+            if (typeof data.tags === 'string') {
+                data.tags = [data.tags]
             }
+            // const allFiles =[...( req.files || [])]
+            // for (const file of allFiles){
+            //     await deleteFile('./public/uploads/blogs/'+ file.filename)
+            // }
 
             const blogs = await blogsService.createBlogs(data)
             res.json({
@@ -55,7 +59,7 @@ class BlogsController{
             if(!id){
                 throw {status:400, message:"Blogs ID is required"}
             }
-            this.blogsDetails = await blogsService.getIdByFilter(id)
+            this.blogsDetails = await blogsService.getIdByFilter({_id: id})
             if(!this.blogsDetails){
                 throw {status:404, message:"Blogs not found"}
             }
@@ -84,11 +88,17 @@ class BlogsController{
             const id = req.params.id
             await this.#validate(id)
             const data = req.body
-            
-            const allFiles =[...( req.files || [])]
-            for (const file of allFiles){
-                await deleteFile('./public/uploads/blogs/'+ file.filename)
+
+            // Convert tags to array if it's a string
+            if (typeof data.tags === 'string') {
+                data.tags = [data.tags]
             }
+
+                        
+            // const allFiles =[...( req.files || [])]
+            // for (const file of allFiles){
+            //     await deleteFile('./public/uploads/blogs/'+ file.filename)
+            // }
             
             const blogs = await blogsService.updateBlogs(id, data)
             res.json({
@@ -120,7 +130,7 @@ class BlogsController{
         try{
             const id = req.params.id
             await this.#validate(id)
-            const blogs = await blogsService.getIdByFilter(id)
+            const blogs = await blogsService.likeBlogs(id)
             res.json({
                 details:blogs,
                 message:"Blogs liked successfully",

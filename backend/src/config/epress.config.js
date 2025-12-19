@@ -9,7 +9,7 @@ const { MulterError } = require('multer');
 const app = express();
 
 const allowedOrigins = [
-    'http://localhost:3000',
+    'http://localhost:3000','https://bleedingtech.com.np','https://www.bleedingtech.com.np'
 ]; 
 
 const corsOptions = {

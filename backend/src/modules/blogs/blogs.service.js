@@ -15,7 +15,7 @@ class BlogsService{
             const query = await blogsModel.find(filter)
             .limit(limit)
             .skip(skip)
-            .sort({ createdAt: -1 })
+            .sort({ _id: -1 })
             .lean()
             const [count, blogs] = await Promise.all([
                 blogsModel.countDocuments(filter),

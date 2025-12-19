@@ -1,6 +1,6 @@
 'use client'
 import { useState } from 'react';
-import { useListAllQuery, useDeleteBlogMutation } from '../../api/blog.api';
+import { useListAllQuery, useDeleteCaseStudiesMutation } from '../../api/caseStudies.api';
 import { toast } from 'react-toastify';
 import AdminTitle from '../AdminTitle/AdminTitle';
 import Link from 'next/link';
@@ -9,13 +9,13 @@ import EditButton from '../EditButton/EditButton';
 import DeleteButton from '../DeleteButton/DeleteButton';
 import { Pagination } from 'flowbite-react';
 
-const BlogList = () => {
+const CaseStudyList = () => {
     const [search, setSearch] = useState(''); // Ensure default value is a string
     const [page, setPage] = useState(1);
     const [limit] = useState(10); 
 
     const {data, error, isLoading} = useListAllQuery({ page, limit, search })
-    const [deleteBlog] = useDeleteBlogMutation()
+    const [deleteCaseStudy] = useDeleteCaseStudiesMutation()
     const blogs = data?.details || []
 
 
@@ -37,29 +37,29 @@ const BlogList = () => {
     
       const deleteData=async(id:string)=>{
         try{
-          await deleteBlog(id).unwrap()
-          toast.success("Blog deleted ucessfully")
+          await deleteCaseStudy(id).unwrap()
+          toast.success("Case Study deleted ucessfully")
           
         }catch(exception){
-          toast.error("Cannot delete blog at this moment")
+          toast.error("Cannot delete case study at this moment")
         }    
       }
   return (
     <div className='admin_margin_box'>
       <div className='admin_titles'>
-        <AdminTitle url='/admin/blog' label1=' Blog List' label2='' />
+        <AdminTitle url='/admin/case-study' label1=' Case Study List' label2='' />
         <div className='Dashboard_title'>
-          <h1>Blog List</h1>
+          <h1>Case Study List</h1>
           <div>
           <input
               type="search"
               className="search_btn"
-              placeholder="Filter by title..."
+              placeholder="Filter by project name..."
               value={search}
               onChange={handleSearchChange}
           />
-          <Link href='/admin/add_blog'>
-            <button className='edit_btn'>Add Blog</button>
+          <Link href='/admin/add_case_study'>
+            <button className='edit_btn'>Add Case Study</button>
           </Link>          
           </div>
         </div>
@@ -69,10 +69,11 @@ const BlogList = () => {
           <thead>
             <tr>
               <th>S.N</th>
-              <th>Image</th>
-              <th>Title</th>
-              <th>Content</th>
-              <th>Is Featured</th>
+              <th>Logo</th>
+              <th>Project Name</th>
+              <th>Company Name</th>
+              <th>Tagline</th>
+              <th>Overview</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -90,20 +91,21 @@ const BlogList = () => {
                 <tr key={index}>
                   <td className="table_sn">{index + 1}</td>
                   <td className="table_img">
-                    <img src={row.heroImage} alt=""/>
+                    <img src={row.logo} alt=""/>
                   </td>
-                  <td>{row.title}</td>
-                  <td>{truncateContent(row.content, 10)}</td>
-                  <td>{row.isFeatured ? 'Yes' : 'No'}</td>
+                  <td>{row.projectName}</td>
+                  <td>{row.companyName}</td>
+                  <td>{row.tagline}</td>
+                  <td>{truncateContent(row.overview, 10)}</td>
                   <td style={{ textAlign: 'center', width: '150px' }}>
-                    <EditButton editUrl={`/admin/edit_blog/${row._id}`}/>
+                    <EditButton editUrl={`/admin/edit_case_study/${row._id}`}/>
                     <DeleteButton deleteAction={deleteData} rowId={row._id}/>                  
                   </td>
                 </tr>
               ))
             ) : (
               <tr>
-                <td colSpan={6}>Blog List is Empty</td>
+                <td colSpan={6}>Case Study List is Empty</td>
               </tr>
             )}
           </tbody>
@@ -124,4 +126,4 @@ const BlogList = () => {
   )
 }
 
-export default BlogList
+export default CaseStudyList

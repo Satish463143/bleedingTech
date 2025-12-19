@@ -11,7 +11,8 @@ const Navbar = () => {
     if (!pathname) return "";
     if (pathname === "/") return "";
     if (pathname.startsWith("/admin/dashboard")) return "Dashboard";
-    if (pathname.startsWith("/admin/blogs")) return "Blogs";
+    if (pathname.startsWith("/admin/blog/")) return "Blogs";
+    if (pathname.startsWith("/admin/edit_blog/[id]")) return "Edit Blog";
     if (pathname.startsWith("/case-study-detail") || pathname.startsWith("/case-studies"))
       return "Case Studies";
     if (pathname.startsWith("/services")) return "Services";
@@ -61,7 +62,7 @@ const Navbar = () => {
                   <p>Dashboard</p>
                   </li>
               </Link>
-              <Link href='/blogs'>
+              <Link href='/admin/blog'>
                 <li onClick={() => setMenu("banners")} className={menu === "banners" ? "liActive" : ""}>
                   <span>
                     <svg height="25" viewBox="0 0 48 48" width="25" xmlns="http://www.w3.org/2000/svg">

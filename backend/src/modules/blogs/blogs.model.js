@@ -1,8 +1,10 @@
 const mongoose = require('mongoose')
+const { isFeatued } = require('../../config/constant.config')
 
 const blogsSchema = new mongoose.Schema({
     title: {
         type: String,
+        unique: true,
         required: true
     },
     subtitle: {
@@ -46,31 +48,32 @@ const blogsSchema = new mongoose.Schema({
         default: 0
     },
     isFeatured: {
-        type: Boolean,
+        type: String,
+        enum: [...Object.values(isFeatued)],
+        required: true        
+    },
+    authorName: {
+        type: String,
         required: true
     },
-    author: {
-       name: {
+    authorBio: {    
         type: String,
         required: true
-       },
-       bio: {    
+    },
+    authorAvatar: {
+        type: String,
+        default: null
+    },
+    authorRole: {
         type: String,
         required: true
-       },
-       avatar: {
-        type: String,
-        required: true
-       },
-       role: {
-        type: String,
-        required: true
-       }
     },
     content: {
         type: String,
         required: true
     }
 })
+
 const BlogsModel = mongoose.model('Blogs', blogsSchema)
 module.exports = BlogsModel
+

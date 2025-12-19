@@ -197,7 +197,7 @@ const ContactForm = () => {
             animate={controls}
           >
             <motion.form
-              onSubmit={handleSubmit(contactForm)}
+              onSubmit={handleSubmit(contactForm as any)}
               className="relative p-8 rounded-3xl backdrop-blur-xl border overflow-hidden"
               style={{
                 background:

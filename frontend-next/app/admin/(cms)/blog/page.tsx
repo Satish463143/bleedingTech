@@ -1,8 +1,8 @@
 "use client"
-import Dashboard from '@/components/CMS/Dashboard/Dashboard'
+import Blog from '@/components/CMS/Blog/BlogList'
 
 const page = () => {
-  return <Dashboard/>
+  return <Blog/>
 }
 
 export default page

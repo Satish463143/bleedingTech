@@ -7,6 +7,10 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
+// Changed to force-static for static export compatibility
+// Note: Admin functionality will be limited in static export
+export const dynamic = 'force-static'
+
 export default function AdminLayout({
   children,
 }: {

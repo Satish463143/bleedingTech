@@ -5,10 +5,12 @@ export const BlogApi = createApi({
     baseQuery: fetchBaseQuery({
         baseUrl:process.env.NEXT_PUBLIC_API_URL,
         prepareHeaders:(headers)=>{
-            const token = localStorage.getItem('_at') || null
-            if(token){
-                headers.set("Authorization", "Bearer "+token)
-            }
+            if (typeof window !== "undefined") {
+                const token = localStorage.getItem("_at");
+                if (token) {
+                  headers.set("Authorization", `Bearer ${token}`);
+                }
+              }
             return headers;
         }
     }),
@@ -22,7 +24,7 @@ export const BlogApi = createApi({
     endpoints: (builder) => ({
         listAll: builder.query({
             query: ({ page = 1, limit = 10, search = '' }) => 
-              `/blog?page=${page}&limit=${limit}&search=${search}`,
+              `/blogs?page=${page}&limit=${limit}&search=${search}`,
             providesTags: (result, error, { page, search }) => [
                 { type: 'BlogList', id: `${page}-${search}` },
                 'Blog'
@@ -40,12 +42,10 @@ export const BlogApi = createApi({
         }),
         createBlog:builder.mutation({
             query:(formData)=> ({
-                url: "/blog",
+                url: "/blogs",
                 body:formData,
                 method:"POST",
-                headers:()=>([
-                    {"Content-Type":"multipart/form-data"}
-                ])
+                // Don't set Content-Type for FormData - browser handles it automatically
             }),
             invalidatesTags: ['Blog', 'BlogList'],
             // Optimistic update for better UX
@@ -58,7 +58,7 @@ export const BlogApi = createApi({
             },
         }),
         showById:builder.query({
-            query:(id)=>`/blog/${id}`,
+            query:(id)=>`/blogs/${id}`,
             providesTags: (result, error, id) => [
                 { type: 'Blog', id }
             ],
@@ -72,12 +72,10 @@ export const BlogApi = createApi({
         }),
         updateBlog:builder.mutation({
             query:({id,payload})=> ({
-                url: `/blog/${id}`,
+                url: `/blogs/${id}`,
                 body:payload,
                 method:"PUT",
-                headers:()=>([
-                    {"Content-Type":"multipart/form-data"}
-                ])
+                // Don't set Content-Type for FormData - browser handles it automatically
             }),
             invalidatesTags: (result, error, { id }) => [
                 { type: 'Blog', id },
@@ -97,7 +95,7 @@ export const BlogApi = createApi({
         }),
         deleteBlog:builder.mutation({
             query:(id)=>({
-                url:`/blog/${id}`,
+                url:`/blogs/${id}`,
                 method:"DELETE"
             }),
             invalidatesTags: (result, error, id) => [
@@ -118,13 +116,13 @@ export const BlogApi = createApi({
         }),
         // Add prefetch methods for better performance
         prefetchHome: builder.query({
-            query: () => "/blog",
+            query: () => "/blogs",
             keepUnusedDataFor: 1800,
             providesTags: [{ type: 'Blog', id: 'HOME_PREFETCH' }],
         }),
         
         prefetchBlog: builder.query({
-            query: (id) => `/blog/${id}`,
+            query: (id) => `/blogs/${id}`,
             keepUnusedDataFor: 900,
             providesTags: (result, error, id) => [
                 { type: 'Blog', id: `${id}_PREFETCH` }

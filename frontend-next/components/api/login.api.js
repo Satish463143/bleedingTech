@@ -5,9 +5,11 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
     baseUrl: process.env.NEXT_PUBLIC_API_URL,
     credentials: 'include',
     prepareHeaders: (headers) => {
-      const token = localStorage.getItem('_at') || null;
-      if (token) {
-        headers.set("Authorization", "Bearer " + token);
+      if (typeof window !== "undefined") {
+        const token = localStorage.getItem("_at");
+        if (token) {
+          headers.set("Authorization", `Bearer ${token}`);
+        }
       }
       return headers;
     },

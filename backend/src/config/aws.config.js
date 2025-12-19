@@ -4,7 +4,7 @@ const s3 = new S3Client({
   region: process.env.AWS_REGION,
   // If you run locally without an IAM role, ensure env creds are present:
   credentials: {
-    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    accessKeyId: process.env.AWS_ACCESS_KEY,
     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
   },
 });

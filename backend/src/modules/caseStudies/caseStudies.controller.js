@@ -10,9 +10,15 @@ class CaseStudiesController{
 
             data.slug = slugify(data.projectName, { lower: true, strict: true })
 
-            const allFiles =[...( req.files || [])]
-            for (const file of allFiles){
-                await deleteFile('./public/uploads/caseStudies/'+ file.filename)
+             // Convert tags to array if it's a string
+             if (typeof data.challenge === 'string') {
+                data.challenge = [data.challenge]
+            }
+            if (typeof data.solution === 'string') {
+                data.solution = [data.solution]
+            }
+            if (typeof data.technologies === 'string') {
+                data.technologies = [data.technologies]
             }
 
             const caseStudies = await caseStudiesService.createCaseStudies(data)
@@ -85,11 +91,16 @@ class CaseStudiesController{
             await this.#validate(id)
             const data = req.body
             
-            const allFiles =[...( req.files || [])]
-            for (const file of allFiles){
-                await deleteFile('./public/uploads/caseStudies/'+ file.filename)
+            // Convert tags to array if it's a string
+            if (typeof data.challenge === 'string') {
+                data.challenge = [data.challenge]
             }
-            
+            if (typeof data.solution === 'string') {
+                data.solution = [data.solution]
+            }
+            if (typeof data.technologies === 'string') {
+                data.technologies = [data.technologies]
+            }
             const caseStudies = await caseStudiesService.updateCaseStudies(id, data)
             res.json({
                 details:caseStudies,

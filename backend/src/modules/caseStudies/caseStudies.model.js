@@ -2,7 +2,8 @@ const mongoose = require('mongoose')
 const caseStudiesSchema = new mongoose.Schema({
     projectName: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     companyName: {
         type: String,
@@ -56,40 +57,28 @@ const caseStudiesSchema = new mongoose.Schema({
         type: [String],
         required: true
     },
-    results: {
-        type: [{
-            metric: {
-                type: String,
-                required: true
-            },
-            label: {
-                type: String,
-                required: true
-            }
-        }]
-    },
+    results: [{ metric: { type: String, required: true }, label: { type: String, required: true } }],
     technologies: {
         type: [String],
         required: true
     },
-    testimonial: {
-        quote: {
-            type: String,
-            required: true
-        },
-        author: {
-            type: String,
-            required: true
-        },
-        role: {
-            type: String,
-            required: true
-        },
-        avatar: {
-            type: String,
-            required: true
-        }
-    }
+    testimonialQuote: 
+    {
+        type: String,
+        required: true
+    },
+    testimonialAuthor: {
+        type: String,
+        required: true
+    },
+    testimonialRole: {
+        type: String,
+        required: true
+    },
+    testimonialAvatar: {
+        type: String,
+        required: true
+    }    
 },{
     timestamps: true,
     autoIndex: true,

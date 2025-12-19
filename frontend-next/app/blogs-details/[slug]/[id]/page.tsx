@@ -1,5 +1,15 @@
+export const dynamic = "force-static";
 import BlogsDetails from "@/pages/BlogsDetails/BlogsDetails";
 import type { Metadata } from "next";
+import { blogs } from "../../../../src/data/data";
+
+// Generate static params for all blogs at build time
+export async function generateStaticParams() {
+  return blogs.map((blog) => ({
+    slug: blog.slug,
+    id: String(blog.id),
+  }));
+}
 
 export async function generateMetadata({
   params,

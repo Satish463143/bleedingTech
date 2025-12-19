@@ -1,7 +1,7 @@
-import React from 'react'
+"use client"
 import { toast } from 'react-toastify'
 import Swal from 'sweetalert2'
-import { Link } from 'react-router-dom'
+import Link from 'next/link'
 
 const DeleteButton = ({deleteAction,rowId}) => {
     const handleDelete = async(e)=>{
@@ -26,9 +26,9 @@ const DeleteButton = ({deleteAction,rowId}) => {
         }
     }
   return (
-    <Link onClick={handleDelete}>
-        <button className="edit_btn" style={{ background: '#d13232' }}>Delete</button>
-      </Link>
+    <Link href="#" onClick={handleDelete}>
+      <button className="edit_btn" style={{ background: '#d13232' }}>Delete</button>
+    </Link>
   )
 }
 

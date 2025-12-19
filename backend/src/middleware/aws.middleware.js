@@ -22,11 +22,6 @@ const fileFilterByType = (allowed) => (req, file, cb) => {
   else cb(new Error('File format not supported'));
 };
 
-// ─── Memory storage (multer) ─────────────────────────────────────────────
-const memoryUpload = multer({
-  storage: multer.memoryStorage(),
-  limits: { fileSize: 200_000 }, // 3MB
-});
 
 // ─── Persist uploaded files from memory to S3 ────────────────────────────
 // This middleware uploads all files in req.file / req.files to S3 and
@@ -65,6 +60,10 @@ async function persistAllToS3(req, res, next) {
         file.key = key;
         file.bucket = bucket;
         file.location = url;
+
+        // 🔥 CRITICAL: map file URLs to req.body
+        if (!req.body) req.body = {};
+        req.body[file.fieldname] = url;
       }
     }
     next();
@@ -92,7 +91,7 @@ const uplaodFile = (fileType = FileFilterType.IMAGE) => {
   // Here we return a chainable middleware: first multer, then persist to S3
   const upload = multer({
     storage: multer.memoryStorage(),
-    limits: { fileSize: 300_000_000 }, // 300MB for videos
+    limits: { fileSize: 300_000_000 }, 
     fileFilter: filter,
   });
 
@@ -104,10 +103,9 @@ const uplaodFile = (fileType = FileFilterType.IMAGE) => {
 };
 
 
-
 // Keep your setPath helper exactly as-is
 const setPath = (folder) => (req, _res, next) => {
-  req.uploadPath = folder;
+  req.uploadPath = folder; 
   next();
 };
 

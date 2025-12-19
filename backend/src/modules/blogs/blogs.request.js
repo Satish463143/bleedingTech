@@ -1,4 +1,5 @@
 const joi = require('joi')
+const { isFeatued } = require('../../config/constant.config')
 
 const blogsDTO = joi.object({
     title: joi.string().required(),
@@ -7,11 +8,17 @@ const blogsDTO = joi.object({
     thumbnail: joi.string().required(),
     heroImage: joi.string().required(),
     category: joi.string().required(),
-    tags: joi.array().items(joi.string()).required(),
+    tags: joi.alternatives().try(
+        joi.array().items(joi.string()),
+        joi.string()
+    ).required(),
     date: joi.date().required(),
     readTime: joi.string().required(),
-    isFeatured: joi.boolean().required(),
-    author: joi.string().required(),
+    isFeatured: joi.string().valid(...Object.values(isFeatued)).required(),    
+    authorName: joi.string().required(),
+    authorBio: joi.string().required(),
+    authorRole: joi.string().required(),
+    authorAvatar: joi.string().optional().allow(null),
     content: joi.string().required(),
 })
 

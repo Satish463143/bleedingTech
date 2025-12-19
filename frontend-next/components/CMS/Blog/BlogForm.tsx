@@ -6,27 +6,28 @@ import {TextInputComponent,DescriptionInput,OptionsComponent} from '../../common
 import { useFieldArray } from 'react-hook-form'
 
 
-const BlogForm = ({submitEvent,loading,value,detail=null}:{submitEvent: (data: any) => void,loading: boolean,value: any,detail: any}) => {
+const BlogForm = ({submitEvent,loading,value,detail}:{submitEvent: (data: any) => void,loading: boolean,value: any,detail: any}) => {
 
-    const authorDTO = Yup.object({
-        name: Yup.string().required('Name is required'),
-        avatar: Yup.string().required('Avatar is required'),
-        role: Yup.string().required('Role is required'),
-        bio: Yup.string().required('Bio is required'),
-    })
+    
     const blogDTO = Yup.object().shape({
         title: Yup.string().required('Title is required'),
         subtitle: Yup.string().required('Subtitle is required'),
-        thumbnail: Yup.string().required('Thumbnail is required'),
-        heroImage: Yup.string().required('Hero Image is required'),
+        thumbnail: Yup.mixed().required('Thumbnail is required'),
+        heroImage: Yup.mixed().required('Hero Image is required'),
         excerpt: Yup.string().required('Excerpt is required'),
         category: Yup.string().required('Category is required'),
         content: Yup.string().required('Content is required'),
         date: Yup.date().required('Date is required'),
-        author: authorDTO,
+        authorName: Yup.string().required('Author Name is required'),
+        authorBio: Yup.string().required('Author Bio is required'),
+        authorRole: Yup.string().required('Author Role is required'),
+        authorAvatar: Yup.mixed().optional().nullable(),
         readTime: Yup.string().required('Read Time is required'),
         tags: Yup.array().of(Yup.string()).required('Tags are required'),
-        isFeatured: Yup.boolean().required('Is Featured is required'),
+        isFeatured: Yup.object({
+            value: Yup.string().matches(/^(true|false)$/, 'Is Featured must be either true or false'),
+            label: Yup.string().matches(/^(True|False)$/, 'Is Featured must be either true or false'),
+        }).required('Is Featured is required'),
     })
     const { control, handleSubmit, setValue,  formState: { errors } } = useForm({
         resolver: yupResolver(blogDTO),
@@ -51,7 +52,10 @@ const BlogForm = ({submitEvent,loading,value,detail=null}:{submitEvent: (data: a
             setValue('heroImage', detail.heroImage)
             setValue('readTime', detail.readTime)
             setValue('date', detail.date)
-            setValue('author', detail.author)
+            setValue('authorName', detail.authorName)
+            setValue('authorBio', detail.authorBio)
+            setValue('authorRole', detail.authorRole)
+            setValue('authorAvatar', detail.authorAvatar)
             setValue('tags', detail.tags)
         }
     }, [detail])
@@ -176,21 +180,11 @@ const BlogForm = ({submitEvent,loading,value,detail=null}:{submitEvent: (data: a
                 />
             </div>
             <div>                
-                <label htmlFor="image"> Image</label><br />
-                <input
-                    type='file'
-                    onChange={(e) => {
-                        const image = e.target?.files?.[0]
-                        setValue('image' as any, image)
-                    }}
-                /><br />
-            </div>
-            <div>                
                 <label htmlFor="thumbnail"> Thumbnail Image</label><br />
                 <input
                     type='file'
                     onChange={(e) => {
-                        const image = e.target?.files?.[0]
+                        const image = (e.target as HTMLInputElement).files?.[0] as File
                         setValue('thumbnail' as any, image)
                     }}
                 /><br />
@@ -200,7 +194,7 @@ const BlogForm = ({submitEvent,loading,value,detail=null}:{submitEvent: (data: a
                 <input
                     type='file'
                     onChange={(e) => {
-                        const image = e.target?.files?.[0]
+                        const image = (e.target as HTMLInputElement).files?.[0] as File
                         setValue('heroImage' as any, image)
                     }}
                 /><br />
@@ -222,42 +216,42 @@ const BlogForm = ({submitEvent,loading,value,detail=null}:{submitEvent: (data: a
             <div>
                 <label htmlFor="name">Author Name</label><br />
                 <TextInputComponent
-                    name={`author.name`}
+                    name={`authorName`}
                     placeholder='Enter Author Name'
                     className=''
                     style={{}}
                     control={control}
                     type='text'
                     defaultValue=''
-                    errMsg={errors?.author?.name?.message as string}
+                    errMsg={errors?.authorName?.message as string}
                     required={true}
                 />
             </div>
             <div>
                 <label htmlFor="name">Author Bio</label><br />
                 <TextInputComponent
-                    name={`author.bio`}
+                    name={`authorBio`}
                     placeholder='Enter Author Bio'
                     className=''
                     style={{}}
                     control={control}
                     type='text'
                     defaultValue=''
-                    errMsg={errors?.author?.bio?.message as string}
+                    errMsg={errors?.authorBio?.message as string}
                     required={true}
                 />
             </div>
             <div>
                 <label htmlFor="name">Author Role</label><br />
                 <TextInputComponent
-                    name={`author.role`}
+                    name={`authorRole`}
                     placeholder='Enter Author Role'
                     className=''
                     style={{}}
                     control={control}
                     type='text'
                     defaultValue=''
-                    errMsg={errors?.author?.role?.message as string}
+                    errMsg={errors?.authorRole?.message as string}
                     required={true}
                 />
             </div>
@@ -266,8 +260,8 @@ const BlogForm = ({submitEvent,loading,value,detail=null}:{submitEvent: (data: a
                 <input
                     type='file'
                     onChange={(e) => {
-                        const image = e.target?.files?.[0]
-                        setValue('author.avatar' as any, image)
+                        const image = (e.target as HTMLInputElement).files?.[0] as File
+                        setValue('authorAvatar' as any, image)
                     }}
                 /><br />
             </div>

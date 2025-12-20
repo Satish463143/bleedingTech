@@ -9,12 +9,7 @@ class TeamController{
 
             const team = await teamService.createTeam(data)
 
-            const allFiles =[...( req.files || [])]
-
-            for (const file of allFiles){
-                await deleteFile('./public/uploads/team/'+ file.filename)
-            }
-
+            
             res.json({
                 details:team,
                 message:"Team created successfully",
@@ -35,7 +30,7 @@ class TeamController{
             if(req.query.search){
                 filter.name = { $regex: req.query.search, $options: 'i' }
             }
-            const {count, teams} = await teamService.index({filter, limit, skip})
+            const {count, teams} = await teamService.listAll({filter, limit, skip})
             
             res.json({
                 details:teams,
@@ -89,11 +84,7 @@ class TeamController{
             await this.#validate(id)
             const data = req.body
 
-            const allFiles =[...( req.files || [])]
-            for (const file of allFiles){
-                await deleteFile('./public/uploads/team/'+ file.filename)
-            }
-
+            
             const team = await teamService.updateTeam(id, data)
             res.json({
                 details:team,

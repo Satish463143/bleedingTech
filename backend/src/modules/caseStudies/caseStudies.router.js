@@ -17,7 +17,7 @@ router.route('/')
     .get(caseStudiesController.index)
 
 router.route('/:id')
-    .get(loginCheck, hasPermission("admin"),caseStudiesController.showById)
+    .get(caseStudiesController.showById)
     .put(loginCheck, hasPermission("admin"),setPath("caseStudies"), uplaodFile(FileFilterType.IMAGE).fields([
         { name: 'image', maxCount: 1 },
         { name: 'heroImage', maxCount: 1 },

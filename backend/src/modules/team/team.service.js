@@ -10,16 +10,16 @@ class TeamService{
             throw exception
         }
     }
-    index = async ({filter= {}, limit= 10, skip= 0}) => {
+    listAll = async ({filter= {}, limit= 10, skip= 0}) => {
         try{
             const query  = await teamModel.find(filter)
                 .limit(limit)
                 .skip(skip)
                 .sort({ createdAt: -1 })
                 .lean()
-            const [count, teams] = await Promice.all([
+            const [count, teams] = await Promise.all([
                 teamModel.countDocuments(filter),
-                query.exec()
+                query
             ])
             return {count, teams}
         }catch(exception){
@@ -58,4 +58,4 @@ class TeamService{
 
 
 }
-module.exports = TeamService
+module.exports =  new TeamService()

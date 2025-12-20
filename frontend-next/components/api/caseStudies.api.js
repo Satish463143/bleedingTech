@@ -24,7 +24,7 @@ export const CaseStudiesApi = createApi({
     endpoints: (builder) => ({
         listAll: builder.query({
             query: ({ page = 1, limit = 10, search = '' }) => 
-              `/case-studies?page=${page}&limit=${limit}&search=${search}`,
+              `/caseStudies?page=${page}&limit=${limit}&search=${search}`,
             providesTags: (result, error, { page, search }) => [
                 { type: 'CaseStudiesList', id: `${page}-${search}` },
                 'CaseStudies'
@@ -42,7 +42,7 @@ export const CaseStudiesApi = createApi({
         }),
         createCaseStudies:builder.mutation({
             query:(formData)=> ({
-                url: "/case-studies",
+                url: "/caseStudies",
                 body:formData,
                 method:"POST",
                 headers:()=>([
@@ -60,7 +60,7 @@ export const CaseStudiesApi = createApi({
             },
         }),
         showById:builder.query({
-            query:(id)=>`/case-studies/${id}`,
+            query:(id)=>`/caseStudies/${id}`,
             providesTags: (result, error, id) => [
                 { type: 'CaseStudies', id }
             ],
@@ -74,7 +74,7 @@ export const CaseStudiesApi = createApi({
         }),
         updateCaseStudies:builder.mutation({
             query:({id,payload})=> ({
-                url: `/case-studies/${id}`,
+                url: `/caseStudies/${id}`,
                 body:payload,
                 method:"PUT",
                 headers:()=>([
@@ -99,7 +99,7 @@ export const CaseStudiesApi = createApi({
         }),
         deleteCaseStudies:builder.mutation({
             query:(id)=>({
-                url:`/case-studies/${id}`,
+                url:`/caseStudies/${id}`,
                 method:"DELETE"
             }),
             invalidatesTags: (result, error, id) => [
@@ -120,13 +120,13 @@ export const CaseStudiesApi = createApi({
         }),
         // Add prefetch methods for better performance
         prefetchHome: builder.query({
-            query: () => "/case-studies",
+            query: () => "/caseStudies",
             keepUnusedDataFor: 1800,
             providesTags: [{ type: 'CaseStudies', id: 'HOME_PREFETCH' }],
         }),
 
         prefetchCaseStudies: builder.query({
-            query: (id) => `/case-studies/${id}`,
+            query: (id) => `/caseStudies/${id}`,
             keepUnusedDataFor: 900,
             providesTags: (result, error, id) => [
                 { type: 'CaseStudies', id: `${id}_PREFETCH` }

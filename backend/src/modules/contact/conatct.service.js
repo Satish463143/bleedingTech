@@ -14,7 +14,6 @@ class ContactService{
     getAllInquiries = async ({filter={}, limit=10, skip=0, })=>{
         try{
             const query = contactModel.find(filter)
-                .populate("createdBy", ["_id", "email", "name"])
                 .sort({_id:-1})
                 .skip(skip)
                 .limit(limit)

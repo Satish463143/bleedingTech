@@ -1,10 +1,11 @@
 const mongoose = require('mongoose')
-const { ProjectCategory } = require('../../config/constant.config')
+const { ProjectCategory, isFeatued } = require('../../config/constant.config')
 
 const projectSchema = new mongoose.Schema({
     title: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     subtitle: {
         type: String,
@@ -36,8 +37,9 @@ const projectSchema = new mongoose.Schema({
         enum: [...Object.values(ProjectCategory)]
     },
     isFeatured: {
-        type: Boolean,
-        default: false
+        type: String,
+        enum: [...Object.values(isFeatued)],
+        required: true        
     },
     liveLink: {
         type: String,

@@ -1,21 +1,21 @@
 'use client'
-import React,{useState, useMemo} from 'react'
+import { useMemo} from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
 const Navbar = () => {
-  const [menu, setMenu] = useState("Home");
   const pathname = usePathname();
 
   const activeLink: string | "" = useMemo(() => {
     if (!pathname) return "";
     if (pathname === "/") return "";
     if (pathname.startsWith("/admin/dashboard")) return "Dashboard";
-    if (pathname.startsWith("/admin/blog/")) return "Blogs";
-    if (pathname.startsWith("/admin/edit_blog/[id]")) return "Edit Blog";
-    if (pathname.startsWith("/case-study-detail") || pathname.startsWith("/case-studies"))
-      return "Case Studies";
-    if (pathname.startsWith("/services")) return "Services";
+    if (pathname.startsWith("/admin/blog") || pathname.startsWith("/admin/edit_blog") || pathname.startsWith("/admin/add_blog")) return "Blogs";
+    if (pathname.startsWith("/admin/case-study") || pathname.startsWith("/admin/edit_case_study") || pathname.startsWith("/admin/add_case_study")) return "Case Studies";
+    if (pathname.startsWith("/admin/project") || pathname.startsWith("/admin/edit_project") || pathname.startsWith("/admin/add_project")) return "Projects";
+    if (pathname.startsWith("/admin/service") || pathname.startsWith("/admin/edit_service") || pathname.startsWith("/admin/add_service")) return "Services";
+    if (pathname.startsWith("/admin/team") || pathname.startsWith("/admin/edit_team") || pathname.startsWith("/admin/add_team")) return "Team";
+    if (pathname.startsWith("/admin/contact")) return "Contact";
     if (pathname.startsWith("/packages")) return "Package";
     if (pathname.startsWith("/portfolio")) return "Portfolio";
     return "";
@@ -48,7 +48,7 @@ const Navbar = () => {
           <nav>
             <ul>
               <Link href="/admin/dashboard">
-                <li onClick={() => setMenu("admin")} className={menu === "admin" ? "liActive" : ""}>
+                <li className={activeLink === "Dashboard" ? "liActive" : ""}>
                   <span>
                     <svg  version="1.1" viewBox="0 0 24 24" xmlSpace="preserve" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
                       <g id="info"/><g id="icons"><g id="dashboard">
@@ -63,7 +63,7 @@ const Navbar = () => {
                   </li>
               </Link>
               <Link href='/admin/blog'>
-                <li onClick={() => setMenu("banners")} className={menu === "banners" ? "liActive" : ""}>
+                <li className={activeLink === "Blogs" ? "liActive" : ""}>
                   <span>
                     <svg height="25" viewBox="0 0 48 48" width="25" xmlns="http://www.w3.org/2000/svg">
                       <path d="M38 14h-16v12h16v-12zm4-8h-36c-2.21 0-4 1.79-4 4v28c0 2.21 1.79 3.96 4 3.96h36c2.21 0 4-1.76 4-3.96v-28c0-2.21-1.79-4-4-4zm0 32.03h-36v-28.06h36v28.06z"/>
@@ -71,6 +71,61 @@ const Navbar = () => {
                     </svg>
                   </span>
                   <p>Blogs</p>
+                </li>
+              </Link>              
+              <Link href='/admin/case-study'>
+                <li className={activeLink === "Case Studies" ? "liActive" : ""}>
+                  <span>
+                    <svg height="25" viewBox="0 0 48 48" width="25" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M38 14h-16v12h16v-12zm4-8h-36c-2.21 0-4 1.79-4 4v28c0 2.21 1.79 3.96 4 3.96h36c2.21 0 4-1.76 4-3.96v-28c0-2.21-1.79-4-4-4zm0 32.03h-36v-28.06h36v28.06z"/>
+                      <path d="M0 0h48v48h-48z" fill="none"/>
+                    </svg>
+                  </span>
+                  <p>Case Studies</p>
+                </li>
+              </Link>              
+              <Link href='/admin/project'>
+                <li className={activeLink === "Projects" ? "liActive" : ""}>
+                  <span>
+                    <svg height="25" viewBox="0 0 48 48" width="25" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M38 14h-16v12h16v-12zm4-8h-36c-2.21 0-4 1.79-4 4v28c0 2.21 1.79 3.96 4 3.96h36c2.21 0 4-1.76 4-3.96v-28c0-2.21-1.79-4-4-4zm0 32.03h-36v-28.06h36v28.06z"/>
+                      <path d="M0 0h48v48h-48z" fill="none"/>
+                    </svg>
+                  </span>
+                  <p>Projects</p>
+                </li>
+              </Link>              
+              <Link href='/admin/service'>
+                <li className={activeLink === "Services" ? "liActive" : ""}>
+                  <span>
+                    <svg height="25" viewBox="0 0 48 48" width="25" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M38 14h-16v12h16v-12zm4-8h-36c-2.21 0-4 1.79-4 4v28c0 2.21 1.79 3.96 4 3.96h36c2.21 0 4-1.76 4-3.96v-28c0-2.21-1.79-4-4-4zm0 32.03h-36v-28.06h36v28.06z"/>
+                      <path d="M0 0h48v48h-48z" fill="none"/>
+                    </svg>
+                  </span>
+                  <p>Services</p>
+                </li>
+              </Link>              
+              <Link href='/admin/team'>
+                <li className={activeLink === "Team" ? "liActive" : ""}>
+                  <span>
+                    <svg height="25" viewBox="0 0 48 48" width="25" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M38 14h-16v12h16v-12zm4-8h-36c-2.21 0-4 1.79-4 4v28c0 2.21 1.79 3.96 4 3.96h36c2.21 0 4-1.76 4-3.96v-28c0-2.21-1.79-4-4-4zm0 32.03h-36v-28.06h36v28.06z"/>
+                      <path d="M0 0h48v48h-48z" fill="none"/>
+                    </svg>
+                  </span>
+                  <p>Team</p>
+                </li>
+              </Link>              
+              <Link href='/admin/contact'>
+                <li className={activeLink === "Contact" ? "liActive" : ""}>
+                  <span>
+                    <svg height="25" viewBox="0 0 48 48" width="25" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M38 14h-16v12h16v-12zm4-8h-36c-2.21 0-4 1.79-4 4v28c0 2.21 1.79 3.96 4 3.96h36c2.21 0 4-1.76 4-3.96v-28c0-2.21-1.79-4-4-4zm0 32.03h-36v-28.06h36v28.06z"/>
+                      <path d="M0 0h48v48h-48z" fill="none"/>
+                    </svg>
+                  </span>
+                  <p>Contact</p>
                 </li>
               </Link>              
                           

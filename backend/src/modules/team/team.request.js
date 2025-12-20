@@ -5,12 +5,10 @@ const teamDTO = Joi.object({
     position: Joi.string().min(3).max(50).required(),
     tagline: Joi.string().min(3).max(250).required(),
     image: Joi.string().required(),
-    social: Joi.array().items(Joi.object({
-        github: Joi.string().required(),
-        linkedin: Joi.string().required(),
-        instagram: Joi.string().required(),
-        email: Joi.string().required(),
-    })).required(),
-})
+    github: Joi.string().allow('').optional(),
+    linkedin: Joi.string().allow('').optional(),
+    instagram: Joi.string().allow('').optional(),
+    email: Joi.string().allow('', null).optional(),
+}).unknown(false)
 
 module.exports = teamDTO

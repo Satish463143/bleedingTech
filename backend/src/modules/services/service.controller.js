@@ -1,18 +1,15 @@
 const serviceService = require('./service.service')
-const { deleteFile } = require("../../utils/helper")
 class ServiceController{
     service;
     createService = async (req, res,next) => {
         try{
             const data = req.body
 
-            const service = await serviceService.createService(data)
-
-            const allFiles =[...( req.files || [])]
-
-            for (const file of allFiles){
-                await deleteFile('./public/uploads/service/'+ file.filename)
+            // Convert tags to array if it's a string
+            if (typeof data.features === 'string') {
+                data.features = [data.features]
             }
+            const service = await serviceService.createService(data)           
 
             res.json({
                 details:service,
@@ -80,10 +77,12 @@ class ServiceController{
             const id = req.params.id
             await this.#validate(id)
             const data = req.body
-            const allFiles =[...( req.files || [])]
-            for (const file of allFiles){
-                await deleteFile('./public/uploads/service/'+ file.filename)
+
+            // Convert tags to array if it's a string
+            if (typeof data.features === 'string') {
+                data.features = [data.features]
             }
+
             const service = await serviceService.updateService(id, data)
             res.json({
                 details:service,

@@ -24,7 +24,7 @@ export const ProjectApi = createApi({
     endpoints: (builder) => ({
         listAll: builder.query({
             query: ({ page = 1, limit = 10, search = '' }) => 
-              `/projects?page=${page}&limit=${limit}&search=${search}`,
+              `/project?page=${page}&limit=${limit}&search=${search}`,
             providesTags: (result, error, { page, search }) => [
                 { type: 'ProjectsList', id: `${page}-${search}` },
                 'Projects'
@@ -42,7 +42,7 @@ export const ProjectApi = createApi({
         }),
         createProjects:builder.mutation({
             query:(formData)=> ({
-                url: "/projects",
+                url: "/project",
                 body:formData,
                 method:"POST",
                 headers:()=>([
@@ -60,7 +60,7 @@ export const ProjectApi = createApi({
             },
         }),
         showById:builder.query({
-            query:(id)=>`/projects/${id}`,
+            query:(id)=>`/project/${id}`,
             providesTags: (result, error, id) => [
                 { type: 'Projects', id }
             ],
@@ -74,7 +74,7 @@ export const ProjectApi = createApi({
         }),
         updateProjects:builder.mutation({
             query:({id,payload})=> ({
-                url: `/projects/${id}`,
+                url: `/project/${id}`,
                 body:payload,
                 method:"PUT",
                 headers:()=>([
@@ -99,7 +99,7 @@ export const ProjectApi = createApi({
         }),
         deleteProjects:builder.mutation({
             query:(id)=>({
-                url:`/projects/${id}`,
+                url:`/project/${id}`,
                 method:"DELETE"
             }),
             invalidatesTags: (result, error, id) => [
@@ -120,13 +120,13 @@ export const ProjectApi = createApi({
         }),
         // Add prefetch methods for better performance
         prefetchHome: builder.query({
-            query: () => "/projects",
+            query: () => "/project",
             keepUnusedDataFor: 1800,
             providesTags: [{ type: 'Projects', id: 'HOME_PREFETCH' }],
         }),
 
         prefetchProjects: builder.query({
-            query: (id) => `/projects/${id}`,
+            query: (id) => `/project/${id}`,
             keepUnusedDataFor: 900,
             providesTags: (result, error, id) => [
                 { type: 'Projects', id: `${id}_PREFETCH` }

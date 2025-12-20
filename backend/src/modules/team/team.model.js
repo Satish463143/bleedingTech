@@ -23,24 +23,22 @@ const teamSchema = new mongoose.Schema({
         type:String,
         required: [true, 'Image is required'],
     },
-    social:[
-        {github:{
-            type:String,
-            required: [true, 'Github is required'],
-        },
-        linkedin:{
-            type:String,
-            required: [true, 'Linkedin is required'],
-        },
-        instagram:{
-            type:String,
-            required: [true, 'Instagram is required'],
-        },
-        email:{
-            type:String,
-            required: [true, 'Email is required'],
-        }}
-    ]
+    email:{
+        type:String,
+        default: '',
+    },
+    github:{
+        type:String,
+        default: '',
+    },
+    linkedin:{
+        type:String,
+        default: '',
+    },
+    instagram:{
+        type:String,
+        default: '',
+    }
     
 }, { timestamps: true,
     autoIndex: true,

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import * as Yup from 'yup'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import {TextInputComponent,DescriptionInput,OptionsComponent} from '../../common/InputBox/InputBox'
+import {TextInputComponent} from '../../common/InputBox/InputBox'
 import { useFieldArray } from 'react-hook-form'
 
 
@@ -133,7 +133,7 @@ const CaseStudyForm = ({submitEvent,loading,value,detail}:{submitEvent: (data: a
                 <label htmlFor="name">Tagline</label><br />
                 <TextInputComponent
                     name="tagline"
-                    placeholder='Enter expert message'
+                    placeholder='Tagline of the case study'
                     className=''
                     style={{}}
                     control={control}
@@ -147,7 +147,7 @@ const CaseStudyForm = ({submitEvent,loading,value,detail}:{submitEvent: (data: a
                 <label htmlFor="name">Category</label><br />
                 <TextInputComponent
                     name="category"
-                    placeholder='Business, Technology, etc.'
+                    placeholder='E-Commerce, HealthCare, SaaS,etc.'
                     className=''
                     style={{}}
                     control={control}
@@ -161,7 +161,7 @@ const CaseStudyForm = ({submitEvent,loading,value,detail}:{submitEvent: (data: a
                 <label htmlFor="name">Industry</label><br />
                 <TextInputComponent
                     name="industry"
-                    placeholder='Business, Technology, etc.'
+                    placeholder='Retail Technology, Healthcare, etc.'
                     className=''
                     style={{}}
                     control={control}
@@ -227,39 +227,16 @@ const CaseStudyForm = ({submitEvent,loading,value,detail}:{submitEvent: (data: a
                     required={true}
                 />
             </div>
-            
-            <div>
-                <label htmlFor="name">Solution</label><br />
-                {solutionFields.map((item, index)=>(
-                    <div key={item.id}>                    
-                        <TextInputComponent                            
-                            name={`solutionFields.${index}`}
-                            placeholder='Tags :"Digital Transformation", "Business Strategy",etc'
-                            className=''
-                            style={{}}
-                            control={control}
-                            type='text'
-                            defaultValue=''
-                            errMsg={errors?.solution?.[index]?.message as string}
-                            required={true}
-                        />
-                        <button type="button" onClick={() => solutionRemove(index)} style={{background:'#d74747', padding:'5px 10px', borderRadius:'5px'}}>
-                            Remove Solution
-                        </button>
-                    </div>
-                ))}                
-                <br />
-                <button type="button" onClick={() => solutionAppend('')} style={{background:'#babaeb', padding:'5px 10px', borderRadius:'5px'}}>
-                    Add Another Solution
-                </button>
-            </div>
+        </div>
+        <h3 style={{marginTop:'30px',fontSize:'20px', fontWeight:'bold'}}>Technologies</h3>
+        <div className="from_grid">
             <div>
                 <label htmlFor="name">Technologies</label><br />
                 {technologiesFields.map((item, index)=>(
                     <div key={item.id}>                    
                         <TextInputComponent                            
                             name={`technologies.${index}`}
-                            placeholder='Tags :"Digital Transformation", "Business Strategy",etc'
+                            placeholder='Next.js, Shopify Plus, Node.js, AWS, TailwindCSS, Algolia, etc.'
                             className=''
                             style={{}}
                             control={control}
@@ -278,13 +255,16 @@ const CaseStudyForm = ({submitEvent,loading,value,detail}:{submitEvent: (data: a
                     Add Another Technologies
                 </button>
             </div>
+        </div>
+        <h3 style={{marginTop:'30px',fontSize:'20px', fontWeight:'bold'}}>Challenge</h3>
+        <div className="from_grid">
             <div>
                 <label htmlFor="name">Challenge</label><br />
                 {challengeFields.map((item, index)=>(
                     <div key={item.id}>                    
                         <TextInputComponent                            
                             name={`challenge.${index}`}
-                            placeholder='Tags :"Digital Transformation", "Business Strategy",etc'
+                            placeholder='Challenges of the project'
                             className=''
                             style={{}}
                             control={control}
@@ -303,6 +283,35 @@ const CaseStudyForm = ({submitEvent,loading,value,detail}:{submitEvent: (data: a
                     Add Another Challenge
                 </button>
             </div>
+        </div> 
+        <h3 style={{marginTop:'30px',fontSize:'20px', fontWeight:'bold'}}>Solution</h3>
+        <div className="from_grid">
+            <div>
+                <label htmlFor="name">Solution</label><br />
+                {solutionFields.map((item, index)=>(
+                    <div key={item.id}>                    
+                        <TextInputComponent                            
+                            name={`solution.${index}`}
+                            placeholder='Solution of the project'
+                            className=''
+                            style={{}}
+                            control={control}
+                            type='text'
+                            defaultValue=''
+                            errMsg={errors?.solution?.[index]?.message as string}
+                            required={true}
+                        />
+                        <button type="button" onClick={() => solutionRemove(index)} style={{background:'#d74747', padding:'5px 10px', borderRadius:'5px'}}>
+                            Remove Solution
+                        </button>
+                    </div>
+                ))}                
+                <br />
+                <button type="button" onClick={() => solutionAppend('')} style={{background:'#babaeb', padding:'5px 10px', borderRadius:'5px'}}>
+                    Add Another Solution
+                </button>
+            </div>
+        </div>
 
             {/* //results */}
             <h3 style={{marginTop:'30px',fontSize:'20px', fontWeight:'bold'}}>Results</h3>
@@ -313,7 +322,7 @@ const CaseStudyForm = ({submitEvent,loading,value,detail}:{submitEvent: (data: a
                         Metric:
                         <input style={{padding:'10px'}}
                             {...register(`results.${index}.metric`)}
-                            placeholder="Size (e.g., M, L)"
+                            placeholder="65%"
                         />
                         {errors.results?.[index]?.metric && <p style={{ color: 'red' }}>{errors.results[index].metric.message}</p>}
                     </label>
@@ -322,7 +331,7 @@ const CaseStudyForm = ({submitEvent,loading,value,detail}:{submitEvent: (data: a
                         Label:
                         <input
                             {...register(`results.${index}.label`)}
-                            placeholder="Label"
+                            placeholder="Revenue Increase"
                         />
                         {errors.results?.[index]?.label && <p style={{ color: 'red' }}>{errors.results[index].label.message}</p>}
                     </label>
@@ -430,7 +439,7 @@ const CaseStudyForm = ({submitEvent,loading,value,detail}:{submitEvent: (data: a
                     /><br />
                 </div>
             </div>           
-        </div>
+        
         <div style={{ display: 'flex', justifyContent: 'center',  }}>            
             <input className='submit_btn' type="submit" value={value} disabled={loading} style={{cursor:'pointer'}}/>
         </div>

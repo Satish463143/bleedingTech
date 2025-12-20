@@ -24,7 +24,7 @@ export const ServicesApi = createApi({
     endpoints: (builder) => ({
         listAll: builder.query({
             query: ({ page = 1, limit = 10, search = '' }) => 
-              `/services?page=${page}&limit=${limit}&search=${search}`,
+              `/service?page=${page}&limit=${limit}&search=${search}`,
             providesTags: (result, error, { page, search }) => [
                 { type: 'ServicesList', id: `${page}-${search}` },
                 'Services'
@@ -42,7 +42,7 @@ export const ServicesApi = createApi({
         }),
         createServices:builder.mutation({
             query:(formData)=> ({
-                url: "/services",
+                url: "/service",
                 body:formData,
                 method:"POST",
                 headers:()=>([
@@ -60,7 +60,7 @@ export const ServicesApi = createApi({
             },
         }),
         showById:builder.query({
-            query:(id)=>`/services/${id}`,
+            query:(id)=>`/service/${id}`,
             providesTags: (result, error, id) => [
                 { type: 'Services', id }
             ],
@@ -74,7 +74,7 @@ export const ServicesApi = createApi({
         }),
         updateServices:builder.mutation({
             query:({id,payload})=> ({
-                url: `/services/${id}`,
+                url: `/service/${id}`,
                 body:payload,
                 method:"PUT",
                 headers:()=>([
@@ -99,7 +99,7 @@ export const ServicesApi = createApi({
         }),
         deleteServices:builder.mutation({
             query:(id)=>({
-                url:`/services/${id}`,
+                url:`/service/${id}`,
                 method:"DELETE"
             }),
             invalidatesTags: (result, error, id) => [
@@ -120,13 +120,13 @@ export const ServicesApi = createApi({
         }),
         // Add prefetch methods for better performance
         prefetchHome: builder.query({
-            query: () => "/services",
+            query: () => "/service",
             keepUnusedDataFor: 1800,
             providesTags: [{ type: 'Services', id: 'HOME_PREFETCH' }],
         }),
 
         prefetchServices: builder.query({
-            query: (id) => `/services/${id}`,
+            query: (id) => `/service/${id}`,
             keepUnusedDataFor: 900,
             providesTags: (result, error, id) => [
                 { type: 'Services', id: `${id}_PREFETCH` }

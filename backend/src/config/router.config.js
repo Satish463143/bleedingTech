@@ -12,7 +12,7 @@ router.use('/contact', contactRouter)
 router.use('/project', projectRouter)
 router.use('/service', serviceRouter)
 router.use('/blogs', blogsRouter)
-router.use('/team', teamRouter)
+router.use('/teams', teamRouter)
 router.use('/caseStudies', caseStudiesRouter)
 router.use('/auth', authRouter)
 

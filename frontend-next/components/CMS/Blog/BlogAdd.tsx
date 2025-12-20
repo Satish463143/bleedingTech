@@ -59,7 +59,7 @@ const BlogAdd = () => {
             <BlogForm
                 submitEvent={submitEvent}
                 loading={loading}
-                value='Add product'
+                value='Add blog'
                 detail={null}
             />
         </div>

@@ -5,7 +5,12 @@ const bodyvalidator = (schema)=>{
         try{
             const data = req.body
         if(req.file){
-            data[req.file.filedname] = req.file.filedname
+            console.log('DEBUG: req.file.filedname =', req.file.filedname)  // This will print: undefined
+            console.log('DEBUG: req.file.fieldname =', req.file.fieldname)  // This will print: "image"
+            console.log('DEBUG: Keys in data BEFORE fix:', Object.keys(data))
+            // FIX: Changed filedname (typo) to fieldname (correct)
+            data[req.file.fieldname] = req.file.filename || req.file.path
+            console.log('DEBUG: Keys in data AFTER fix:', Object.keys(data))
         }
         await schema.validateAsync(data, {abortEarly: false})
         next()

@@ -8,12 +8,19 @@ const { setPath, uplaodFile, persistAllToS3 } = require('../../middleware/aws.mi
 const { FileFilterType } = require('../../config/constant.config')
 
 router.route('/')
-    .post(loginCheck, hasPermission("admin"),bodyvalidator(projectDTO),setPath("project"), uplaodFile(FileFilterType.IMAGE).single("image"),persistAllToS3, projectController.createProject)
+    .post(loginCheck, hasPermission("admin"),setPath("project"), uplaodFile(FileFilterType.IMAGE).fields([
+        { name: 'image', maxCount: 1 }
+    ])
+    ,persistAllToS3,bodyvalidator(projectDTO), projectController.createProject)
     .get(projectController.index)
 
 router.route('/:id')
     .get(loginCheck, hasPermission("admin"),projectController.showById)
-    .put(loginCheck, hasPermission("admin"),bodyvalidator(projectDTO),setPath("project"), uplaodFile(FileFilterType.IMAGE).single("image"),persistAllToS3, projectController.updateProject)
+    .put(loginCheck, hasPermission("admin"),setPath("project"), uplaodFile(FileFilterType.IMAGE).
+    fields([
+        { name: 'image', maxCount: 1 }
+    ])
+    ,persistAllToS3,bodyvalidator(projectDTO), projectController.updateProject)
     .delete(loginCheck, hasPermission("admin"),projectController.deleteProject)
 
 

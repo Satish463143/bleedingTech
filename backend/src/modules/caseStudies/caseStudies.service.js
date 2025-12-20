@@ -44,7 +44,7 @@ class CaseStudiesService{
             throw exception
         }
     }
-    deleteBlogs = async (id) => {
+    deleteCaseStudies = async (id) => {
         try{
             const response = await caseStudiesModel.findByIdAndDelete(id).lean()
             if(!response){

@@ -61,7 +61,7 @@ class CaseStudiesController{
             if(!id){
                 throw {status:400, message:"Case Studies ID is required"}
             }
-            this.caseStudiesDetails = await caseStudiesService.getIdByFilter(id)
+            this.caseStudiesDetails = await caseStudiesService.getIdByFilter({_id: id})
             if(!this.caseStudiesDetails){
                 throw {status:404, message:"Case Studies not found"}
             }

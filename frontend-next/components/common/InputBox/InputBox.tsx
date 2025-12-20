@@ -120,4 +120,20 @@ export const OptionsComponent = ({control,name,errMsg,required,defaultValue}: {c
         </>
     )
 }
+export const ProjectCategoryComponent = ({control,name,errMsg,required,defaultValue}: {control:any,name:string,errMsg:string|null,required:any,defaultValue:string})=>{
+    return(
+        <>
+            <SelectComponent 
+                options ={
+                    [{label:"Web Development", value:"Web Development"},{label:"Mobile App Development", value:"Mobile App Development"},{label:"UI-UX Design", value:"UI-UX Design"},{label:"SEO", value:"SEO"},{label:"Content Writing", value:"Content Writing"},{label:"Graphic Design", value:"Graphic Design"}]
+                }
+                control={control}
+                name={name}
+                errMsg={errMsg}
+                defaultValue={defaultValue}
+                required={required}
+            />
+        </>
+    )
+}
 

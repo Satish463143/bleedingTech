@@ -7,10 +7,17 @@ class ProjectController{
         try{
             const data = req.body
 
-            const allFiles =[...( req.files || [])]
-            for (const file of allFiles){
-                await deleteFile('./public/uploads/project/'+ file.filename)
-            }            
+            // Convert tags to array if it's a string
+             if (typeof data.tech === 'string') {
+                data.tech = [data.tech]
+            }
+            if (typeof data.features === 'string') {
+                data.features = [data.features]
+            }
+            if (typeof data.achievements === 'string') {
+                data.achievements = [data.achievements]
+            }    
+               
             const project = await projectService.createProject(data)
             
             res.json({
@@ -76,10 +83,16 @@ class ProjectController{
             const id = req.params.id
             await this.#validate(id)
             const data = req.body
-            const allFiles =[...( req.files || [])]
-            for (const file of allFiles){
-                await deleteFile('./public/uploads/project/'+ file.filename)
+            // Convert tags to array if it's a string
+            if (typeof data.tech === 'string') {
+                data.tech = [data.tech]
             }
+            if (typeof data.features === 'string') {
+                data.features = [data.features]
+            }
+            if (typeof data.achievements === 'string') {
+                data.achievements = [data.achievements]
+            } 
             const project = await projectService.updateProject(id, data)
             res.json({
                 details:project,

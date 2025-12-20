@@ -8,12 +8,18 @@ const { setPath, uplaodFile, persistAllToS3 } = require('../../middleware/aws.mi
 const { FileFilterType } = require('../../config/constant.config')
 
 router.route('/')
-    .post(loginCheck, hasPermission("admin"),bodyvalidator(serviceDTO),setPath("service"), uplaodFile(FileFilterType.IMAGE).single("icon"),persistAllToS3, serviceController.createService)
+    .post(loginCheck, hasPermission("admin"),setPath("service"), uplaodFile(FileFilterType.IMAGE).fields([
+        { name: 'icon', maxCount: 1 }
+    ])
+    ,persistAllToS3,bodyvalidator(serviceDTO), serviceController.createService)
     .get(serviceController.index)
 
 router.route('/:id')
     .get(loginCheck, hasPermission("admin"),serviceController.showById)
-    .put(loginCheck, hasPermission("admin"),bodyvalidator(serviceDTO),setPath("service"), uplaodFile(FileFilterType.IMAGE).single("icon"),persistAllToS3, serviceController.updateService)
+    .put(loginCheck, hasPermission("admin"),bodyvalidator(serviceDTO),setPath("service"), uplaodFile(FileFilterType.IMAGE).fields([
+        { name: 'icon', maxCount: 1 }
+    ])
+    ,persistAllToS3, serviceController.updateService)
     .delete(loginCheck, hasPermission("admin"),serviceController.deleteService)
 
 

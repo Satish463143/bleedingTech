@@ -98,7 +98,7 @@ const CaseStudyList = () => {
                   <td>{row.tagline}</td>
                   <td>{truncateContent(row.overview, 10)}</td>
                   <td style={{ textAlign: 'center', width: '150px' }}>
-                    <EditButton editUrl={`/admin/edit_case_study/${row._id}`}/>
+                    <EditButton editUrl={`/admin/edit_case_study?id=${row._id}`}/>
                     <DeleteButton deleteAction={deleteData} rowId={row._id}/>                  
                   </td>
                 </tr>

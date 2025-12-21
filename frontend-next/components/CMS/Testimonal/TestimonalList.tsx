@@ -1,6 +1,6 @@
 'use client'
 import { useState } from 'react';
-import { useListAllQuery, useDeleteBlogMutation } from '../../api/blog.api';
+import { useListAllQuery, useDeleteTestimonialsMutation } from '../../api/testimonal.api';
 import { toast } from 'react-toastify';
 import AdminTitle from '../AdminTitle/AdminTitle';
 import Link from 'next/link';
@@ -9,15 +9,14 @@ import EditButton from '../EditButton/EditButton';
 import DeleteButton from '../DeleteButton/DeleteButton';
 import { Pagination } from 'flowbite-react';
 
-const BlogList = () => {
+const TestimonialList = () => {
     const [search, setSearch] = useState(''); // Ensure default value is a string
     const [page, setPage] = useState(1);
     const [limit] = useState(10); 
 
     const {data, error, isLoading} = useListAllQuery({ page, limit, search })
-    const [deleteBlog] = useDeleteBlogMutation()
-    const blogs = data?.details || []
-
+    const [deleteTestimonial] = useDeleteTestimonialsMutation()
+    const testimonial = data?.details || []
 
     const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSearch(event.target.value); // Update the search state
@@ -32,34 +31,32 @@ const BlogList = () => {
         return words.length > wordLimit
           ? words.slice(0, wordLimit).join(' ') + '...'
           : content;
-      };
-    
+      };    
     
       const deleteData=async(id:string)=>{
         try{
-          await deleteBlog(id).unwrap()
-          toast.success("Blog deleted ucessfully")
-          
+          await deleteTestimonial(id).unwrap()
+          toast.success("testimonial deleted sucessfully")
         }catch(exception){
-          toast.error("Cannot delete blog at this moment")
+          toast.error("Cannot delete testimonial at this moment")
         }    
       }
   return (
     <div className='admin_margin_box'>
       <div className='admin_titles'>
-        <AdminTitle url='/admin/blog' label1=' Blog List' label2='' />
+        <AdminTitle url='/admin/testimonial' label1=' Testimonial List' label2='' />
         <div className='Dashboard_title'>
-          <h1>Blog List</h1>
+          <h1>Testimonial List</h1>
           <div>
           <input
               type="search"
               className="search_btn"
-              placeholder="Filter by title..."
+              placeholder="Filter by name..."
               value={search}
               onChange={handleSearchChange}
           />
-          <Link href='/admin/add_blog'>
-            <button className='edit_btn'>Add Blog</button>
+          <Link href='/admin/add_testimonial'>
+            <button className='edit_btn'>Add Testimonial</button>
           </Link>          
           </div>
         </div>
@@ -70,9 +67,10 @@ const BlogList = () => {
             <tr>
               <th>S.N</th>
               <th>Image</th>
-              <th>Title</th>
-              <th>Content</th>
-              <th>Is Featured</th>
+              <th>Name</th>
+              <th>Company</th>
+              <th>Review</th>
+              <th>Category</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -85,25 +83,25 @@ const BlogList = () => {
               <tr>
                 <td colSpan={6} className="error-message">{(error as any)?.data?.message}</td>
               </tr>
-            ) : blogs && blogs.length > 0 ? (
-              blogs.map((row: any, index: number) => (
+            ) : testimonial && testimonial.length > 0 ? (
+              testimonial.map((row: any, index: number) => (
                 <tr key={index}>
                   <td className="table_sn">{index + 1}</td>
-                  <td className="table_img">
-                    <img src={row.heroImage} alt=""/>
-                  </td>
-                  <td>{row.title}</td>
-                  <td>{truncateContent(row.content, 10)}</td>
-                  <td>{row.isFeatured ? 'Yes' : 'No'}</td>
+                  <td><img src={row.image} alt={row.name} width={100} height={100} /></td>
+                  <td>{row.name}</td>
+                  <td>{row.company}</td>                  
+                  <td>{row.category}</td>
+                  <td>{truncateContent(row.review, 15)}</td>
+
                   <td style={{ textAlign: 'center', width: '150px' }}>
-                    <EditButton editUrl={`/admin/edit_blog?id=${row._id}`}/>
+                    <EditButton editUrl={`/admin/edit_testimonial?id=${row._id}`}/>
                     <DeleteButton deleteAction={deleteData} rowId={row._id}/>                  
                   </td>
                 </tr>
               ))
             ) : (
               <tr>
-                <td colSpan={6}>Blog List is Empty</td>
+                <td colSpan={6}>Testimonial List is Empty</td>
               </tr>
             )}
           </tbody>
@@ -124,4 +122,4 @@ const BlogList = () => {
   )
 }
 
-export default BlogList
+export default TestimonialList

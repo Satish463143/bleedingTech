@@ -1,6 +1,6 @@
 'use client'
 import { useState } from 'react'
-import { useParams } from 'next/navigation'
+import { useSearchParams } from 'next/navigation'
 import { useShowByIdQuery,useUpdateCaseStudiesMutation } from '@/components/api/caseStudies.api'
 import { ToastContainer,toast } from 'react-toastify'
 import AdminTitle from '../AdminTitle/AdminTitle'
@@ -11,7 +11,8 @@ import { useRouter } from 'next/navigation'
 const CaseStudyEdit = () => {
     const router = useRouter()
     const [loading, setLoading] = useState(false)
-    const {id} = useParams() as {id: string}
+    const searchParams = useSearchParams()
+    const id = searchParams?.get('id') as string
     const {data, isLoading, error} = useShowByIdQuery(id)
     const [updateCaseStudy] = useUpdateCaseStudiesMutation()
     console.log("data",data)

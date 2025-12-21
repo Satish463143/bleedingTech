@@ -5,7 +5,10 @@ const serviceDTO = joi.object({
     title: joi.string().required(),
     description: joi.string().required(),
     fullDesc: joi.string().required(),
-    features: joi.array().items(joi.string()).required(),
+    features: joi.alternatives().try(
+        joi.array().items(joi.string()),
+        joi.string()
+    ).required(),
 })
 
 module.exports = serviceDTO

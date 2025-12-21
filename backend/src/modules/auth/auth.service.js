@@ -7,8 +7,7 @@ class AuthService{
             console.log(exception);
             throw exception
         }
-    }
-    
+    }   
 
 }
 module.exports = new AuthService()

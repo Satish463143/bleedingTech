@@ -1,5 +1,5 @@
-export const dynamic = "force-dynamic";
 import ServiceEdit from "@/components/CMS/Service/ServiceEdit"
+
 const Page = () => {
   return (
     <div><ServiceEdit/></div>
@@ -7,3 +7,4 @@ const Page = () => {
 }
 
 export default Page
+

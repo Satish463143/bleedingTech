@@ -89,7 +89,7 @@ const ServiceList = () => {
                   <td>{row.description}</td>
                   <td>{truncateContent(row.fullDesc, 15)}</td>
                   <td style={{ textAlign: 'center', width: '150px' }}>
-                    <EditButton editUrl={`/admin/edit_service/${row._id}`}/>
+                    <EditButton editUrl={`/admin/edit_service?id=${row._id}`}/>
                     <DeleteButton deleteAction={deleteData} rowId={row._id}/>                  
                   </td>
                 </tr>

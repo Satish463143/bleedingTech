@@ -88,7 +88,7 @@ const BlogList = () => {
                   <td>{row.category}</td>
                   <td>{row.isFeatured ? 'Yes' : 'No'}</td>
                   <td style={{ textAlign: 'center', width: '150px' }}>
-                    <EditButton editUrl={`/admin/edit_project/${row._id}`}/>
+                    <EditButton editUrl={`/admin/edit_project?id=${row._id}`}/>
                     <DeleteButton deleteAction={deleteData} rowId={row._id}/>                  
                   </td>
                 </tr>

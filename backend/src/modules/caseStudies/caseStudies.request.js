@@ -19,9 +19,18 @@ const caseStudiesDTO = Joi.object({
     year: Joi.string().required(),
     overview: Joi.string().required(),
     results: Joi.array().items(resultsSchema).min(1).required(),
-    challenge: Joi.array().items(Joi.string()).required(),
-    solution: Joi.array().items(Joi.string()).required(),
-    technologies: Joi.array().items(Joi.string()).required(),
+    challenge: Joi.alternatives().try(
+        Joi.array().items(Joi.string()),
+        Joi.string()
+    ).required(),
+    solution: Joi.alternatives().try(
+        Joi.array().items(Joi.string()),
+        Joi.string()
+    ).required(),
+    technologies: Joi.alternatives().try(
+        Joi.array().items(Joi.string()),
+        Joi.string()
+    ).required(),
     testimonialQuote: Joi.string().required(),
     testimonialAuthor: Joi.string().required(),
     testimonialRole: Joi.string().required(),

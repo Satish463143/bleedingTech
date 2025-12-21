@@ -13,6 +13,7 @@ import { CaseStudiesApi } from '../../components/api/caseStudies.api'
 import { ClientsApi } from '../../components/api/clients.api'
 import { ContactApi } from '../../components/api/contact.api'
 import { BlogApi } from '../../components/api/blog.api'
+import { TestimonialApi } from '../../components/api/testimonal.api'
 
 // Create a noop storage for SSR
 const createNoopStorage = () => {
@@ -50,6 +51,7 @@ const rootReducer = combineReducers({
     [ClientsApi.reducerPath]: ClientsApi.reducer,
     [ContactApi.reducerPath]: ContactApi.reducer,
     [BlogApi.reducerPath]: BlogApi.reducer,
+    [TestimonialApi.reducerPath]: TestimonialApi.reducer,
 })
 
 // Create persisted reducer
@@ -72,6 +74,7 @@ const storeConfig = configureStore({
             .concat(ClientsApi.middleware)
             .concat(ContactApi.middleware)
             .concat(BlogApi.middleware)
+            .concat(TestimonialApi.middleware)
 })
 
 export const persistor = persistStore(storeConfig)

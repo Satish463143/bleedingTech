@@ -1,5 +1,5 @@
 export const dynamic = "force-static";
-import BlogsDetails from "@/pages/BlogsDetails/BlogsDetails";
+import BlogsDetails from "@/page-components/BlogsDetails/BlogsDetails";
 import type { Metadata } from "next";
 import { blogs } from "../../../../src/data/data";
 

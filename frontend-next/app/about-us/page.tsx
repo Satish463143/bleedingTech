@@ -1,4 +1,4 @@
-import AboutUs from "@/pages/AboutUs/AboutUs";
+import AboutUs from "@/page-components/AboutUs/AboutUs";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {

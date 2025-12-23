@@ -1,9 +1,0 @@
-/* MiniPortfolioPreview Component Styles */
-
-/* Responsive grid adjustments */
-@media (max-width: 768px) {
-  .mini-portfolio-grid {
-    grid-template-columns: 1fr;
-  }
-}
-

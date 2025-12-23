@@ -13,6 +13,7 @@ class CaseStudiesService{
     index = async ({filter= {}, limit= 10, skip= 0}) => {
         try{
             const query = await caseStudiesModel.find(filter)
+            .select('slug image projectName companyName logo tagline category')
             .limit(limit)
             .skip(skip)
             .sort({ createdAt: -1 })

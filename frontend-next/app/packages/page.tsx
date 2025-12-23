@@ -1,4 +1,4 @@
-import Packages from "@/pages/Packages/Packages";
+import Packages from "@/page-components/Packages/Packages";
 import type { Metadata } from "next";
 import { buildFaqJsonLd } from "@/lib/faqJsonLd";
 import Script from "next/script";

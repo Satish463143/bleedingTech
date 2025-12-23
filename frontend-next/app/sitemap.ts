@@ -1,13 +1,21 @@
+// src/app/sitemap.ts
 export const dynamic = "force-static";
 export const revalidate = false;
 
 import type { MetadataRoute } from "next";
 import { blogs, caseStudies } from "../src/data/data";
 
-export default function sitemap(): MetadataRoute.Sitemap {
-  const base = "https://bleedingtech.com.np";
+const base = "https://bleedingtech.com.np";
 
-  const staticRoutes = [
+// Helper: use per-item updatedAt if you have it, otherwise use current date
+const getLastMod = (item: any) => {
+  const d = item?.updatedAt || item?.updated_at || item?.lastModified || item?.date;
+  return d ? new Date(d) : new Date();
+};
+
+export default function sitemap(): MetadataRoute.Sitemap {
+  // Static pages
+  const staticRoutes: MetadataRoute.Sitemap = [
     "",
     "/about-us",
     "/services",
@@ -21,14 +29,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: new Date(),
   }));
 
-  const blogRoutes = blogs.map((b) => ({
-    url: `${base}/blogs-details/${b.slug}/${b.id}`,
-    lastModified: new Date(),
+  const blogRoutes: MetadataRoute.Sitemap = blogs.map((b: any) => ({
+    url: `${base}/blogs/${b.slug}`,
+    lastModified: getLastMod(b),
   }));
 
-  const caseStudyRoutes = caseStudies.map((c) => ({
-    url: `${base}/case-study-detail/${c.slug}/${c.id}`,
-    lastModified: new Date(),
+  const caseStudyRoutes: MetadataRoute.Sitemap = caseStudies.map((c: any) => ({
+    url: `${base}/case-studies/${c.slug}`,
+    lastModified: getLastMod(c),
   }));
 
   return [...staticRoutes, ...blogRoutes, ...caseStudyRoutes];

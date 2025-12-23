@@ -1,9 +1,0 @@
-/* WhoWeAre Component Styles */
-
-/* Responsive adjustments */
-@media (max-width: 1024px) {
-  .who-we-are-visual {
-    display: none;
-  }
-}
-

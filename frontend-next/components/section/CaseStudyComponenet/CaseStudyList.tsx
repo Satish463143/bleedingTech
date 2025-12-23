@@ -1,16 +1,20 @@
 "use client";
-import { useEffect,lazy } from "react";
+import { useEffect,lazy, useState } from "react";
 import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 
 const Heading = lazy(() => import ("../../common/Heading/Heading"));
 import "./CaseStudyList.css";
-import {caseStudies} from '../../../src/data/data'
+import { useListAllQuery} from '../../api/caseStudies.api';
 const CaseStudyCard = lazy(()=> import ('../../common/CaseStudyCard/CaseStudyCard'))
+
 
 const CaseStudyList = () => {
   const controls = useAnimation();
   const [ref, inView] = useInView({ threshold: 0.1, triggerOnce: true });
+  const {data, error, isLoading} = useListAllQuery({  })
+  const caseStudiesList = data?.details || []
+  console.log(caseStudiesList)
 
   useEffect(() => {
     if (inView) controls.start("visible");
@@ -174,8 +178,8 @@ const CaseStudyList = () => {
           initial="hidden"
           animate={controls}
         >
-          {caseStudies.map((study, index) => (
-            <CaseStudyCard key={study.id} study={study} index={index} />
+          {caseStudiesList.map((study: any, index: number) => (
+            <CaseStudyCard key={study._id} study={study} index={index} />
           ))}
         </motion.div>
       </div>

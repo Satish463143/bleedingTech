@@ -1,4 +1,4 @@
-import ContactUs from "@/pages/ContactUs/ContactUs";
+import ContactUs from "@/page-components/ContactUs/ContactUs";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {

@@ -14,8 +14,6 @@ type Study = {
   tagline: string;
   category: string;
   projectName: string;
-  gradient: string;
-  glowColor: string;
   companyName: string;
   industry: string;
   duration: string;
@@ -28,12 +26,10 @@ type Study = {
     label: string;
   }[];
   technologies: string[];
-  testimonial: {
-    quote: string;
-    avatar: string;
-    author: string;
-    role: string;
-  };
+  testimonialQuote:string;
+  testimonialAuthor:string;
+  testimonialRole:string;
+  testimonialAvatar:string;
 };
 
 type Props = {
@@ -51,7 +47,7 @@ export const HeroImage = ({ study }: Props) => {
             transition={{ duration: 0.8 }}
           >
             <img src={study.heroImage} alt={study.projectName} className="hero-image" />
-            <div className={`hero-image-overlay bg-gradient-to-t ${study.gradient}`} />
+            <div className={`hero-image-overlay bg-gradient-to-t from-green-500 to-emerald-400`} />
           </motion.div>
         </div>
       </section>
@@ -339,17 +335,17 @@ export const HeroImage = ({ study }: Props) => {
           >
             <Quote className="quote-icon" />
             <blockquote className="testimonial-quote">
-              "{study.testimonial.quote}"
+              "{study.testimonialQuote}"
             </blockquote>
             <div className="testimonial-author">
               <img
-                src={study.testimonial.avatar}
-                alt={study.testimonial.author}
+                src={study.testimonialAvatar}
+                alt={study.testimonialAuthor}
                 className="author-avatar"
               />
               <div>
-                <span className="author-name">{study.testimonial.author}</span>
-                <span className="author-role">{study.testimonial.role}</span>
+                <span className="author-name">{study.testimonialAuthor}</span>
+                <span className="author-role">{study.testimonialRole}</span>
               </div>
             </div>
           </motion.div>

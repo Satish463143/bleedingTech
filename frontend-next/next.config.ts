@@ -27,4 +27,5 @@ const nextConfig: NextConfig = {
   trailingSlash: true, // helps Apache routing
 };
 
+
 export default nextConfig;

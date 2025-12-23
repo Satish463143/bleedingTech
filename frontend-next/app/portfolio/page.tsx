@@ -1,4 +1,4 @@
-import Portfolio from "@/pages/Portfolio/Portfolio";
+import Portfolio from "@/page-components/Portfolio/Portfolio";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {

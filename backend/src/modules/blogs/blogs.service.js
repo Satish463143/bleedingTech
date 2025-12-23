@@ -13,6 +13,7 @@ class BlogsService{
     index = async ({filter= {}, limit= 10, skip= 0}) => {
         try{
             const query = await blogsModel.find(filter)
+            .select('title subtitle excerpt category thumbnail tags readTime date views likes isFeatured authorName authorRole authorAvatar')
             .limit(limit)
             .skip(skip)
             .sort({ _id: -1 })

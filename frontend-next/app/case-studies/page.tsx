@@ -1,4 +1,4 @@
-import CaseStudies from "@/pages/CaseStudy/CaseStudy";
+import CaseStudies from "@/page-components/CaseStudy/CaseStudy";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {

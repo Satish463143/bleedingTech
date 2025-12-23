@@ -4,7 +4,7 @@ const app = require("./src/config/epress.config");
 
 const server = http.createServer(app)
 
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 5001
 
 server.listen(port, 'localhost', (error)=>{
     if(error){

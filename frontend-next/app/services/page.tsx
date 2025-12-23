@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Script from "next/script";
-import Services from "@/pages/Services/Services";
+import Services from "@/page-components/Services/Services";
 import { serviceFaqs } from "@/src/data/data";
 import { buildFaqJsonLd } from "@/lib/faqJsonLd";
 

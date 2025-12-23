@@ -4,7 +4,6 @@ const contactDTO = Joi.object ({
     email: Joi.string().email().required().trim(),
     phone: Joi.string().min(10).max(13).required().trim(),
     message: Joi.string().min(10).max(1000).required().trim(),
-
 })
 
 module.exports = contactDTO

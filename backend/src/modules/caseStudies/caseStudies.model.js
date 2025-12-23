@@ -1,5 +1,9 @@
 const mongoose = require('mongoose')
 const caseStudiesSchema = new mongoose.Schema({
+    slug: {
+        type: String,
+        required: true
+    },
     projectName: {
         type: String,
         required: true,

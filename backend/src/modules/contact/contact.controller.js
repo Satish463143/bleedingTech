@@ -12,6 +12,17 @@ class ContactController {
                 meta:null
             })
 
+            // Send confirmation email to customer
+            await ContactService.sendMail({name:data.name, email:data.email})
+            
+            // Send notification email to admin
+            await ContactService.sendAdminNotification({
+                name:data.name, 
+                email:data.email,
+                phone:data.phone,
+                message:data.message
+            })
+
         }catch(exception){
             console.log(exception);
             next(exception)

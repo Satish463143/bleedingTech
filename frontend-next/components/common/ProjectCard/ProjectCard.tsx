@@ -2,17 +2,17 @@
 
 import { useState } from "react";
 import { motion, useMotionValue, useTransform, type Variants } from "framer-motion";
-import { Sparkles, ExternalLink, FileText, Check } from "lucide-react";
+import { Sparkles, ExternalLink, FileText, Check, ArrowRight } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 const MotionImage = motion(Image);
 
-
 type Project = {
+  id?: number | string;
   title: string;
   description: string;
   image: string;
-  glowColor: string;
   tech: string[];
   features: string[];
   liveLink: string;
@@ -77,7 +77,7 @@ export default function ProjectCard({ project, index }: Props) {
       <motion.div
         className="absolute -inset-2 rounded-3xl transition-opacity duration-500 blur-2xl -z-10"
         style={{
-          background: `radial-gradient(circle, ${project.glowColor}, transparent 70%)`,
+          background: `radial-gradient(circle, rgb(59, 130, 246, 0.4), transparent 70%)`,
           opacity: isHovered ? 1 : 0,
         }}
       />
@@ -92,13 +92,13 @@ export default function ProjectCard({ project, index }: Props) {
           rotateY,
           transformStyle: "preserve-3d",
         }}
-        whileHover={{ borderColor: project.glowColor }}
+        whileHover={{ borderColor: "rgb(59, 130, 246, 0.4)" }}
         transition={{ type: "spring", stiffness: 300, damping: 30 }}
       >
         <motion.div
-          className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700"
+          className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
           style={{
-            background: `linear-gradient(135deg, ${project.glowColor}, transparent 60%)`,
+            background: `linear-gradient(135deg, rgb(59, 130, 246, 0.4), transparent 60%)`,
             mixBlendMode: "overlay",
           }}
         />
@@ -121,7 +121,6 @@ export default function ProjectCard({ project, index }: Props) {
               background: "linear-gradient(180deg, transparent 0%, hsl(var(--card)) 100%)",
             }}
           />
-
           <motion.div
             className="absolute top-4 right-4 px-3 py-1.5 rounded-full backdrop-blur-md border flex items-center gap-2"
             style={{
@@ -141,9 +140,20 @@ export default function ProjectCard({ project, index }: Props) {
         </div>
 
         <div className="p-6 lg:p-8">
-          <h3 className="text-2xl font-bold mb-3 leading-tight" style={{ color: "hsl(var(--foreground))" }}>
-            {project.title}
-          </h3>
+          {project.id ? (
+            <Link
+              href={`/project-details?slug=${project.title.toLowerCase().replace(/\s+/g, "-")}&id=${project.id}`}
+              className="group/title"
+            >
+              <h3 className="text-2xl font-bold mb-3 leading-tight transition-colors group-hover/title:text-[hsl(var(--primary))]" style={{ color: "hsl(var(--foreground))" }}>
+                {project.title}
+              </h3>
+            </Link>
+          ) : (
+            <h3 className="text-2xl font-bold mb-3 leading-tight" style={{ color: "hsl(var(--foreground))" }}>
+              {project.title}
+            </h3>
+          )}
 
           <p className="text-sm leading-relaxed mb-5" style={{ color: "hsl(var(--muted-foreground))" }}>
             {project.description}
@@ -194,48 +204,78 @@ export default function ProjectCard({ project, index }: Props) {
           </div>
 
           <div className="flex flex-wrap gap-3">
-            <motion.a
-              href={project.liveLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group/btn flex-1 min-w-[140px] px-5 py-3 rounded-xl font-semibold text-sm flex items-center justify-center gap-2"
-              style={{
-                background: "linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-accent)))",
-                color: "white",
-                cursor: "pointer",
-              }}
-              whileHover={{ scale: 1.03, boxShadow: `0 10px 30px ${project.glowColor}` }}
-              whileTap={{ scale: 0.98 }}
-            >
-              <ExternalLink className="w-4 h-4 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
-              View Live
-            </motion.a>
+            {project.id ? (
+              <Link
+                href={`/project-details?slug=${project.title.toLowerCase().replace(/\s+/g, "-")}&id=${project.id}`}
+                className="group/btn flex-1 min-w-[140px] px-5 py-3 rounded-xl font-semibold text-sm flex items-center justify-center gap-2 transition-all duration-300 hover:scale-[1.03] active:scale-[0.98]"
+                style={{
+                  background: "linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-accent)))",
+                  color: "white",
+                }}
+              >
+                <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
+                View Details
+              </Link>
+            ) : (
+              <a
+                href={project.liveLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="cursor-pointer group/btn flex-1 min-w-[140px] px-5 py-3 rounded-xl font-semibold text-sm flex items-center justify-center gap-2 transition-all duration-300 hover:scale-[1.03] active:scale-[0.98]"
+                style={{
+                  background: "linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-accent)))",
+                  color: "white",
+                }}
+              >
+                <ExternalLink className="w-4 h-4 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
+                View Live
+              </a>
+            )}
 
-            <motion.a
-              href={project.caseStudyLink}
-              className="group/btn flex-1 min-w-[140px] px-5 py-3 rounded-xl font-semibold text-sm flex items-center justify-center gap-2 border backdrop-blur-md"
-              style={{
-                borderColor: "hsl(var(--border))",
-                color: "hsl(var(--foreground))",
-                background: "hsl(var(--background) / 0.5)",
-              }}
-              whileHover={{
-                scale: 1.03,
-                borderColor: "hsl(var(--primary))",
-                background: "hsl(var(--primary) / 0.05)",
-              }}
-              whileTap={{ scale: 0.98 }}
-            >
-              <FileText className="w-4 h-4 group-hover/btn:rotate-12 transition-transform" />
-              Case Study
-            </motion.a>
+            {project.liveLink && project.liveLink !== "#" && project.id && (
+              <a
+                href={project.liveLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="cursor-pointer group/btn flex-1 min-w-[120px] px-4 py-3 rounded-xl font-semibold text-sm flex items-center justify-center gap-2 border backdrop-blur-md transition-all duration-300"
+                style={{
+                  borderColor: "hsl(var(--border))",
+                  color: "hsl(var(--foreground))",
+                  background: "hsl(var(--background) / 0.5)",
+                }}
+              >
+                <ExternalLink className="w-4 h-4 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
+                Live
+              </a>
+            )}
+
+            {project.caseStudyLink && project.caseStudyLink !== "#" && (
+              <motion.a
+                href={project.caseStudyLink}
+                className="group/btn flex-1 min-w-[120px] px-4 py-3 rounded-xl font-semibold text-sm flex items-center justify-center gap-2 border backdrop-blur-md"
+                style={{
+                  borderColor: "hsl(var(--border))",
+                  color: "hsl(var(--foreground))",
+                  background: "hsl(var(--background) / 0.5)",
+                }}
+                whileHover={{
+                  scale: 1.03,
+                  borderColor: "hsl(var(--primary))",
+                  background: "hsl(var(--primary) / 0.05)",
+                }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <FileText className="w-4 h-4 group-hover/btn:rotate-12 transition-transform" />
+                Case Study
+              </motion.a>
+            )}
           </div>
         </div>
 
         <motion.div
           className="absolute bottom-0 right-0 w-32 h-32 opacity-20 pointer-events-none"
           style={{
-            background: `radial-gradient(circle at bottom right, ${project.glowColor}, transparent 70%)`,
+            background: `radial-gradient(circle at bottom right, rgb(59, 130, 246, 0.4), transparent 70%)`,
           }}
         />
       </motion.div>

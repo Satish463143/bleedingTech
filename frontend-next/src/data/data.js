@@ -288,6 +288,7 @@ const defaultFaqs = [
 const projects = [
   {
     id: 1,
+    slug: "enterprise-saas-platform",
     title: "Enterprise SaaS Platform",
     subtitle: "Complete Business Management Solution",
     image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop",
@@ -305,6 +306,7 @@ const projects = [
   },
   {
     id: 2,
+    slug: "healthcare-telemedicine-app",
     title: "Healthcare Telemedicine App",
     subtitle: "Connecting Patients with Healthcare",
     image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop",
@@ -322,6 +324,7 @@ const projects = [
   },
   {
     id: 3,
+    slug: "fintech-dashboard-analytics",
     title: "FinTech Dashboard & Analytics",
     subtitle: "Advanced Financial Intelligence",
     image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop",
@@ -339,6 +342,7 @@ const projects = [
   },
   {
     id: 4,
+    slug: "luxury-ecommerce-experience",
     title: "Luxury E-Commerce Experience",
     subtitle: "Premium Online Shopping Platform",
     image: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&h=600&fit=crop",
@@ -356,6 +360,7 @@ const projects = [
   },
   {
     id: 5,
+    slug: "restaurant-ordering-system",
     title: "Restaurant Ordering System",
     subtitle: "Digital Dining Experience",
     image: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&h=600&fit=crop",
@@ -373,6 +378,7 @@ const projects = [
   },
   {
     id: 6,
+    slug: "travel-booking-platform",
     title: "Travel Booking Platform",
     subtitle: "Seamless Travel Experience",
     image: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=800&h=600&fit=crop",
@@ -390,6 +396,7 @@ const projects = [
   },
   {
     id: 7,
+    slug: "brand-identity-system",
     title: "Brand Identity System",
     subtitle: "Complete Visual Identity",
     image: "https://images.unsplash.com/photo-1558655146-9f40138edfeb?w=800&h=600&fit=crop",
@@ -407,6 +414,7 @@ const projects = [
   },
   {
     id: 8,
+    slug: "inventory-management-system",
     title: "Inventory Management System",
     subtitle: "Enterprise Inventory Control",
     image: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=800&h=600&fit=crop",
@@ -424,6 +432,7 @@ const projects = [
   },
   {
     id: 9,
+    slug: "fashion-ecommerce-store",
     title: "Fashion E-commerce Store",
     subtitle: "Modern Shopping Experience",
     image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&h=600&fit=crop",

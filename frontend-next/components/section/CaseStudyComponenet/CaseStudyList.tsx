@@ -13,7 +13,11 @@ const CaseStudyList = () => {
   const controls = useAnimation();
   const [ref, inView] = useInView({ threshold: 0.1, triggerOnce: true });
   const {data, error, isLoading} = useListAllQuery({  })
-  const caseStudiesList = data?.details || []
+  // Map _id to id for consistency with the routing
+  const caseStudiesList = (data?.details || []).map((study: any) => ({
+    ...study,
+    id: study._id, // Add id field from _id for URL routing
+  }))
   console.log(caseStudiesList)
 
   useEffect(() => {

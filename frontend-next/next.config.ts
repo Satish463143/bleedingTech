@@ -2,13 +2,14 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // Removed output: "export" to enable dynamic features for admin CMS
+  // ⚠️ IMPORTANT: Removed  because we're using:
+  // 1. Dynamic routes with backend API calls
+  // 2. Client-side data fetching
+  // 3. Server components
+  // For deployment, use Vercel, Netlify, or VPS with Node.js
   output: "export",
-  // For deployment, you'll need Node.js hosting (Vercel, Netlify, VPS with Node.js)
-  
-  // Keep unoptimized images if deploying to static hosting for public pages
   images: {
-    unoptimized: true,
+    unoptimized: true, // Keep for compatibility
     remotePatterns: [
       {
         protocol: "https",
@@ -20,11 +21,16 @@ const nextConfig: NextConfig = {
         hostname: "*.s3.*.amazonaws.com", // Allow S3 images
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "bleeding-tech.s3.eu-north-1.amazonaws.com", // Specific S3 bucket
+        pathname: "/**",
+      },
     ],
   },
 
   // Optional but recommended
-  trailingSlash: true, // helps Apache routing
+  trailingSlash: true, // helps with routing
 };
 
 

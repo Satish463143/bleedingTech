@@ -2,13 +2,12 @@
 
 import { useEffect, useMemo, useState, lazy, Suspense } from "react";
 import Link from "next/link";
-import { useParams, useRouter } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import Script from "next/script";
 
 import "./CaseStudyDetail.css";
 
-import { caseStudies } from "../../src/data/data";
 import { useShowByIdQuery } from "../../components/api/caseStudies.api";
 
 
@@ -30,43 +29,60 @@ const ContactCTA = lazy(
   () => import("../../components/common/ContactCTA/ContactCTA")
 );
 
-// ✅ Infer type from your data (best for production + no mismatch)
-type CaseStudy = (typeof caseStudies)[number];
-
-// ✅ Type guard: ensures study is NOT null/undefined
-function isCaseStudy(value: CaseStudy | undefined | null): value is CaseStudy {
-  return Boolean(value);
-}
 
 export default function CaseStudyDetail() {
   const router = useRouter();
-  const params = useParams<{ slug: string; id: string }>();
-  const {data, isLoading, error} = useShowByIdQuery()
+  const searchParams = useSearchParams();
+  const id = searchParams.get('id');
+  const slug = searchParams.get('slug');
   
-
-  const slug = params?.slug;
-  const idStr = params?.id;
-
-  const studyId = useMemo(() => {
-    const n = Number(idStr);
-    return Number.isFinite(n) ? n : null;
-  }, [idStr]);
-
-  // ✅ compute study from params (no extra state needed)
-  const foundStudy = useMemo(() => {
-    if (studyId === null) return undefined;
-    return caseStudies.find((cs) => Number(cs.id) === studyId);
-  }, [studyId]);
-
-  // Optional UI states if you later need like/save etc.
-  const [copied, setCopied] = useState(false);
-
+  
+  const {data, isLoading, error} = useShowByIdQuery(id)
+  
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
-  }, [studyId, slug]);
+  }, [id]);
 
-  // ✅ Not Found
-  if (!isCaseStudy(foundStudy)) {
+  // ✅ Show loading state
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <h2
+            className="text-2xl font-bold mb-4"
+            style={{ color: "hsl(var(--foreground))" }}
+          >
+            Loading...
+          </h2>
+        </div>
+      </div>
+    );
+  }
+
+  // ✅ Handle error state
+  if (error) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <h2
+            className="text-2xl font-bold mb-4"
+            style={{ color: "hsl(var(--foreground))" }}
+          >
+            Error loading case study
+          </h2>
+          <Link href="/case-studies" className="text-primary hover:underline">
+            ← Back to Case Studies
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
+  // Map _id to id for consistency
+  const caseStudy = useMemo(() => data?.details ? { ...data.details, id: data.details._id } : null, [data]);
+
+  // ✅ Not Found (after loading is complete)
+  if (!caseStudy) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
@@ -84,12 +100,12 @@ export default function CaseStudyDetail() {
     );
   }
 
-  // ✅ study is guaranteed correct + non-null
-  const study = foundStudy;
+  // ✅ study is now guaranteed to have data
+  const study = caseStudy;
 
   // Optional: strict slug match (recommended if your caseStudies have slug)
   // if ("slug" in study && slug && study.slug !== slug) { ...not found... }
-  const canonicalUrl = `https://bleedingtech.com.np/case-study-detail/${study.slug}/${study.id}`;
+  const canonicalUrl = `https://bleedingtech.com.np/case-study-detail?slug=${study.slug}&id=${study.id}`;
   const breadcrumbs = [
     { label: "Home", href: "/" },
     { label: "Case Studies", href: "/case-studies" },
@@ -154,32 +170,18 @@ export default function CaseStudyDetail() {
           <ArrowLeft className="w-4 h-4" />
           <span>Back to Case Studies</span>
         </button>
-      </div>
+      </div>    
 
-     
-
-      {/* Fix: Transform "results" field to correct type before passing to children */}
       {(() => {
-        // Clone and fix study.results if needed:
-        const fixedStudy = {
-          ...study,
-          results: Array.isArray(study.results)
-            ? study.results.map(r => ({
-                ...r,
-                metric: typeof r.metric === 'string' ? Number(r.metric) : r.metric
-              }))
-            : study.results
-        };
-
         return (
           <>
-            <HeroImage study={fixedStudy} />
-            <ProjectInfo study={fixedStudy} />
-            <OverviewSection study={fixedStudy} />
-            <ChallengeSolution study={fixedStudy} />
-            <ResultsSection study={fixedStudy} />
-            <TechSection study={fixedStudy} />
-            <TestimonialSection study={fixedStudy} />
+            <HeroImage study={study} />
+            <ProjectInfo study={study} />
+            <OverviewSection study={study} />
+            <ChallengeSolution study={study} />
+            <ResultsSection study={study} />
+            <TechSection study={study} />
+            <TestimonialSection study={study} />
           </>
         );
       })()}

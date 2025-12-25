@@ -3,7 +3,7 @@ export const dynamic = "force-static";
 export const revalidate = false;
 
 import type { MetadataRoute } from "next";
-import { blogs, caseStudies } from "../src/data/data";
+import { blogs, caseStudies, projects } from "../src/data/data";
 
 const base = "https://bleedingtech.com.np";
 
@@ -35,9 +35,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }));
 
   const caseStudyRoutes: MetadataRoute.Sitemap = caseStudies.map((c: any) => ({
-    url: `${base}/case-studies/${c.slug}`,
+    url: `${base}/case-study-detail?slug=${c.slug}&id=${c.id}`,
     lastModified: getLastMod(c),
   }));
 
-  return [...staticRoutes, ...blogRoutes, ...caseStudyRoutes];
+  const projectRoutes: MetadataRoute.Sitemap = projects.map((p: any) => ({
+    url: `${base}/project-details?slug=${p.title.toLowerCase().replace(/\s+/g, "-")}&id=${p.id}`,
+    lastModified: getLastMod(p),
+  }));
+
+  return [...staticRoutes, ...blogRoutes, ...caseStudyRoutes, ...projectRoutes];
 }

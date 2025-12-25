@@ -26,7 +26,7 @@ export default function CaseStudyCard({ study, index }: Props) {
   const router = useRouter();
 
   const handleViewCaseStudy = () => {
-    router.push(`/case-study-detail/${study.slug}/${study.id}`);
+    router.push(`/case-study-detail?slug=${study.slug}&id=${study.id}`);
   };
 
   const cardVariants: Variants = {

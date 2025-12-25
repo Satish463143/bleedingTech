@@ -3,17 +3,17 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, Layers } from "lucide-react";
 import "./NewProjectCard.css";
+import Link from "next/link";
 
 // Type definitions
 interface Project {
   id?: number;
   title?: string;
+  slug?: string;
   description?: string;
   image?: string;
   tech?: string[];
   category?: string;
-  glowColor?: string;
-  color?: string;
   liveLink?: string;
   caseStudyLink?: string;
 }
@@ -22,6 +22,7 @@ interface NewProjectCardProps {
   project?: Project;
   index?: number;
 }
+const MotionLink = motion(Link);
 
 const NewProjectCard: React.FC<NewProjectCardProps> = ({ project, index = 0 }) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -32,8 +33,6 @@ const NewProjectCard: React.FC<NewProjectCardProps> = ({ project, index = 0 }) =
     image = "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop",
     tech = ["React", "Node.js"],
     category = "Web Development",
-    glowColor = "rgb(59, 130, 246, 0.4)",
-    liveLink = "#",
   } = project || {};
 
   return (
@@ -53,7 +52,7 @@ const NewProjectCard: React.FC<NewProjectCardProps> = ({ project, index = 0 }) =
       <motion.div
         className="absolute -inset-2 rounded-3xl blur-2xl -z-10"
         style={{
-          background: `radial-gradient(circle, ${glowColor}, transparent 70%)`,
+          background: `radial-gradient(circle, rgb(59, 130, 246, 0.4), transparent 70%)`,
         }}
         animate={{ opacity: isHovered ? 0.5 : 0 }}
         transition={{ duration: 0.4 }}
@@ -107,7 +106,7 @@ const NewProjectCard: React.FC<NewProjectCardProps> = ({ project, index = 0 }) =
               <motion.span
                 className="inline-block px-3 py-1 rounded-full text-xs font-semibold mb-3"
                 style={{
-                  background: `${glowColor}`,
+                  background: `rgb(59, 130, 246, 0.4)`,
                   color: "white",
                 }}
               >
@@ -144,7 +143,7 @@ const NewProjectCard: React.FC<NewProjectCardProps> = ({ project, index = 0 }) =
                 <motion.span
                   className="inline-block px-3 py-1 rounded-full text-xs font-semibold mb-4"
                   style={{
-                    background: `${glowColor}`,
+                    background: `rgb(59, 130, 246, 0.4)`,
                     color: "white",
                   }}
                   initial={{ opacity: 0, y: -10 }}
@@ -207,8 +206,8 @@ const NewProjectCard: React.FC<NewProjectCardProps> = ({ project, index = 0 }) =
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
               >
-                <motion.a
-                  href={liveLink}
+                <MotionLink
+                  href={`/project-details?slug=${project?.slug}&id=${project?.id}`}
                   className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm"
                   style={{
                     background: "linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-accent)))",
@@ -223,7 +222,7 @@ const NewProjectCard: React.FC<NewProjectCardProps> = ({ project, index = 0 }) =
                 >
                   Explore Project
                   <ArrowRight className="w-4 h-4" />
-                </motion.a>
+                </MotionLink>
               </motion.div>
             </motion.div>
           )}
@@ -253,7 +252,7 @@ const NewProjectCard: React.FC<NewProjectCardProps> = ({ project, index = 0 }) =
         <motion.div
           className="absolute top-0 left-0 right-0 h-[3px] z-30"
           style={{
-            background: `linear-gradient(90deg, ${glowColor}, transparent)`,
+            background: `linear-gradient(90deg, rgb(59, 130, 246, 0.4), transparent)`,
           }}
           animate={{
             opacity: isHovered ? 1 : 0.5,

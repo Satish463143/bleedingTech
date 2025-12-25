@@ -8,11 +8,13 @@ import "./Portfolio.css";
 const ProjectCard = dynamic(() => import ("../../../common/ProjectCard/ProjectCard"));
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { projects } from "../../../../src/data/data";
-
+import { useListAllQuery } from "@/components/api/project.api";
 
 
 const Portfolio: React.FC = () => {
+  const { data , isLoading, isError } = useListAllQuery({page: 1, limit: 4});
+  const projects = data?.details || [];
+  console.log(projects);
   const controls = useAnimation();
   const [ref, inView] = useInView({ threshold: 0.1, triggerOnce: true });
 
@@ -199,7 +201,7 @@ const Portfolio: React.FC = () => {
           animate={controls}
         >
           <Suspense fallback={<div>Loading projects...</div>}>
-            {projects.map((project, index) => (
+            {projects.map((project: any, index: number) => (
               <ProjectCard key={project.id} project={project} index={index} />
             ))}
           </Suspense>

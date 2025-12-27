@@ -3,27 +3,33 @@ import  { useState, useEffect, lazy } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import "./Testimonal.css";
-import { testimonials } from "../../../src/data/data";
 const TestimonialCard = lazy(() => import("./TestimonialCard"));
+import {useListAllQuery} from "../../api/testimonal.api";
+
 
 const Testimonal = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(1);
-
+  const {data, error, isLoading} = useListAllQuery({ page: 1, limit: 12, search: '' })
+  const testimonials = data?.details || [];
   // Auto-advance
   useEffect(() => {
+    if (testimonials.length === 0) return;
+    
     const interval = setInterval(() => {
       nextSlide();
     }, 6000);
     return () => clearInterval(interval);
-  }, [currentIndex]);
+  }, [currentIndex, testimonials.length]);
 
   const nextSlide = () => {
+    if (testimonials.length === 0) return;
     setDirection(1);
     setCurrentIndex((prev) => (prev + 1) % testimonials.length);
   };
 
   const prevSlide = () => {
+    if (testimonials.length === 0) return;
     setDirection(-1);
     setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
   };
@@ -101,6 +107,20 @@ const Testimonal = () => {
 
         {/* Testimonial Slider */}
         <div className="relative max-w-4xl mx-auto">
+          {isLoading ? (
+            <div className="text-center py-20">
+              <p style={{ color: "hsl(var(--muted-foreground))" }}>Loading testimonials...</p>
+            </div>
+          ) : error ? (
+            <div className="text-center py-20">
+              <p style={{ color: "hsl(var(--destructive))" }}>Error loading testimonials</p>
+            </div>
+          ) : testimonials.length === 0 ? (
+            <div className="text-center py-20">
+              <p style={{ color: "hsl(var(--muted-foreground))" }}>No testimonials available</p>
+            </div>
+          ) : (
+            <>
           {/* Navigation */}
           <motion.button
             className="absolute left-0 top-1/2 -translate-y-1/2 z-20 w-10 h-10 lg:w-12 lg:h-12 rounded-full backdrop-blur-md border flex items-center justify-center -ml-2 lg:-ml-16"
@@ -156,7 +176,7 @@ const Testimonal = () => {
 
           {/* Indicators */}
           <div className="flex justify-center gap-2 mt-6">
-            {testimonials.map((_, index) => (
+            {testimonials.map((testimonial:any, index:number) => (
               <motion.button
                 key={index}
                 className={`w-2 h-2 rounded-full transition-all duration-300 ${
@@ -176,6 +196,8 @@ const Testimonal = () => {
               />
             ))}
           </div>
+            </>
+          )}
         </div>
       </div>
     </section>

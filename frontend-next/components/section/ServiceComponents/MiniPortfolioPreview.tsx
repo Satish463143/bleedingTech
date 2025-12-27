@@ -4,18 +4,21 @@ import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { Sparkles, ArrowRight } from "lucide-react";
 import Link from "next/link";
-import { projects } from "../../../src/data/data";
+import { useListAllQuery } from "@/components/api/project.api";
 const NewProjectCard = lazy(() => import("../../common/NewProjectCard/NewProjectCard"));
 import "./MiniPortfolioPreview.css";
 
-// Get first 3 featured projects (or first 3 if no featured flag)
-const featuredProjects = projects.filter(p => p.isFeatured).slice(0, 3).length > 0
-  ? projects.filter(p => p.isFeatured).slice(0, 3)
-  : projects.slice(0, 3);
 
 const MiniPortfolioPreview = () => {
   const controls = useAnimation();
   const [ref, inView] = useInView({ threshold: 0.1, triggerOnce: true });
+  const { data , isLoading, isError } = useListAllQuery({page: 1, limit:3});
+  const projects = data?.details || [];
+
+    // Get featured projects (with isFeatured flag or first 3)
+  const featuredProjects = projects.filter((p:any) => p.isFeatured).length > 0
+  ? projects.filter((p:any) => p.isFeatured)
+  : projects.slice(0, 3);
 
   useEffect(() => {
     if (inView) controls.start("visible");
@@ -112,7 +115,7 @@ const MiniPortfolioPreview = () => {
           initial="hidden"
           animate={controls}
         >
-          {featuredProjects.map((project, index) => (
+          {featuredProjects.map((project: any, index: number) => (
             <NewProjectCard key={project.id} project={project} index={index} />
           ))}
         </motion.div>

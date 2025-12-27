@@ -14,7 +14,6 @@ import { useListAllQuery } from "@/components/api/project.api";
 const Portfolio: React.FC = () => {
   const { data , isLoading, isError } = useListAllQuery({page: 1, limit: 4});
   const projects = data?.details || [];
-  console.log(projects);
   const controls = useAnimation();
   const [ref, inView] = useInView({ threshold: 0.1, triggerOnce: true });
 
@@ -202,7 +201,7 @@ const Portfolio: React.FC = () => {
         >
           <Suspense fallback={<div>Loading projects...</div>}>
             {projects.map((project: any, index: number) => (
-              <ProjectCard key={project.id} project={project} index={index} />
+              <ProjectCard key={project._id} project={project} index={index + 1} />
             ))}
           </Suspense>
         </motion.div>

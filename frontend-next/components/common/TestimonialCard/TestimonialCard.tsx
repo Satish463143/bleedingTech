@@ -9,7 +9,6 @@ type Testimonial = {
   role: string;
   company: string;
   image: string;
-  glowColor: string;
   category: string;
   rating: number;
   review: string;
@@ -72,7 +71,7 @@ const TestimonialCard: React.FC<Props> = ({ testimonial, index }) => {
         <motion.div
           className="absolute -inset-2 rounded-3xl opacity-0 transition-opacity duration-500 blur-2xl -z-10"
           style={{
-            background: `radial-gradient(circle, ${testimonial.glowColor}, transparent 70%)`,
+            background: `radial-gradient(circle, rgb(168, 85, 247, 0.4), transparent 70%)`,
             opacity: isHovered ? 1 : 0,
           }}
         />
@@ -89,7 +88,7 @@ const TestimonialCard: React.FC<Props> = ({ testimonial, index }) => {
             transformStyle: "preserve-3d",
           }}
           whileHover={{
-            borderColor: testimonial.glowColor,
+            borderColor: "rgb(168, 85, 247, 0.4)",
           }}
           transition={{ type: "spring", stiffness: 300, damping: 30 }}
         >
@@ -97,7 +96,7 @@ const TestimonialCard: React.FC<Props> = ({ testimonial, index }) => {
           <motion.div
             className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700"
             style={{
-              background: `linear-gradient(135deg, ${testimonial.glowColor}, transparent 60%)`,
+              background: `linear-gradient(135deg, rgb(168, 85, 247, 0.4), transparent 60%)`,
               mixBlendMode: "overlay",
             }}
           />
@@ -161,7 +160,7 @@ const TestimonialCard: React.FC<Props> = ({ testimonial, index }) => {
             {/* Client photo */}
             <motion.div
               className="relative w-14 h-14 rounded-full overflow-hidden border-2"
-              style={{ borderColor: testimonial.glowColor }}
+              style={{ borderColor: 'rgb(168, 85, 247, 0.4)' }}
               whileHover={{ scale: 1.1 }}
             >
               <img
@@ -173,7 +172,7 @@ const TestimonialCard: React.FC<Props> = ({ testimonial, index }) => {
               <div
                 className="absolute inset-0 opacity-20"
                 style={{
-                  background: `radial-gradient(circle, ${testimonial.glowColor}, transparent 70%)`,
+                  background: `radial-gradient(circle, rgb(168, 85, 247, 0.4), transparent 70%)`,
                 }}
               />
             </motion.div>
@@ -205,14 +204,14 @@ const TestimonialCard: React.FC<Props> = ({ testimonial, index }) => {
           <motion.div
             className="absolute bottom-0 right-0 w-32 h-32 opacity-15 pointer-events-none"
             style={{
-              background: `radial-gradient(circle at bottom right, ${testimonial.glowColor}, transparent 70%)`,
+              background: `radial-gradient(circle at bottom right, rgb(168, 85, 247, 0.4), transparent 70%)`,
             }}
           />
   
           {/* Floating mini accent */}
           <motion.div
             className="absolute top-4 right-4 w-2 h-2 rounded-full"
-            style={{ background: testimonial.glowColor }}
+            style={{ background: 'rgb(168, 85, 247, 0.4)' }}
             animate={{
               opacity: [0.3, 1, 0.3],
               scale: [1, 1.5, 1],

@@ -2,12 +2,12 @@
 
 import { useEffect, useMemo, useState, lazy, Suspense } from "react";
 import Link from "next/link";
-import { useParams, useRouter } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 
 import "./BlogsDetails.css";
+import { useShowByIdQuery } from "@/components/api/blog.api";
 
-import { blogs } from "../../src/data/data";
 
 import {
   HeroImage,
@@ -27,39 +27,30 @@ const ContactCTA = lazy(
   () => import("../../components/common/ContactCTA/ContactCTA")
 );
 
-// ✅ Infer Blog type directly from your blogs array
-type Blog = (typeof blogs)[number];
 
-// ✅ Type guard: ensures blog is NOT null/undefined
-function isBlog(value: Blog | undefined | null): value is Blog {
-  return Boolean(value);
-}
+
 
 export default function BlogsDetails() {
   const router = useRouter();
-  const params = useParams<{ slug: string; id: string }>();
+  const searchParams = useSearchParams();
+  const id = searchParams.get('id');
+  
+  
+  const {data, isLoading, error} = useShowByIdQuery(id)
 
-  const slug = params?.slug;
-  const idStr = params?.id;
 
-  const blogId = useMemo(() => {
-    const n = Number(idStr);
-    return Number.isFinite(n) ? n : null;
-  }, [idStr]);
+  
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [id]);
+  // Map _id to id for consistency
+  const blog = useMemo(() => data?.details ? { ...data.details, id: data.details._id } : null, [data]);
 
-  // ✅ Find blog (can be undefined)
-  const foundBlog = useMemo(() => {
-    if (blogId === null) return undefined;
-    return blogs.find((b) => Number(b.id) === blogId);
-  }, [blogId]);
 
   const [liked, setLiked] = useState(false);
   const [saved, setSaved] = useState(false);
   const [copied, setCopied] = useState(false);
 
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }, [blogId, slug]);
 
   const handleCopyLink = async () => {
     try {
@@ -71,8 +62,8 @@ export default function BlogsDetails() {
     }
   };
 
-  // ✅ If not found -> Not Found UI
-  if (!isBlog(foundBlog)) {
+  // ✅ Show loading state
+  if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
@@ -80,7 +71,22 @@ export default function BlogsDetails() {
             className="text-2xl font-bold mb-4"
             style={{ color: "hsl(var(--foreground))" }}
           >
-            Blog Not Found
+            Loading...
+          </h2>
+        </div>
+      </div>
+    );
+  }
+  // ✅ Handle error state
+  if (error) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <h2
+            className="text-2xl font-bold mb-4"
+            style={{ color: "hsl(var(--foreground))" }}
+          >
+            Error loading blog
           </h2>
           <Link href="/blogs" className="text-primary hover:underline">
             ← Back to Blogs
@@ -89,9 +95,24 @@ export default function BlogsDetails() {
       </div>
     );
   }
-
-  // ✅ After this line, blog is guaranteed NON-NULL and correctly typed
-  const blog = foundBlog;
+// ✅ Not Found (after loading is complete)
+if (!blog) {
+  return (
+    <div className="min-h-screen flex items-center justify-center">
+      <div className="text-center">
+        <h2
+          className="text-2xl font-bold mb-4"
+          style={{ color: "hsl(var(--foreground))" }}
+        >
+          Blog Not Found
+        </h2>
+        <Link href="/blogs" className="text-primary hover:underline">
+          ← Back to Blogs
+        </Link>
+      </div>
+    </div>
+  );
+}
 
   // Optional: if you want strict slug match (uncomment if your blog has slug)
   // if ("slug" in blog && slug && blog.slug !== slug) { ... show not found ... }
@@ -119,10 +140,10 @@ export default function BlogsDetails() {
     dateModified: blog.date,
     author: {
       "@type": "Person",
-      name: blog.author?.name || "Bleeding Tech",
-      jobTitle: blog.author?.role,
-      description: blog.author?.bio,
-      image: blog.author?.avatar,
+      name: blog.authorName || "Bleeding Tech",
+      jobTitle: blog.authorRole,
+      description: blog.authorBio,
+      image: blog.authorAvatar,
     },
     publisher: {
       "@type": "Organization",
@@ -145,7 +166,7 @@ export default function BlogsDetails() {
     <div className="min-h-screen">
       {/* Blog JSON-LD */}
       <Script
-        id={`blog-jsonld-${blog.id}`}
+        id={`blog-jsonld-${blog._id}`}
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(blogJsonLd) }}
       />

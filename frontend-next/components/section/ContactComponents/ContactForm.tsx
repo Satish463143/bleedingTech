@@ -49,7 +49,6 @@ const ContactForm = () => {
         ...data,
       }
       const response = await createContact(submitData).unwrap();
-      toast.success(response.message || "Message sent successfully!");
       setIsSubmitted(true);
     } catch(exception: any){
       toast.error(exception?.data?.message || "Something went wrong");

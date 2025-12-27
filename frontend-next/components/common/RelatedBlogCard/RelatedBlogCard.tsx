@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { Calendar, Clock, ArrowRight } from "lucide-react";
 
 type Blog = {
-  id: number;
+  _id: number;
   slug: string;
   thumbnail: string;
   title: string;
@@ -24,7 +24,7 @@ const RelatedBlogCard = ({ blog, index }: Props) => {
     const router = useRouter();
   
     const handleClick = () => {
-      router.push(`/blogs-details/${blog.slug}/${blog.id}`);
+      router.push(`/blogs-details?slug=${blog.slug}&id=${blog._id}`);
     };
   
     return (
@@ -58,7 +58,7 @@ const RelatedBlogCard = ({ blog, index }: Props) => {
           <div className="related-card-meta">
             <span>
               <Calendar className="w-3.5 h-3.5" />
-              {blog.date}
+              {blog.date.slice(0,10)}
             </span>
             <span>
               <Clock className="w-3.5 h-3.5" />

@@ -17,6 +17,7 @@ const TestimonialList = () => {
     const {data, error, isLoading} = useListAllQuery({ page, limit, search })
     const [deleteTestimonial] = useDeleteTestimonialsMutation()
     const testimonial = data?.details || []
+    console.log('testimonial', data);
 
     const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSearch(event.target.value); // Update the search state

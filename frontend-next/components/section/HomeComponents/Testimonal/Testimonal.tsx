@@ -5,12 +5,14 @@ import { useInView } from "react-intersection-observer";
 import { Quote } from "lucide-react";
 import Heading from "../../../common/Heading/Heading";
 import "./Testimonal.css";
-import { testimonials } from "../../../../src/data/data";
 import TestimonialCard from "../../../common/TestimonialCard/TestimonialCard";
+import { useListAllQuery } from "@/components/api/testimonal.api";
 
 const Testimonal: React.FC = () => {
   const controls = useAnimation();
   const [ref, inView] = useInView({ threshold: 0.1, triggerOnce: true });
+  const {data, error, isLoading} = useListAllQuery({ page: 1, limit: 12, search: '' })
+  const testimonials = data?.details || [];
 
   useEffect(() => {
     if (inView) controls.start("visible");
@@ -278,9 +280,9 @@ const Testimonal: React.FC = () => {
           initial="hidden"
           animate={controls}
         >
-          {testimonials.map((testimonial, index) => (
+          {testimonials.map((testimonial: any, index: number) => (
             <TestimonialCard
-              key={testimonial.id}
+              key={testimonial._id}
               testimonial={testimonial}
               index={index}
             />

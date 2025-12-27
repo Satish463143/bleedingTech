@@ -5,12 +5,15 @@ import { useInView } from "react-intersection-observer";
 import "./Services.css";
 const Heading = lazy(() => import("../../../common/Heading/Heading"));
 const ServiceCard = lazy(() => import("../../../common/ServiceCard/ServiceCard"));
-import { services } from "../../../../src/data/data";
+import { useListAllQuery } from "@/components/api/services.api";
+
 
 
 const Services: React.FC = () => {
   const controls = useAnimation();
   const [ref, inView] = useInView({ threshold: 0.1, triggerOnce: true });
+  const { data, isLoading, isError } = useListAllQuery({ page: 1, limit: 12, search: '' });
+  const services = data?.details || [];
 
   useEffect(() => {
     if (inView) controls.start("visible");
@@ -26,10 +29,6 @@ const Services: React.FC = () => {
       },
     },
   };
-
-
-  
-
   return (
     <section
       ref={ref}
@@ -208,7 +207,7 @@ const Services: React.FC = () => {
           animate={controls}
         >
           <Suspense fallback={<div>Loading services...</div>}>
-            {services.map((service, index) => (
+            {services.map((service: any, index: number) => (
               <ServiceCard key={index} service={service} index={index} />
             ))}
           </Suspense>

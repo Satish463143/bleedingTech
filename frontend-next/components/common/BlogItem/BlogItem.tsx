@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { Calendar, Clock, Eye, Heart, ArrowRight } from "lucide-react";
 
 type Blog = {
-  id: string | number;
+  _id: string | number;
   slug: string;
   thumbnail: string;
   title: string;
@@ -28,7 +28,7 @@ const BlogItem = ({ blog, index }: Props) => {
     const isEven = index % 2 === 0;
   
     const handleReadMore = () => {
-      router.push(`/blogs-details/${blog.slug}/${blog.id}`);
+      router.push(`/blogs-details?slug=${blog.slug}&id=${blog._id}`);
     };
   
     return (

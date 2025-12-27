@@ -7,7 +7,7 @@ type TestimonialCardProps = {
 
 const TestimonialCard = ({ testimonial }: TestimonialCardProps) => {
     // Use glowColor if color is not available
-    const cardColor = testimonial.color || testimonial.glowColor || "rgb(59, 130, 246, 0.5)";
+    const cardColor = "rgb(59, 130, 246, 0.5)";
     
     return (
       <div

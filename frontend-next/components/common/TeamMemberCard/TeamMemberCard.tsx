@@ -2,22 +2,18 @@
 
 import { useState } from "react";
 import { motion, type Variants } from "framer-motion";
-import { Linkedin, Twitter, Github, Mail } from "lucide-react";
-import type { StaticImageData } from "next/image";
+import { Linkedin, Github, Mail, Instagram } from "lucide-react";
 
 type Member = {
   id: number;
   name: string;
   position: string;
   tagline: string;
-  image: string | StaticImageData;
-  color: string;
-  social: {
-    linkedin?: string;
-    twitter?: string;
-    github?: string;
-    email?: string;
-  };
+  image: string 
+  linkedin?: string;
+  instagram?: string;
+  github?: string;
+  email?: string;
 };
 
 type Props = {
@@ -41,9 +37,6 @@ const variants: Variants = {
 
 export default function TeamMemberCard({ member, index }: Props) {
   const [isHovered, setIsHovered] = useState(false);
-  
-  // Handle both string and StaticImageData
-  const imageSrc = typeof member.image === 'string' ? member.image : member.image.src;
 
   return (
     <motion.div
@@ -60,7 +53,7 @@ export default function TeamMemberCard({ member, index }: Props) {
       <motion.div
         className="absolute -inset-8 rounded-[3rem] blur-3xl -z-10"
         style={{
-          background: `radial-gradient(circle, ${member.color}, transparent 70%)`,
+          background: `radial-gradient(circle, rgb(59, 130, 246, 0.5), transparent 70%)`,
         }}
         animate={{
           opacity: isHovered ? 0.8 : 0.4,
@@ -84,7 +77,7 @@ export default function TeamMemberCard({ member, index }: Props) {
         <motion.div
           className="absolute inset-0"
           style={{
-            background: `linear-gradient(135deg, ${member.color}, transparent 60%)`,
+            background: `linear-gradient(135deg, rgb(59, 130, 246, 0.5), transparent 60%)`,
             mixBlendMode: "overlay",
           }}
           animate={{ opacity: isHovered ? 0.3 : 0.1 }}
@@ -95,7 +88,7 @@ export default function TeamMemberCard({ member, index }: Props) {
         <motion.div
           className="absolute top-0 left-0 right-0 h-[3px]"
           style={{
-            background: `linear-gradient(90deg, transparent, ${member.color}, transparent)`,
+            background: `linear-gradient(90deg, transparent, rgb(59, 130, 246, 0.5), transparent)`,
           }}
           animate={{ opacity: isHovered ? 1 : 0.5 }}
           transition={{ duration: 0.3 }}
@@ -113,7 +106,7 @@ export default function TeamMemberCard({ member, index }: Props) {
             <motion.div
               className="absolute inset-0 rounded-full"
               style={{
-                background: `linear-gradient(135deg, ${member.color}, transparent)`,
+                background: `linear-gradient(135deg, rgb(59, 130, 246, 0.5), transparent)`,
                 padding: "4px",
               }}
               animate={{ rotate: 360 }}
@@ -128,7 +121,7 @@ export default function TeamMemberCard({ member, index }: Props) {
               style={{ borderColor: "hsl(var(--border))" }}
             >
               <motion.img
-                src={imageSrc}
+                src={member.image}
                 alt={member.name}
                 className="w-full h-full object-cover"
                 animate={{ scale: isHovered ? 1.1 : 1 }}
@@ -139,7 +132,7 @@ export default function TeamMemberCard({ member, index }: Props) {
               <motion.div
                 className="absolute inset-0"
                 style={{
-                  background: `radial-gradient(circle, ${member.color}, transparent 70%)`,
+                  background: `radial-gradient(circle, rgb(59, 130, 246, 0.5), transparent 70%)`,
                   mixBlendMode: "overlay",
                 }}
                 animate={{ opacity: isHovered ? 0.4 : 0 }}
@@ -215,17 +208,17 @@ export default function TeamMemberCard({ member, index }: Props) {
               viewport={{ once: true }}
               transition={{ delay: 0.5 }}
             >
-              {member.social.linkedin && (
-                <SocialIcon href={member.social.linkedin} Icon={Linkedin} color={member.color} />
+              {member.linkedin && (
+                <SocialIcon href={member.linkedin} Icon={Linkedin} color="rgb(59, 130, 246, 0.5)" />
               )}
-              {member.social.twitter && (
-                <SocialIcon href={member.social.twitter} Icon={Twitter} color={member.color} />
+              {member.instagram && (
+                <SocialIcon href={member.instagram} Icon={Instagram} color="rgb(59, 130, 246, 0.5)" />
               )}
-              {member.social.github && (
-                <SocialIcon href={member.social.github} Icon={Github} color={member.color} />
+              {member.github && (
+                <SocialIcon href={member.github} Icon={Github} color="rgb(59, 130, 246, 0.5)" />
               )}
-              {member.social.email && (
-                <SocialIcon href={`mailto:${member.social.email}`} Icon={Mail} color={member.color} />
+              {member.email && (
+                <SocialIcon href={`mailto:${member.email}`} Icon={Mail} color="rgb(59, 130, 246, 0.5)" />
               )}
             </motion.div>
           </div>
@@ -234,7 +227,7 @@ export default function TeamMemberCard({ member, index }: Props) {
         <motion.div
           className="absolute bottom-0 right-0 w-32 h-32 opacity-20 pointer-events-none"
           style={{
-            background: `radial-gradient(circle at bottom right, ${member.color}, transparent 70%)`,
+            background: `radial-gradient(circle at bottom right,rgb(59, 130, 246, 0.5), transparent 70%)`,
           }}
         />
       </motion.div>

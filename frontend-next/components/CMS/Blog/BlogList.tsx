@@ -17,6 +17,7 @@ const BlogList = () => {
     const {data, error, isLoading} = useListAllQuery({ page, limit, search })
     const [deleteBlog] = useDeleteBlogMutation()
     const blogs = data?.details || []
+    console.log('blogs', blogs);
 
 
     const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {

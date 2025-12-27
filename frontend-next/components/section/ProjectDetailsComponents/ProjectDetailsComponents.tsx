@@ -288,7 +288,7 @@ export const ProjectLinks = ({ project }: Props) => {
             about our process and results.
           </p>
           <div className="links-buttons">
-            {project.liveLink !== "#" && (
+            {project.liveLink && project.liveLink !== "" && project.liveLink !== "#" && (
               <Link
                 href={project.liveLink}
                 target="_blank"
@@ -299,7 +299,7 @@ export const ProjectLinks = ({ project }: Props) => {
                 View Live Project
               </Link>
             )}
-            {project.caseStudyLink !== "#" && (
+            {project.caseStudyLink && project.caseStudyLink !== "" && project.caseStudyLink !== "#" && (
               <Link
                 href={project.caseStudyLink}
                 className="link-button secondary-button"
@@ -307,7 +307,7 @@ export const ProjectLinks = ({ project }: Props) => {
                 <Target className="w-5 h-5" />
                 Read Case Study
               </Link>
-            )}
+            )}            
           </div>
         </motion.div>
       </div>

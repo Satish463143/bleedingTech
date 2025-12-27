@@ -5,8 +5,9 @@ import { CheckCircle, ExternalLink } from "lucide-react";
 
 // Type definitions
 interface Project {
-  id: number;
+  _id: number;
   title: string;
+  slug: string;
   subtitle?: string;
   image: string;
   description: string;
@@ -195,7 +196,7 @@ const FeaturedProjectCard: React.FC<FeaturedProjectCardProps> = ({ project, inde
   
           {/* CTA Button */}
           <motion.a
-            href={projectLink}
+            href={`/project-details?slug=${project?.slug}&id=${project?._id}`}
             className="group inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm"
             style={{
               background: "linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-accent)))",

@@ -7,6 +7,11 @@ const projectSchema = new mongoose.Schema({
         required: true,
         unique: true
     },
+    slug: {
+        type: String,
+        unique: true,
+        required: true
+    },
     subtitle: {
         type: String,
         required: true

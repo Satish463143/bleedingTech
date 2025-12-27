@@ -2,11 +2,13 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import NewProjectCard from "../../common/NewProjectCard/NewProjectCard";
-import { projects } from "../../../src/data/data";
 import "./FullProject.css";
+import { useListAllQuery } from "@/components/api/project.api";
 
 const FullProject = () => {
   const [activeFilter, setActiveFilter] = useState("All");
+  const { data , isLoading, isError } = useListAllQuery({page: 1, limit: 12});
+  const projects = data?.details || [];
 
   // Filter categories
   const categories = [
@@ -22,7 +24,9 @@ const FullProject = () => {
   const filteredProjects =
     activeFilter === "All"
       ? projects
-      : projects.filter((p) => p.category === activeFilter);
+      : projects.filter((p:any) => p.category === activeFilter);
+
+      
 
   return (
     <section
@@ -109,7 +113,7 @@ const FullProject = () => {
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
           >
-            {filteredProjects.map((project, index) => (
+            {filteredProjects.map((project:any, index:number) => (
               <NewProjectCard key={project.id} project={project} index={index} />
             ))}
           </motion.div>

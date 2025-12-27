@@ -7,8 +7,6 @@ type Service = {
   title: string;
   description: string;
   icon: React.ElementType;
-  glowColor: string;
-  gradient: string;
 }
 
 type Props = {
@@ -38,7 +36,7 @@ const ServiceCard: React.FC<Props> = ({ service, index }) => {
         <motion.div
           className="absolute -inset-1 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl -z-10"
           style={{
-            background: `radial-gradient(circle, ${service.glowColor}, transparent 70%)`,
+            background: `radial-gradient(circle, rgb(59, 130, 246, 0.4), transparent 70%)`,
           }}
         />
   
@@ -53,7 +51,7 @@ const ServiceCard: React.FC<Props> = ({ service, index }) => {
           whileHover={{
             scale: 1.02,
             y: -5,
-            borderColor: service.glowColor,
+            borderColor: 'rgb(59, 130, 246, 0.4)',
           }}
           transition={{ type: "spring", stiffness: 400, damping: 25 }}
         >
@@ -61,7 +59,7 @@ const ServiceCard: React.FC<Props> = ({ service, index }) => {
           <motion.div
             className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
             style={{
-              background: `linear-gradient(135deg, ${service.glowColor}, transparent)`,
+              background: `linear-gradient(135deg, rgb(59, 130, 246, 0.4), transparent)`,
               mixBlendMode: "overlay",
             }}
           />
@@ -70,7 +68,7 @@ const ServiceCard: React.FC<Props> = ({ service, index }) => {
           <motion.div
             className="absolute top-0 left-0 right-0 h-[2px]"
             style={{
-              background: `linear-gradient(90deg, transparent, ${service.glowColor}, transparent)`,
+              background: `linear-gradient(90deg, transparent, rgb(59, 130, 246, 0.4), transparent)`,
             }}
             initial={{ scaleX: 0 }}
             whileInView={{ scaleX: 1 }}
@@ -79,20 +77,20 @@ const ServiceCard: React.FC<Props> = ({ service, index }) => {
   
           {/* Icon container with animation */}
           <motion.div
-            className={`relative w-16 h-16 mb-6 rounded-2xl flex items-center justify-center bg-gradient-to-br ${service.gradient}`}
+            className={`relative w-16 h-16 mb-6 rounded-2xl flex items-center justify-center bg-gradient-to-br from-blue-500 to-cyan-400`}
             whileHover={{
               rotate: [0, -10, 10, -10, 0],
               scale: 1.1,
             }}
             transition={{ duration: 0.5 }}
           >
-            <Icon className="w-8 h-8 text-white" />
+            <img src={service.icon as string} alt={service.title} className="w-8 h-8 text-white" />
   
             {/* Icon glow pulse */}
             <motion.div
               className="absolute inset-0 rounded-2xl"
               style={{
-                background: `linear-gradient(135deg, ${service.glowColor}, transparent)`,
+                background: `linear-gradient(135deg, rgb(59, 130, 246, 0.4), transparent)`,
                 filter: "blur(10px)",
               }}
               animate={{
@@ -145,14 +143,14 @@ const ServiceCard: React.FC<Props> = ({ service, index }) => {
           <motion.div
             className="absolute bottom-0 right-0 w-24 h-24 opacity-20"
             style={{
-              background: `radial-gradient(circle at bottom right, ${service.glowColor}, transparent 70%)`,
+              background: `radial-gradient(circle at bottom right, rgb(59, 130, 246, 0.4), transparent 70%)`,
             }}
           />
   
           {/* Floating mini accent dot */}
           <motion.div
             className="absolute top-4 right-4 w-2 h-2 rounded-full"
-            style={{ background: service.glowColor }}
+            style={{ background: 'rgb(59, 130, 246, 0.4)' }}
             animate={{
               opacity: [0.3, 1, 0.3],
               scale: [1, 1.5, 1],

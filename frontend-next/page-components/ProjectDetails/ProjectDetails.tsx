@@ -8,7 +8,7 @@ import Script from "next/script";
 
 import "./ProjectDetails.css";
 
-import { projects } from "../../src/data/data";
+import { useShowByIdQuery } from "../../components/api/project.api";
 
 import {
   HeroImage,
@@ -27,38 +27,57 @@ const ContactCTA = lazy(
   () => import("../../components/common/ContactCTA/ContactCTA")
 );
 
-// ✅ Infer type from your data (best for production + no mismatch)
-type Project = (typeof projects)[number];
 
-// ✅ Type guard: ensures project is NOT null/undefined
-function isProject(value: Project | undefined | null): value is Project {
-  return Boolean(value);
-}
 
 export default function ProjectDetails() {
   const router = useRouter();
   const searchParams = useSearchParams();
-
-  const slug = searchParams.get('slug');
-  const idStr = searchParams.get('id');
-
-  const projectId = useMemo(() => {
-    const n = Number(idStr);
-    return Number.isFinite(n) ? n : null;
-  }, [idStr]);
-
-  // ✅ compute project from params (no extra state needed)
-  const foundProject = useMemo(() => {
-    if (projectId === null) return undefined;
-    return projects.find((p) => Number(p.id) === projectId);
-  }, [projectId]);
+  const id = searchParams.get('id');
+  const {data, isLoading, error} = useShowByIdQuery(id)  
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
-  }, [projectId, slug]);
+  }, [id]);
 
-  // ✅ Not Found
-  if (!isProject(foundProject)) {
+  const projects = useMemo(() => data?.details ? { ...data.details, id: data.details._id } : null, [data]);
+
+   // ✅ Show loading state
+   if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <h2
+            className="text-2xl font-bold mb-4"
+            style={{ color: "hsl(var(--foreground))" }}
+          >
+            Loading...
+          </h2>
+        </div>
+      </div>
+    );
+  }
+
+  // ✅ Handle error state
+  if (error) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <h2
+            className="text-2xl font-bold mb-4"
+            style={{ color: "hsl(var(--foreground))" }}
+          >
+            Error loading case study
+          </h2>
+          <Link href="/case-studies" className="text-primary hover:underline">
+            ← Back to Case Studies
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
+   // ✅ Not Found (after loading is complete)
+   if (!projects) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
@@ -76,33 +95,26 @@ export default function ProjectDetails() {
     );
   }
 
-  // ✅ project is guaranteed correct + non-null
-  const project = foundProject;
-
-  // Generate slug from title if not present (for URL compatibility)
-  const projectSlug =
-    slug || project.title.toLowerCase().replace(/\s+/g, "-");
-
-  const canonicalUrl = `https://bleedingtech.com.np/project-details?slug=${projectSlug}&id=${project.id}`;
+  const canonicalUrl = `https://bleedingtech.com.np/project-details?slug=${projects.slug}&id=${projects.id}`;
   const breadcrumbs = [
     { label: "Home", href: "/" },
     { label: "Portfolio", href: "/portfolio" },
-    { label: project.title },
+    { label: projects.title },
   ];
 
   // Project JSON-LD for SEO
   const projectJsonLd = {
     "@context": "https://schema.org",
     "@type": "CreativeWork",
-    name: project.title,
-    description: project.description,
+    name: projects.title,
+    description: projects.description,
     url: canonicalUrl,
     mainEntityOfPage: {
       "@type": "WebPage",
       "@id": canonicalUrl,
     },
-    about: project.category,
-    image: [project.image],
+    about: projects.category,
+    image: [projects.image],
     publisher: {
       "@type": "Organization",
       name: "Bleeding Tech",
@@ -112,11 +124,11 @@ export default function ProjectDetails() {
         url: "https://bleedingtech.com.np/logo.png",
       },
     },
-    keywords: project.tech.join(", "),
+    keywords: projects.tech.join(", "),
     workExample: {
       "@type": "CreativeWork",
-      name: project.title,
-      description: project.subtitle,
+      name: projects.title,
+      description: projects.subtitle,
     },
   };
 
@@ -124,7 +136,7 @@ export default function ProjectDetails() {
     <div className="min-h-screen">
       {/* Project JSON-LD */}
       <Script
-        id={`project-jsonld-${project.id}`}
+        id={`project-jsonld-${projects.id}`}
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(projectJsonLd) }}
       />
@@ -132,8 +144,8 @@ export default function ProjectDetails() {
       {/* Hero Banner */}
       <Suspense fallback={null}>
         <CommonBanner
-          title={project.title}
-          slogan={project.subtitle}
+          title={projects.title}
+          slogan={projects.subtitle}
           breadcrumbs={breadcrumbs}
         />
       </Suspense>
@@ -152,25 +164,25 @@ export default function ProjectDetails() {
       </div>
 
       {/* Hero Image */}
-      <HeroImage project={project} />
+      <HeroImage project={projects} />
 
       {/* Project Info Bar */}
-      <ProjectInfo project={project} />
+      <ProjectInfo project={projects} />
 
       {/* Overview Section */}
-      <OverviewSection project={project} />
+      <OverviewSection project={projects} />
 
       {/* Project Stats */}
-      <ProjectStats project={project} />
+      <ProjectStats project={projects} />
 
       {/* Features & Achievements */}
-      <FeaturesAchievements project={project} />
+      <FeaturesAchievements project={projects} />
 
       {/* Tech Stack */}
-      <TechStackSection project={project} />
+      <TechStackSection project={projects} />
 
       {/* Project Links */}
-      <ProjectLinks project={project} />
+      <ProjectLinks project={projects} />
 
       {/* CTA */}
       <Suspense fallback={null}>

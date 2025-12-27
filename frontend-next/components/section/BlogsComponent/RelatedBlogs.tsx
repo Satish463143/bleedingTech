@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef, lazy, Suspense } from "react";
 import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { blogs } from "../../../src/data/data";
+import { useListAllQuery } from "@/components/api/blog.api";
 import "./RelatedBlogs.css";
 
 // Lazy load RelatedBlogCard
@@ -21,11 +21,15 @@ const RelatedBlogs: React.FC<RelatedBlogsProps> = ({ currentBlogId, category }) 
   const carouselRef = useRef(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
+  const {data, isLoading, error} = useListAllQuery({ page: 1, limit: 6, search: category })
 
   // Filter related blogs (same category, excluding current)
-  const relatedBlogs = blogs.filter(
-    (blog) => blog.id !== currentBlogId
-  ).slice(0, 6);
+  const relatedBlogs = data?.blogs?.filter(
+    (blog: any) => blog._id !== currentBlogId
+  ).slice(0, 6) || [];
+
+  // Check if we have any related blogs to show
+  const hasRelatedBlogs = relatedBlogs.length > 0;
 
   useEffect(() => {
     if (inView) controls.start("visible");
@@ -55,6 +59,11 @@ const RelatedBlogs: React.FC<RelatedBlogsProps> = ({ currentBlogId, category }) 
       setTimeout(checkScrollButtons, 300);
     }
   };
+
+  // Don't render the section if there are no related blogs
+  if (!hasRelatedBlogs && !isLoading) {
+    return null;
+  }
 
   return (
     <section ref={ref} className="related-blogs-section">
@@ -86,27 +95,29 @@ const RelatedBlogs: React.FC<RelatedBlogsProps> = ({ currentBlogId, category }) 
             <h2 className="related-title">Related Articles</h2>
           </div>
 
-          {/* Navigation Buttons */}
-          <div className="carousel-nav">
-            <motion.button
-              className={`nav-btn ${!canScrollLeft ? 'disabled' : ''}`}
-              onClick={() => scroll("left")}
-              disabled={!canScrollLeft}
-              whileHover={{ scale: canScrollLeft ? 1.1 : 1 }}
-              whileTap={{ scale: canScrollLeft ? 0.9 : 1 }}
-            >
-              <ChevronLeft className="w-5 h-5" />
-            </motion.button>
-            <motion.button
-              className={`nav-btn ${!canScrollRight ? 'disabled' : ''}`}
-              onClick={() => scroll("right")}
-              disabled={!canScrollRight}
-              whileHover={{ scale: canScrollRight ? 1.1 : 1 }}
-              whileTap={{ scale: canScrollRight ? 0.9 : 1 }}
-            >
-              <ChevronRight className="w-5 h-5" />
-            </motion.button>
-          </div>
+          {/* Navigation Buttons - Only show if there are blogs */}
+          {hasRelatedBlogs && (
+            <div className="carousel-nav">
+              <motion.button
+                className={`nav-btn ${!canScrollLeft ? 'disabled' : ''}`}
+                onClick={() => scroll("left")}
+                disabled={!canScrollLeft}
+                whileHover={{ scale: canScrollLeft ? 1.1 : 1 }}
+                whileTap={{ scale: canScrollLeft ? 0.9 : 1 }}
+              >
+                <ChevronLeft className="w-5 h-5" />
+              </motion.button>
+              <motion.button
+                className={`nav-btn ${!canScrollRight ? 'disabled' : ''}`}
+                onClick={() => scroll("right")}
+                disabled={!canScrollRight}
+                whileHover={{ scale: canScrollRight ? 1.1 : 1 }}
+                whileTap={{ scale: canScrollRight ? 0.9 : 1 }}
+              >
+                <ChevronRight className="w-5 h-5" />
+              </motion.button>
+            </div>
+          )}
         </motion.div>
 
         {/* Carousel */}
@@ -121,9 +132,15 @@ const RelatedBlogs: React.FC<RelatedBlogsProps> = ({ currentBlogId, category }) 
           }}
         >
           <Suspense fallback={<div className="text-center w-full">Loading related blogs...</div>}>
-            {relatedBlogs.map((blog, index) => (
-              <RelatedBlogCard key={blog.id} blog={blog} index={index} />
-            ))}
+            {isLoading ? (
+              <div className="text-center w-full">Loading related blogs...</div>
+            ) : hasRelatedBlogs ? (
+              relatedBlogs.map((blog: any, index: number) => (
+                <RelatedBlogCard key={blog._id} blog={blog} index={index} />
+              ))
+            ) : (
+              <div className="text-center w-full text-gray-500">No related blogs found</div>
+            )}
           </Suspense>
         </motion.div>
       </div>

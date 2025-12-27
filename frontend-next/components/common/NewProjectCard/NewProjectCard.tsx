@@ -7,7 +7,7 @@ import Link from "next/link";
 
 // Type definitions
 interface Project {
-  id?: number;
+  _id?: number;
   title?: string;
   slug?: string;
   description?: string;
@@ -34,6 +34,14 @@ const NewProjectCard: React.FC<NewProjectCardProps> = ({ project, index = 0 }) =
     tech = ["React", "Node.js"],
     category = "Web Development",
   } = project || {};
+
+  const truncateContent = (content = '', wordLimit: number) => {
+    const words = content.split(' ');
+    return words.length > wordLimit
+      ? words.slice(0, wordLimit).join(' ') + '...'
+      : content;
+  };
+
 
   return (
     <motion.div
@@ -172,7 +180,7 @@ const NewProjectCard: React.FC<NewProjectCardProps> = ({ project, index = 0 }) =
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2 }}
                 >
-                  {description}
+                  {truncateContent(description, 15)}
                 </motion.p>
 
                 {/* Tech Stack */}
@@ -207,7 +215,7 @@ const NewProjectCard: React.FC<NewProjectCardProps> = ({ project, index = 0 }) =
                 transition={{ delay: 0.3 }}
               >
                 <MotionLink
-                  href={`/project-details?slug=${project?.slug}&id=${project?.id}`}
+                  href={`/project-details?slug=${project?.slug}&id=${project?._id}`}
                   className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm"
                   style={{
                     background: "linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-accent)))",

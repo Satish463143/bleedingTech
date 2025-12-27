@@ -1,28 +1,39 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { useRouter } from "next/navigation";
 import { ArrowRight, Calendar, Clock, Eye, Heart, Star } from "lucide-react";
-import { blogs } from "../../../src/data/data";
 import "./FeaturedBlog.css";
+import { useListAllQuery } from '../../api/blog.api';
 
 // Get the featured blog from blogs data
-const featuredBlog = blogs.find((blog) => blog.isFeatured) || blogs[0];
+
 
 const FeaturedBlog = () => {
   const controls = useAnimation();
   const [ref, inView] = useInView({ threshold: 0.2, triggerOnce: true });
   const [isHovered, setIsHovered] = useState(false);
   const router = useRouter();
+  const {data, error, isLoading} = useListAllQuery({ page: 1, limit: 9999, search: '' });
+  const blogs = data?.details || [];
+  const featuredBlog = blogs.find((blog: any) => blog.isFeatured === true) || blogs[0];
+  console.log(featuredBlog);
+
 
   useEffect(() => {
     if (inView) controls.start("visible");
   }, [controls, inView]);
 
-  const handleReadMore = () => {
-    router.push(`/blogs-details/${featuredBlog.slug}/${featuredBlog.id}`);
-  };
+
+  // Show loading or empty state if no featured blog
+  if (isLoading) {
+    return <div className="text-center py-20">Loading...</div>;
+  }
+
+  if (!featuredBlog) {
+    return null;
+  }
 
   return (
     <section ref={ref} className="featured-blog-section">
@@ -66,7 +77,7 @@ const FeaturedBlog = () => {
           }}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
-          onClick={handleReadMore}
+          onClick={() => router.push(`/blogs-details?slug=${featuredBlog?.slug}&id=${featuredBlog?._id}`)}
         >
           {/* Glow Effect */}
           <motion.div
@@ -77,8 +88,8 @@ const FeaturedBlog = () => {
           {/* Image Section */}
           <div className="featured-card-image">
             <motion.img
-              src={featuredBlog.thumbnail}
-              alt={featuredBlog.title}
+              src={featuredBlog?.thumbnail}
+              alt={featuredBlog?.title}
               animate={{ scale: isHovered ? 1.05 : 1 }}
               transition={{ duration: 0.6 }}
             />
@@ -88,7 +99,7 @@ const FeaturedBlog = () => {
             />
             
             {/* Category Badge */}
-            <span className="featured-category-badge">{featuredBlog.category}</span>
+            <span className="featured-category-badge">{featuredBlog?.category}</span>
             
             {/* Featured Label */}
             <div className="featured-label">
@@ -103,12 +114,12 @@ const FeaturedBlog = () => {
             <div className="featured-meta">
               <span className="featured-date">
                 <Calendar className="w-4 h-4" />
-                {featuredBlog.date}
+                {featuredBlog?.date}
               </span>
               <span className="featured-separator">•</span>
               <span className="featured-read-time">
                 <Clock className="w-4 h-4" />
-                {featuredBlog.readTime}
+                {featuredBlog?.readTime}
               </span>
             </div>
 
@@ -119,11 +130,11 @@ const FeaturedBlog = () => {
                 color: isHovered ? "hsl(var(--primary))" : "hsl(var(--foreground))",
               }}
             >
-              {featuredBlog.title}
+              {featuredBlog?.title}
             </motion.h3>
 
             {/* Subtitle */}
-            <p className="featured-subtitle">{featuredBlog.subtitle}</p>
+            <p className="featured-subtitle">{featuredBlog?.subtitle}</p>
 
             {/* Decorative Line */}
             <motion.div
@@ -132,11 +143,11 @@ const FeaturedBlog = () => {
             />
 
             {/* Excerpt */}
-            <p className="featured-excerpt">{featuredBlog.excerpt}</p>
+            <p className="featured-excerpt">{featuredBlog?.excerpt}</p>
 
             {/* Tags */}
             <div className="featured-tags">
-              {featuredBlog.tags.map((tag, index) => (
+              {featuredBlog?.tags?.map((tag: string, index: number) => (
                 <span key={index} className="featured-tag">
                   {tag}
                 </span>
@@ -148,13 +159,13 @@ const FeaturedBlog = () => {
               {/* Author */}
               <div className="featured-author">
                 <img
-                  src={featuredBlog.author.avatar}
-                  alt={featuredBlog.author.name}
+                  src={featuredBlog?.authorAvatar}
+                  alt={featuredBlog?.authorName}
                   className="author-avatar"
                 />
                 <div>
-                  <span className="author-name">{featuredBlog.author.name}</span>
-                  <span className="author-role">{featuredBlog.author.role}</span>
+                  <span className="author-name">{featuredBlog?.authorName}</span>
+                  <span className="author-role">{featuredBlog?.authorRole}</span>
                 </div>
               </div>
 
@@ -163,11 +174,11 @@ const FeaturedBlog = () => {
                 <div className="featured-stats">
                   <span className="featured-stat">
                     <Eye className="w-4 h-4" />
-                    {featuredBlog.views.toLocaleString()}
+                    {featuredBlog?.views?.toLocaleString() || 0}
                   </span>
                   <span className="featured-stat">
                     <Heart className="w-4 h-4" />
-                    {featuredBlog.likes}
+                    {featuredBlog?.likes || 0}
                   </span>
                 </div>
 
@@ -175,7 +186,7 @@ const FeaturedBlog = () => {
                   className="featured-button"
                   onClick={(e) => {
                     e.stopPropagation();
-                    handleReadMore();
+                    router.push(`/blogs-details?slug=${featuredBlog?.slug}&id=${featuredBlog?._id}`);
                   }}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}

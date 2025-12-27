@@ -7,6 +7,8 @@ class ProjectController{
         try{
             const data = req.body
 
+            data.slug = slugify(data.title, { lower: true, strict: true })
+
             // Convert tags to array if it's a string
              if (typeof data.tech === 'string') {
                 data.tech = [data.tech]

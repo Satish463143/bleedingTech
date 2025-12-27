@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState, lazy, Suspense } from "react";
+import { useEffect, useMemo, lazy, Suspense } from "react";
 import Link from "next/link";
 import { useSearchParams, useRouter } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
@@ -34,7 +34,6 @@ export default function CaseStudyDetail() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const id = searchParams.get('id');
-  const slug = searchParams.get('slug');
   
   
   const {data, isLoading, error} = useShowByIdQuery(id)
@@ -42,6 +41,8 @@ export default function CaseStudyDetail() {
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [id]);
+  // Map _id to id for consistency
+  const caseStudy = useMemo(() => data?.details ? { ...data.details, id: data.details._id } : null, [data]);
 
   // ✅ Show loading state
   if (isLoading) {
@@ -78,8 +79,7 @@ export default function CaseStudyDetail() {
     );
   }
 
-  // Map _id to id for consistency
-  const caseStudy = useMemo(() => data?.details ? { ...data.details, id: data.details._id } : null, [data]);
+  
 
   // ✅ Not Found (after loading is complete)
   if (!caseStudy) {
@@ -146,7 +146,7 @@ export default function CaseStudyDetail() {
     <div className="min-h-screen">
       {/* Case Study JSON-LD */}
       <Script
-        id={`case-study-jsonld-${study.id}`}
+        id={`case-study-jsonld-${study._id}`}
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(caseStudyJsonLd) }}
       />

@@ -4,36 +4,51 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 const Heading = lazy(() => import("../../../common/Heading/Heading"));
 const TeamMemberCard = lazy(() => import("../../../common/TeamMemberCard/TeamMemberCard"));
-import { teamMembers } from "../../../../src/data/data";
 import "./OurTeam.css";
+import { useListAllQuery } from "@/components/api/team.api";
 
 const OurTeam: React.FC = () => {
+
+  const { data , isLoading, isError } = useListAllQuery({page: 1, limit: 12, search: ''});
+
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const [direction, setDirection] = useState(1); 
+  
+  const teamMembers = data?.details || [];
 
-  // Auto-advance carousel
+  // Reset index if it goes out of bounds (e.g., when data changes)
   useEffect(() => {
-    if (!isPaused) {
-      const interval = setInterval(() => {
-        nextSlide();
-      }, 4000); // 4 seconds viewing time + smooth transition
-
-      return () => clearInterval(interval);
+    if (teamMembers.length > 0 && currentIndex >= teamMembers.length) {
+      setCurrentIndex(0);
     }
-  }, [currentIndex, isPaused]);
+  }, [teamMembers.length, currentIndex]);
+
+  // Auto-advance with proper checks
+  useEffect(() => {
+    if (teamMembers.length === 0 || isPaused) return;
+    
+    const interval = setInterval(() => {
+      setDirection(1);
+      setCurrentIndex((prev) => (prev + 1) % teamMembers.length);
+    }, 6000);
+    return () => clearInterval(interval);
+  }, [currentIndex, teamMembers.length, isPaused]);
 
   const nextSlide = () => {
+    if (teamMembers.length === 0) return;
     setDirection(1);
     setCurrentIndex((prev) => (prev + 1) % teamMembers.length);
   };
 
   const prevSlide = () => {
+    if (teamMembers.length === 0) return;
     setDirection(-1);
     setCurrentIndex((prev) => (prev - 1 + teamMembers.length) % teamMembers.length);
   };
 
   const goToSlide = (index: number) => {
+    if (teamMembers.length === 0) return;
     setDirection(index > currentIndex ? 1 : -1);
     setCurrentIndex(index);
   };
@@ -128,7 +143,55 @@ const OurTeam: React.FC = () => {
           />
         </Suspense>
 
-        {/* Carousel Container */}
+        {/* Loading State */}
+        {isLoading && (
+          <div className="flex items-center justify-center py-20">
+            <div className="text-center">
+              <div className="w-12 h-12 border-4 border-t-transparent rounded-full animate-spin mx-auto mb-4"
+                   style={{ borderColor: 'hsl(var(--primary))', borderTopColor: 'transparent' }}
+              />
+              <p style={{ color: 'hsl(var(--muted-foreground))' }}>Loading team members...</p>
+            </div>
+          </div>
+        )}
+
+        {/* Error State */}
+        {isError && (
+          <div className="flex items-center justify-center py-20">
+            <div className="text-center p-8 rounded-lg backdrop-blur-md border"
+                 style={{ 
+                   background: 'hsl(var(--card) / 0.5)',
+                   borderColor: 'hsl(var(--border))'
+                 }}
+            >
+              <p className="text-lg font-medium mb-2" style={{ color: 'hsl(var(--destructive))' }}>
+                Failed to load team members
+              </p>
+              <p style={{ color: 'hsl(var(--muted-foreground))' }}>
+                Please try refreshing the page
+              </p>
+            </div>
+          </div>
+        )}
+
+        {/* Empty State */}
+        {!isLoading && !isError && teamMembers.length === 0 && (
+          <div className="flex items-center justify-center py-20">
+            <div className="text-center p-8 rounded-lg backdrop-blur-md border"
+                 style={{ 
+                   background: 'hsl(var(--card) / 0.5)',
+                   borderColor: 'hsl(var(--border))'
+                 }}
+            >
+              <p className="text-lg font-medium" style={{ color: 'hsl(var(--muted-foreground))' }}>
+                No team members found
+              </p>
+            </div>
+          </div>
+        )}
+
+        {/* Carousel Container - Only show when we have data */}
+        {!isLoading && !isError && teamMembers.length > 0 && (
         <div className="relative max-w-5xl mx-auto">
           {/* Navigation Arrows */}
           <motion.button
@@ -181,10 +244,12 @@ const OurTeam: React.FC = () => {
                 }}
               >
                 <Suspense fallback={<div>Loading...</div>}>
-                  <TeamMemberCard
-                    member={teamMembers[currentIndex]}
-                    index={currentIndex}
-                  />
+                  {teamMembers[currentIndex] && (
+                    <TeamMemberCard
+                      member={teamMembers[currentIndex]}
+                      index={currentIndex}
+                    />
+                  )}
                 </Suspense>
               </motion.div>
             </AnimatePresence>
@@ -227,6 +292,7 @@ const OurTeam: React.FC = () => {
             ))}
           </div>
         </div>
+        )}
       </div>
     </section>
   );

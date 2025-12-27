@@ -1,20 +1,33 @@
 "use client";
 import { lazy, useEffect } from "react";
+import dynamic from "next/dynamic";
 import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import { Sparkles } from "lucide-react";
-import { projects } from "../../../src/data/data";
 import "./FeaturedProject.css";
-const FeaturedProjectCard = lazy(() => import ("../../common/FeaturedProjectCard/FeaturedProjectCard"));
+import { useListAllQuery } from "@/components/api/project.api";
 
-// Get featured projects (with isFeatured flag or first 3)
-const featuredProjects = projects.filter(p => p.isFeatured).length > 0
-  ? projects.filter(p => p.isFeatured).slice(0, 3)
-  : projects.slice(0, 3);
+
+
+const FeaturedProjectCard = lazy(() => import ("../../common/FeaturedProjectCard/FeaturedProjectCard"));
+const Heading = dynamic(() => import("../../common/Heading/Heading"), {
+  ssr: false,
+});
+
+
 
 const FeaturedProject = () => {
+
+
   const controls = useAnimation();
   const [ref, inView] = useInView({ threshold: 0.1, triggerOnce: true });
+
+  const { data , isLoading, isError } = useListAllQuery({page: 1, limit: 12});
+  const projects = data?.details || [];
+
+    // Get featured projects (with isFeatured flag or first 3)
+  const featuredProjects = projects.filter((p:any) => p.isFeatured).length > 0
+  ? projects.filter((p:any) => p.isFeatured).slice(0, 3)
+  : projects.slice(0, 3);
 
   useEffect(() => {
     if (inView) controls.start("visible");
@@ -66,43 +79,9 @@ const FeaturedProject = () => {
       </div>
 
       <div className="container mx-auto px-6 lg:px-12 relative z-10">
-        {/* Section Header */}
-        <motion.div
-          className="text-center mb-16"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-        >
-          <motion.div
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full border backdrop-blur-md mb-6"
-            style={{
-              background: "hsl(var(--primary) / 0.08)",
-              borderColor: "hsl(var(--primary) / 0.2)",
-            }}
-          >
-            <Sparkles className="w-4 h-4" style={{ color: "hsl(var(--primary))" }} />
-            <span
-              className="text-sm font-semibold"
-              style={{ color: "hsl(var(--primary))" }}
-            >
-              Featured Work
-            </span>
-          </motion.div>
+       
 
-          <h2
-            className="text-3xl lg:text-4xl xl:text-5xl font-bold mb-4"
-            style={{ color: "hsl(var(--foreground))" }}
-          >
-            Case Studies
-          </h2>
-          <p
-            className="text-base lg:text-lg max-w-2xl mx-auto"
-            style={{ color: "hsl(var(--muted-foreground))" }}
-          >
-            Deep dive into our most impactful projects and the results we delivered.
-          </p>
-        </motion.div>
+        <Heading head='Featured Work' subhead='Case' title='Studies' desc='Deep dive into our most impactful projects and the results we delivered.'/>
 
         {/* Featured Projects */}
         <motion.div
@@ -111,9 +90,9 @@ const FeaturedProject = () => {
           initial="hidden"
           animate={controls}
         >
-          {featuredProjects.map((project, index) => (
+          {featuredProjects.map((project:any, index:number) => (
             <FeaturedProjectCard
-              key={project.id}
+              key={project._id}
               project={project}
               index={index}
               isReversed={index % 2 !== 0}

@@ -16,15 +16,20 @@ import { Calendar,
     CheckCircle, 
 } from "lucide-react";
 
+// Helper function to decode HTML entities
+const decodeHTMLEntities = (text: string): string => {
+  const textarea = document.createElement('textarea');
+  textarea.innerHTML = text;
+  return textarea.value;
+};
+
 type Blog = {
     title: string;
     category: string;
-    author: {
-        name: string;
-        avatar: string;
-        role: string;
-        bio: string;
-    };
+    authorName: string;
+    authorAvatar: string;
+    authorRole: string;
+    authorBio: string;
     date: string;
     readTime: string;
     heroImage: string;
@@ -75,11 +80,11 @@ export  const MetaInfo = ({ blog }: BlogProps) => {
           >
             <div className="meta-item">
               <User className="meta-icon" />
-              <span>{blog.author.name}</span>
+              <span>{blog.authorName}</span>
             </div>
             <div className="meta-item">
               <Calendar className="meta-icon" />
-              <span>{blog.date}</span>
+              <span>{blog.date.slice(0,10)}</span>
             </div>
             <div className="meta-item">
               <Clock className="meta-icon" />
@@ -107,6 +112,9 @@ export  const MetaInfo = ({ blog }: BlogProps) => {
     useEffect(() => {
       if (inView) controls.start("visible");
     }, [controls, inView]);
+
+    // Decode HTML entities in the content
+    const decodedContent = decodeHTMLEntities(blog.content);
   
     return (
       <section ref={ref} className="blog-detail-content">
@@ -120,7 +128,7 @@ export  const MetaInfo = ({ blog }: BlogProps) => {
               variants={{
                 visible: { opacity: 1, y: 0, transition: { duration: 0.8 } },
               }}
-              dangerouslySetInnerHTML={{ __html: blog.content }}
+              dangerouslySetInnerHTML={{ __html: decodedContent }}
             />
   
             {/* Sidebar */}
@@ -215,15 +223,15 @@ export   const AuthorSection = ({ blog }: BlogProps) => {
             }}
           >
             <img
-              src={blog.author.avatar}
-              alt={blog.author.name}
+              src={blog.authorAvatar}
+              alt={blog.authorName}
               className="author-avatar"
             />
             <div className="author-info">
               <span className="author-label">Written by</span>
-              <h3 className="author-name">{blog.author.name}</h3>
-              <span className="author-role">{blog.author.role}</span>
-              <p className="author-bio">{blog.author.bio}</p>
+              <h3 className="author-name">{blog.authorName}</h3>
+              <span className="author-role">{blog.authorRole}</span>
+              <p className="author-bio">{blog.authorBio}</p>
             </div>
           </motion.div>
         </div>

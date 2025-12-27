@@ -3,17 +3,20 @@ import React, { useEffect, lazy, Suspense } from "react";
 import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import "./BlogList.css";
+import { useListAllQuery } from '../../api/blog.api';
 
 // Lazy load components
 const Heading = lazy(() => import("../../common/Heading/Heading"));
 const BlogItem = lazy(() => import("../../common/BlogItem/BlogItem"));
 
 // Import blogs data
-import { blogs } from "../../../src/data/data";
+
 
 const BlogList = () => {
   const controls = useAnimation();
   const [ref, inView] = useInView({ threshold: 0.1, triggerOnce: true });
+  const {data, error, isLoading} = useListAllQuery({ page: 1, limit: 9999, search: '' });
+  const blogs = data?.details || [];
 
   useEffect(() => {
     if (inView) controls.start("visible");

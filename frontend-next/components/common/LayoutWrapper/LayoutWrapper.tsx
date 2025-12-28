@@ -2,9 +2,13 @@
 import { usePathname } from 'next/navigation';
 import Navbar from "@/components/common/Navbar/Navbar";
 import Footer from "@/components/common/Footer/Footer";
+import { usePageTracking } from "@/hooks/usePageTracking";
 
 export default function LayoutWrapper({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+  
+  // Track page analytics
+  usePageTracking();
   
   // Check if current route is admin (CMS routes)
   const isAdminRoute = pathname?.startsWith('/admin');

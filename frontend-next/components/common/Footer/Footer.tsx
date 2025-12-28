@@ -45,13 +45,12 @@ export default function Footer() {
   ];
 
   const quickLinks: SimpleLink[] = [
-    { name: "Packages", href: "#packages" },
+    { name: "Packages", href: "/packages" },
     { name: "Testimonials", href: "/#testimonials" },
     { name: "FAQs", href: "/#faq" },
-    { name: "Blog", href: "#blog" },
-    { name: "Careers", href: "#careers" },
-    { name: "Privacy Policy", href: "#privacy" },
-    { name: "Terms & Conditions", href: "#terms" },
+    { name: "Blog", href: "/blogs" },
+    { name: "Privacy Policy", href: "/privacy-policy" },
+    { name: "Terms & Conditions", href: "/privacy-policy#terms&conditions" },
   ];
 
   const socialLinks: Social[] = [
@@ -277,8 +276,8 @@ export default function Footer() {
             </h3>
 
             <ul className="space-y-4 mb-8">
-              <ContactItem icon={Mail} text="support@bleedingtech.com" href="mailto:support@bleedingtech.com" />
-              <ContactItem icon={Phone} text="+977-98XXXXXXXX" href="tel:+97798XXXXXXXX" />
+              <ContactItem icon={Mail} text="bleeding.tech77@gmail.com" href="mailto:bleeding.tech77@gmail.com" />
+              <ContactItem icon={Phone} text="+977-9809673319" href="tel:+9779809673319" />
               <ContactItem icon={MapPin} text="Kathmandu, Nepal" href="#" />
             </ul>
 
@@ -397,8 +396,10 @@ function FooterLink({ href, name }: FooterLinkProps) {
         <motion.a href={href} onClick={handleHashNavigation} {...commonMotionProps}>
           {linkContent}
         </motion.a>
-      ) : (        
+      ) : (
+        <Link href={href} passHref>
           <motion.a {...commonMotionProps}>{linkContent}</motion.a>
+        </Link>
       )}
     </li>
   );

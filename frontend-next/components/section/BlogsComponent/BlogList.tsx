@@ -90,8 +90,8 @@ const BlogList = () => {
           }}
         >
           <Suspense fallback={<div className="text-center col-span-full">Loading blogs...</div>}>
-            {blogs.map((blog, index) => (
-              <BlogItem key={blog.id} blog={blog} index={index} />
+            {blogs.map((blog: any, index: number) => (
+              <BlogItem key={blog._id} blog={blog} index={index} />
             ))}
           </Suspense>
         </motion.div>

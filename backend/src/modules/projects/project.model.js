@@ -48,11 +48,9 @@ const projectSchema = new mongoose.Schema({
     },
     liveLink: {
         type: String,
-        required: true
     },
     caseStudyLink: {
         type: String,
-        required: true
     },
 },{
     timestamps:true,

@@ -54,7 +54,6 @@ const Services: React.FC = () => {
             filter: "blur(80px)",
           }}
         />
-
         {/* Radial gradient glow - bottom right */}
         <motion.div
           className="absolute bottom-0 right-1/4 w-[500px] h-[500px] opacity-25"

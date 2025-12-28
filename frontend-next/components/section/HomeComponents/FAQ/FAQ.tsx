@@ -158,7 +158,7 @@ const FAQ: React.FC<FAQProps> = ({
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <p className="text-muted-foreground mb-4">Still have questions?</p>
+          <p className="mb-4" style={{ color: "hsl(var(--muted-foreground))" }}>Still have questions?</p>
           <Link href="/contact-us">
             <motion.span
               className="inline-block px-8 py-3 rounded-xl font-semibold text-sm cursor-pointer"

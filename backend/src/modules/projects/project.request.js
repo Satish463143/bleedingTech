@@ -20,8 +20,8 @@ const projectDTO = joi.object({
     ).required(),
     category: joi.string().valid(...Object.values(ProjectCategory)).required(),
     isFeatured: joi.string().valid(...Object.values(isFeatued)).required(), 
-    liveLink: joi.string().required(),
-    caseStudyLink: joi.string().required(),
+    liveLink: joi.string().allow('').optional(),
+    caseStudyLink: joi.string().allow('').optional(),
 }).unknown(false)
 
 module.exports = projectDTO

@@ -7,77 +7,9 @@ import {
   Network,
   Target,
   Briefcase, Users, Clock, ThumbsUp, Megaphone,
-  Globe,
+  Globe, AlertCircle, DollarSign, RefreshCw, Ban, CheckCircle, Award , FileText,
+   Scale, Shield, Lock, Eye, Database, Mail,
 } from "lucide-react";
-import satish from '../../public/assets/image/satish.jpg'
-
-const testimonials = [
-    {
-      id: 1,
-      name: "Sarah Johnson",
-      role: "CEO & Founder",
-      company: "TechVision Inc.",
-      image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop",
-      review:
-        "Working with this team transformed our digital presence completely. Their attention to detail and innovative approach exceeded all expectations. The results speak for themselves—our conversion rate increased by 340%.",
-      rating: 5,
-      category: "Web Development",
-      gradient: "from-blue-500 to-cyan-400",
-      glowColor: "rgb(59, 130, 246, 0.4)",
-    },
-    {
-      id: 2,
-      name: "Michael Chen",
-      role: "Marketing Director",
-      company: "Growth Dynamics",
-      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop",
-      review:
-        "Exceptional service from start to finish. The SEO strategy they implemented brought us to the first page of Google within 3 months. Our organic traffic has tripled, and we're seeing real business growth.",
-      rating: 5,
-      category: "SEO & Digital Marketing",
-      gradient: "from-purple-500 to-pink-500",
-      glowColor: "rgb(168, 85, 247, 0.4)",
-    },
-    {
-      id: 3,
-      name: "Emily Rodriguez",
-      role: "Product Manager",
-      company: "InnovateLabs",
-      image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop",
-      review:
-        "The mobile app they developed is not just functional—it's a work of art. User engagement is through the roof, and the app runs flawlessly across all devices. Truly world-class development.",
-      rating: 5,
-      category: "Mobile App Development",
-      gradient: "from-green-500 to-emerald-400",
-      glowColor: "rgb(34, 197, 94, 0.4)",
-    },
-    {
-      id: 4,
-      name: "David Park",
-      role: "CTO",
-      company: "CloudScale Systems",
-      image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop",
-      review:
-        "Their system architecture expertise is unmatched. They rebuilt our entire infrastructure for massive scale, and it handles millions of requests daily without breaking a sweat. Incredible engineering.",
-      rating: 5,
-      category: "System Architecture",
-      gradient: "from-orange-500 to-red-500",
-      glowColor: "rgb(249, 115, 22, 0.4)",
-    },
-    {
-      id: 5,
-      name: "Jessica Williams",
-      role: "Brand Strategist",
-      company: "Creative Minds Co.",
-      image: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=400&h=400&fit=crop",
-      review:
-        "The UI/UX design work is phenomenal. Our users love the new interface—it's intuitive, beautiful, and significantly improved our user satisfaction scores. Design meets function perfectly.",
-      rating: 5,
-      category: "UI/UX Design",
-      gradient: "from-indigo-500 to-purple-500",
-      glowColor: "rgb(99, 102, 241, 0.4)",
-    },
-  ];
 
   const clients = [
     {
@@ -251,169 +183,6 @@ const defaultFaqs = [
     { color: "rgb(236, 72, 153, 0.5)", gradient: "from-pink-500 to-rose-500" },
     { color: "rgb(99, 102, 241, 0.5)", gradient: "from-indigo-500 to-purple-500" },
   ];
-  // Dummy team data - will be replaced with API later
-  const teamMembers = [
-    {
-      id: 1,
-      name: "Satish Mahato",
-      position: "CEO & Full-Stack Developer (MERN)",
-      tagline: `A MERN full-stack developer with 2+ years of experience, specializing in modern, scalable digital solutions. He leads Bleeding Tech’s technical direction and ensures high-quality product engineering.`,
-      image: satish,
-      color: "rgb(59, 130, 246, 0.5)",
-      gradient: "from-blue-500 to-cyan-400",
-      social: {
-        linkedin: "https://www.linkedin.com/in/satish-mahato-233151257/",
-        twitter: "#",
-        github: "https://github.com/Satish463143",
-        email: "mahatosatish463@gmail.com",
-      },
-    },
-    {
-      id: 2,
-      name: "Sunil Budha",
-      position: "Founder & WordPress Developer",
-      tagline:`A skilled WordPress developer with 4+ years of experience, focused on building fast, optimized, and business-ready websites. He drives Bleeding Tech’s creative and strategic foundation.`,
-      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop",
-      color: "rgb(168, 85, 247, 0.5)",
-      gradient: "from-purple-500 to-pink-500",
-      social: {
-        linkedin: "#",
-        twitter: "#",
-        email: "michael@example.com",
-      },
-    }
-  ];
-
-  // Dummy services data - will be replaced with API later
-// Complete services data with all details
-const services = [
-  {
-    id: 1,
-    icon: TrendingUp,
-    title: "Digital Marketing & Growth Strategy",
-    description: "Data-driven campaigns that scale your brand reach, boost conversions, and accelerate revenue growth.",
-    fullDesc: "We craft comprehensive digital marketing strategies that combine creativity with analytics. Our team specializes in multi-channel campaigns, content marketing, email automation, and conversion rate optimization to deliver measurable results and sustainable growth.",
-    features: [
-      "Social Media Marketing & Management",
-      "Content Strategy & Brand Storytelling",
-      "Email Marketing & Automation",
-      "Analytics & Performance Tracking",
-      "Conversion Rate Optimization",
-      "Marketing Funnel Development",
-    ],
-    gradient: "from-[hsl(var(--primary))] to-[hsl(var(--primary-accent))]",
-    glowColor: "hsl(var(--primary) / 0.4)",
-    color: "rgb(59, 130, 246, 0.5)",
-  },
-  {
-    id: 2,
-    icon: Code,
-    title: "Web Development & Optimization",
-    description: "High-performance web solutions with modern frameworks, seamless integrations, and continuous optimization.",
-    fullDesc: "From responsive websites to complex web applications, we build digital experiences that captivate users and drive conversions. Our development process emphasizes clean code, optimal performance, and scalable architecture using cutting-edge technologies.",
-    features: [
-      "Custom Website Development",
-      "E-commerce Solutions & Platforms",
-      "Progressive Web Apps (PWA)",
-      "API Development & Integration",
-      "WordPress & CMS Development",
-      "Performance Optimization & Speed",
-    ],
-    gradient: "from-blue-500 to-cyan-400",
-    glowColor: "rgb(59, 130, 246, 0.4)",
-    color: "rgb(59, 130, 246, 0.5)",
-  },
-  {
-    id: 3,
-    icon: Smartphone,
-    title: "Mobile App Development",
-    description: "Native & cross-platform mobile apps designed for scalability, performance, and exceptional user engagement.",
-    fullDesc: "We create mobile applications that users love. Whether you need a native iOS/Android app or a cross-platform solution, our team delivers intuitive, high-performance mobile experiences that keep users engaged and coming back.",
-    features: [
-      "iOS & Android Native Development",
-      "React Native Cross-Platform Apps",
-      "Flutter App Development",
-      "App Store Optimization (ASO)",
-      "Push Notifications & Engagement",
-      "Mobile App Maintenance & Updates",
-    ],
-    gradient: "from-purple-500 to-pink-500",
-    glowColor: "rgb(168, 85, 247, 0.4)",
-    color: "rgb(168, 85, 247, 0.5)",
-  },
-  {
-    id: 4,
-    icon: Search,
-    title: "SEO & Performance Ranking",
-    description: "Advanced SEO strategies that dominate search rankings, drive organic traffic, and maximize visibility.",
-    fullDesc: "Our SEO experts use proven techniques and the latest algorithms to improve your search visibility. We focus on sustainable, white-hat strategies that build long-term organic traffic and establish your authority in search results.",
-    features: [
-      "Technical SEO & Site Audits",
-      "On-Page & Off-Page Optimization",
-      "Keyword Research & Strategy",
-      "Local SEO & Google Business",
-      "Link Building & Outreach",
-      "SEO Analytics & Reporting",
-    ],
-    gradient: "from-green-500 to-emerald-400",
-    glowColor: "rgb(34, 197, 94, 0.4)",
-    color: "rgb(34, 197, 94, 0.5)",
-  },
-  {
-    id: 5,
-    icon: Palette,
-    title: "UI/UX Design & Product Experience",
-    description: "Stunning, intuitive interfaces crafted with user psychology, brand identity, and conversion optimization.",
-    fullDesc: "Great design is invisible—it just works. Our design team creates user experiences that feel natural and delightful. We combine aesthetic excellence with user research to craft interfaces that convert visitors into loyal customers.",
-    features: [
-      "User Interface (UI) Design",
-      "User Experience (UX) Research",
-      "Wireframing & Prototyping",
-      "Design Systems & Style Guides",
-      "Interaction & Motion Design",
-      "Usability Testing & Iteration",
-    ],
-    gradient: "from-orange-500 to-yellow-400",
-    glowColor: "rgb(249, 115, 22, 0.4)",
-    color: "rgb(249, 115, 22, 0.5)",
-  },
-  {
-    id: 6,
-    icon: Network,
-    title: "System Architecture & Custom Development",
-    description: "Robust, scalable infrastructure and custom-built solutions engineered for mission-critical applications.",
-    fullDesc: "We architect systems that scale effortlessly and perform reliably under any load. Our engineers design and implement custom solutions using microservices, cloud-native technologies, and best-in-class DevOps practices.",
-    features: [
-      "Cloud Architecture (AWS, GCP, Azure)",
-      "Microservices & API Design",
-      "Database Design & Optimization",
-      "DevOps & CI/CD Pipelines",
-      "System Integration & Migration",
-      "Security & Compliance Implementation",
-    ],
-    gradient: "from-indigo-500 to-blue-500",
-    glowColor: "rgb(99, 102, 241, 0.4)",
-    color: "rgb(99, 102, 241, 0.5)",
-  },
-  {
-    id: 7,
-    icon: Target,
-    title: "Google & Meta Ads Management",
-    description: "Precision-targeted ad campaigns optimized for maximum ROI, audience engagement, and brand awareness.",
-    fullDesc: "Our paid advertising specialists create and manage campaigns that deliver real results. We leverage advanced targeting, A/B testing, and continuous optimization to maximize your advertising budget and achieve your business goals.",
-    features: [
-      "Google Ads (Search, Display, Shopping)",
-      "Meta Ads (Facebook & Instagram)",
-      "YouTube & Video Advertising",
-      "Remarketing & Retargeting Campaigns",
-      "Landing Page Optimization",
-      "ROI Tracking & Attribution",
-    ],
-    gradient: "from-red-500 to-pink-500",
-    glowColor: "rgb(239, 68, 68, 0.4)",
-    color: "rgb(239, 68, 68, 0.5)",
-  },
-];
 
   const stats = [
     {
@@ -445,8 +214,6 @@ const services = [
       color: "rgb(249, 115, 22)",
     },
   ];
-
-
 // Package Data - Expanded with detailed features
 const packageCategories = [
   {
@@ -923,6 +690,360 @@ const serviceFaqs = [
   },
 ];
 
+const termSections = [
+  {
+    icon: FileText,
+    title: "1. Acceptance of Terms",
+    content: [
+      {
+        subtitle: "",
+        text: "By accessing and using Bleeding Tech's services, website, or any related applications, you acknowledge that you have read, understood, and agree to be bound by these Terms and Conditions. These terms constitute a legally binding agreement between you (the 'Client') and Bleeding Tech. If you do not agree to these terms, please discontinue use of our services immediately. These terms apply to all users, clients, visitors, and anyone who accesses our services."
+      }
+    ]
+  },
+  {
+    icon: Award,
+    title: "2. Services Provided",
+    content: [
+      {
+        subtitle: "2.1 Scope of Services",
+        text: "Bleeding Tech provides comprehensive digital solutions including: Web Development (custom websites, e-commerce platforms, Progressive Web Apps, WordPress development), Mobile Application Development (iOS, Android, React Native, Flutter), UI/UX Design (interface design, user experience research, prototyping), SEO Optimization (technical SEO, on-page/off-page optimization, keyword research), Digital Marketing (content strategy, social media marketing, email marketing), Google & Meta Ads Management (campaign creation, optimization, performance tracking), System Architecture (cloud infrastructure, API development, microservices), and Custom Software Development (ERP systems, billing systems, custom integrations)."
+      },
+      {
+        subtitle: "2.2 Service Agreements",
+        text: "Specific project scope, deliverables, timelines, and pricing will be detailed in individual service agreements, proposals, or contracts. These documents supplement and work in conjunction with these general Terms and Conditions."
+      }
+    ]
+  },
+  {
+    icon: DollarSign,
+    title: "3. Payment Terms",
+    content: [
+      {
+        subtitle: "3.1 Pricing and Invoicing",
+        text: "All prices are quoted in USD unless otherwise specified. For project-based work, payment schedules will be outlined in the service agreement, typically structured as: 50% upfront deposit before project commencement, 25% upon reaching agreed milestones, and 25% upon project completion and client approval. For monthly services (SEO, digital marketing, maintenance), payment is due on the 1st of each month."
+      },
+      {
+        subtitle: "3.2 Payment Methods",
+        text: "We accept payments via bank transfer, credit/debit cards, PayPal, Stripe, and other agreed-upon payment methods. All payment processing fees are the responsibility of the client unless otherwise agreed."
+      },
+      {
+        subtitle: "3.3 Late Payments",
+        text: "Invoices are due within 15 days of issuance unless otherwise specified. Late payments may incur a fee of 2% per month on the outstanding balance. Bleeding Tech reserves the right to suspend services for accounts with overdue payments exceeding 30 days."
+      },
+      {
+        subtitle: "3.4 Taxes",
+        text: "All prices exclude applicable taxes unless explicitly stated. Clients are responsible for any sales tax, VAT, GST, or other taxes required by their jurisdiction."
+      }
+    ]
+  },
+  {
+    icon: RefreshCw,
+    title: "4. Project Timeline and Revisions",
+    content: [
+      {
+        subtitle: "4.1 Timeline Commitments",
+        text: "Project timelines are estimated based on the scope provided and assume timely client feedback and resource availability. Delays caused by late client feedback, scope changes, or third-party dependencies may extend delivery timelines."
+      },
+      {
+        subtitle: "4.2 Revision Policy",
+        text: "Each project includes a specified number of revision rounds as outlined in the service agreement. Standard projects typically include 2-3 revision rounds. Additional revisions beyond the agreed scope will be billed at our standard hourly rate. Revisions must be requested within 14 days of deliverable submission."
+      },
+      {
+        subtitle: "4.3 Scope Changes",
+        text: "Any changes to the original project scope, features, or requirements must be submitted in writing and may result in adjusted timelines and additional costs. We will provide a change order detailing the impact on budget and schedule."
+      }
+    ]
+  },
+  {
+    icon: Scale,
+    title: "5. Intellectual Property Rights",
+    content: [
+      {
+        subtitle: "5.1 Client Ownership",
+        text: "Upon full payment, clients receive ownership of the final deliverables, including custom code, designs, and content created specifically for their project. This transfer of ownership occurs only after all invoices have been paid in full."
+      },
+      {
+        subtitle: "5.2 Bleeding Tech's Intellectual Property",
+        text: "Bleeding Tech retains ownership of all pre-existing intellectual property, proprietary tools, frameworks, libraries, methodologies, and any reusable code components. Clients receive a license to use these elements as part of their delivered solution but do not own them."
+      },
+      {
+        subtitle: "5.3 Third-Party Components",
+        text: "Projects may include third-party libraries, plugins, fonts, or APIs subject to their respective licenses. Clients are responsible for compliance with these third-party licenses."
+      },
+      {
+        subtitle: "5.4 Portfolio Rights",
+        text: "Bleeding Tech reserves the right to showcase completed projects in our portfolio, case studies, and marketing materials unless a non-disclosure agreement specifies otherwise."
+      }
+    ]
+  },
+  {
+    icon: CheckCircle,
+    title: "6. Client Responsibilities",
+    content: [
+      {
+        subtitle: "6.1 Information and Materials",
+        text: "Clients must provide accurate information, content, brand assets, access credentials, and any materials necessary for project completion in a timely manner. Delays in providing required materials may impact project timelines."
+      },
+      {
+        subtitle: "6.2 Content Accuracy",
+        text: "Clients are responsible for the accuracy, legality, and copyright compliance of all content, images, and materials provided to Bleeding Tech. Clients warrant that they have the necessary rights and permissions for all materials supplied."
+      },
+      {
+        subtitle: "6.3 Feedback and Communication",
+        text: "Clients agree to provide timely feedback and responses to queries within agreed timeframes (typically 3-5 business days). Extended delays in client feedback may result in project pauses or timeline adjustments."
+      },
+      {
+        subtitle: "6.4 Testing and Acceptance",
+        text: "Clients are responsible for thoroughly testing deliverables and providing acceptance or detailed feedback within the specified review period (typically 7-14 days). Failure to provide feedback within this period will be considered implicit acceptance."
+      }
+    ]
+  },
+  {
+    icon: AlertCircle,
+    title: "7. Warranties and Limitations",
+    content: [
+      {
+        subtitle: "7.1 Service Warranty",
+        text: "Bleeding Tech warrants that services will be performed in a professional and workmanlike manner consistent with industry standards. We guarantee that deliverables will function as specified in the service agreement for 30 days after delivery (bug-fix period)."
+      },
+      {
+        subtitle: "7.2 No Guarantee of Results",
+        text: "While we strive for excellence, Bleeding Tech does not guarantee specific business outcomes, search engine rankings, traffic volumes, conversion rates, or revenue increases from SEO, digital marketing, or advertising services. Results depend on numerous factors beyond our control."
+      },
+      {
+        subtitle: "7.3 Third-Party Services",
+        text: "We are not responsible for the performance, availability, or changes to third-party services, APIs, platforms (Google, Facebook, payment processors), or hosting providers. Changes to third-party terms or discontinuation of services may affect project functionality."
+      },
+      {
+        subtitle: "7.4 Limitation of Liability",
+        text: "Bleeding Tech's total liability for any claims arising from our services shall not exceed the total amount paid by the client for the specific service giving rise to the claim. We are not liable for indirect, consequential, special, or punitive damages including lost profits, data loss, or business interruption."
+      }
+    ]
+  },
+  {
+    icon: Ban,
+    title: "8. Termination and Cancellation",
+    content: [
+      {
+        subtitle: "8.1 Client Termination",
+        text: "Clients may terminate services with 30 days' written notice. For project-based work, termination will result in payment for all work completed up to the termination date plus any non-refundable expenses incurred. Deposits are non-refundable."
+      },
+      {
+        subtitle: "8.2 Bleeding Tech Termination",
+        text: "We reserve the right to terminate services immediately if: payment is overdue by more than 30 days, the client violates these Terms and Conditions, the client engages in abusive or threatening behavior toward our team, or the project involves illegal activities."
+      },
+      {
+        subtitle: "8.3 Refund Policy",
+        text: "Upfront deposits and payments for completed work are non-refundable. For monthly subscription services, refunds may be considered on a case-by-case basis within the first 14 days if no significant work has been delivered."
+      },
+      {
+        subtitle: "8.4 Data and Materials",
+        text: "Upon termination, Bleeding Tech will provide clients with all completed deliverables and client-provided materials within 30 days, subject to full payment of outstanding invoices."
+      }
+    ]
+  },
+  {
+    icon: RefreshCw,
+    title: "9. Maintenance and Support",
+    content: [
+      {
+        subtitle: "9.1 Post-Launch Support",
+        text: "Most projects include a 30-day bug-fix period after launch, during which we will address any technical issues or bugs at no additional cost. This does not include new features, design changes, or issues caused by client modifications."
+      },
+      {
+        subtitle: "9.2 Ongoing Maintenance",
+        text: "Ongoing maintenance and support services are available through monthly retainer agreements covering software updates, security patches, performance monitoring, backup management, and technical support."
+      },
+      {
+        subtitle: "9.3 Emergency Support",
+        text: "Emergency support outside of regular business hours may be available for clients with active maintenance agreements, subject to additional fees."
+      }
+    ]
+  },
+  {
+    icon: Scale,
+    title: "10. Confidentiality",
+    content: [
+      {
+        subtitle: "",
+        text: "Both parties agree to maintain confidentiality of proprietary information, business strategies, technical specifications, and sensitive data disclosed during the course of the engagement. This obligation continues for 3 years after the conclusion of services unless otherwise specified in a separate Non-Disclosure Agreement."
+      }
+    ]
+  },
+  {
+    icon: AlertCircle,
+    title: "11. Indemnification",
+    content: [
+      {
+        subtitle: "",
+        text: "Clients agree to indemnify and hold Bleeding Tech harmless from any claims, damages, losses, or expenses arising from: content provided by the client, client's use of deliverables, violation of third-party rights, or client's violation of applicable laws. Bleeding Tech will indemnify clients against claims that our original work infringes on third-party intellectual property rights."
+      }
+    ]
+  },
+  {
+    icon: FileText,
+    title: "12. Dispute Resolution",
+    content: [
+      {
+        subtitle: "12.1 Good Faith Negotiation",
+        text: "In the event of any dispute, both parties agree to first attempt resolution through good faith negotiation and direct communication."
+      },
+      {
+        subtitle: "12.2 Mediation",
+        text: "If negotiation fails, parties agree to mediation before pursuing legal action. Mediation costs will be shared equally between both parties."
+      },
+      {
+        subtitle: "12.3 Governing Law",
+        text: "These Terms and Conditions are governed by the laws of the jurisdiction where Bleeding Tech operates. Any legal proceedings will be conducted in the courts of that jurisdiction."
+      }
+    ]
+  }
+];
+
+const privacySections = [
+  {
+    icon: FileText,
+    title: "1. Information We Collect",
+    content: [
+      {
+        subtitle: "1.1 Personal Information",
+        text: "When you engage with Bleeding Tech's services, we may collect personal information including but not limited to: full name, email address, phone number, company name, job title, billing address, and payment information. This information is collected when you submit inquiries, request quotes, sign contracts, or subscribe to our services."
+      },
+      {
+        subtitle: "1.2 Technical Information",
+        text: "We automatically collect certain technical data when you visit our website, including IP address, browser type and version, time zone settings, operating system and platform, device information, and cookie data. This helps us improve our website functionality and user experience."
+      },
+      {
+        subtitle: "1.3 Project-Related Information",
+        text: "For clients engaging our web development, mobile app development, UI/UX design, SEO optimization, or custom system development services, we collect project specifications, business requirements, content materials, brand assets, access credentials (when necessary), and analytics data related to your digital properties."
+      }
+    ]
+  },
+  {
+    icon: Database,
+    title: "2. How We Use Your Information",
+    content: [
+      {
+        subtitle: "2.1 Service Delivery",
+        text: "We use your information to deliver our core services including web development, mobile application development, WordPress development, SEO optimization, digital marketing campaigns, UI/UX design, system architecture, and Google & Meta ads management. Your data enables us to understand your requirements, communicate effectively, and deliver customized solutions."
+      },
+      {
+        subtitle: "2.2 Communication",
+        text: "We use your contact information to send project updates, technical notifications, service-related announcements, respond to inquiries, provide customer support, and send promotional materials about our services (which you may opt out of at any time)."
+      },
+      {
+        subtitle: "2.3 Analytics and Improvement",
+        text: "We analyze usage data to improve our website performance, optimize user experience, develop new features and services, conduct research and analysis, and measure the effectiveness of our marketing campaigns and SEO strategies."
+      },
+      {
+        subtitle: "2.4 Legal Compliance",
+        text: "We may use your information to comply with legal obligations, enforce our terms and conditions, protect our rights and property, prevent fraud and abuse, and respond to legal requests from authorities."
+      }
+    ]
+  },
+  {
+    icon: Lock,
+    title: "3. Data Security and Protection",
+    content: [
+      {
+        subtitle: "3.1 Security Measures",
+        text: "Bleeding Tech implements industry-standard security measures to protect your personal information. We use SSL/TLS encryption for data transmission, secure cloud infrastructure (AWS/GCP/Azure), regular security audits and vulnerability assessments, access controls and authentication systems, encrypted database storage, and regular backups with disaster recovery protocols."
+      },
+      {
+        subtitle: "3.2 Data Retention",
+        text: "We retain your personal information for as long as necessary to fulfill the purposes outlined in this privacy policy, unless a longer retention period is required by law. Client project data is typically retained for a minimum of 2 years after project completion for support and maintenance purposes."
+      },
+      {
+        subtitle: "3.3 Third-Party Security",
+        text: "When we engage third-party service providers (hosting services, payment processors, analytics tools, marketing platforms), we ensure they maintain appropriate security standards and comply with data protection regulations."
+      }
+    ]
+  },
+  {
+    icon: Users,
+    title: "4. Data Sharing and Disclosure",
+    content: [
+      {
+        subtitle: "4.1 Service Providers",
+        text: "We may share your information with trusted third-party service providers who assist us in operating our business, including cloud hosting providers (AWS, GCP, Azure), payment processors (Stripe, PayPal), analytics services (Google Analytics), email service providers, and project management tools. These providers are contractually obligated to protect your data."
+      },
+      {
+        subtitle: "4.2 Business Transfers",
+        text: "In the event of a merger, acquisition, reorganization, or sale of assets, your information may be transferred as part of that transaction. We will notify you via email and/or prominent notice on our website of any such change in ownership or control of your personal information."
+      },
+      {
+        subtitle: "4.3 Legal Requirements",
+        text: "We may disclose your information if required by law, court order, or governmental regulation, or when we believe disclosure is necessary to protect our rights, your safety, or the safety of others, investigate fraud, or respond to legal requests."
+      },
+      {
+        subtitle: "4.4 No Sale of Data",
+        text: "Bleeding Tech does not sell, rent, or trade your personal information to third parties for marketing purposes. Your data is used exclusively for providing our services and improving your experience with us."
+      }
+    ]
+  },
+  {
+    icon: Eye,
+    title: "5. Cookies and Tracking Technologies",
+    content: [
+      {
+        subtitle: "5.1 Cookie Usage",
+        text: "Our website uses cookies and similar tracking technologies to enhance user experience, analyze website traffic, and personalize content. Cookies are small text files stored on your device that help us remember your preferences and improve website functionality."
+      },
+      {
+        subtitle: "5.2 Types of Cookies",
+        text: "We use essential cookies (necessary for website functionality), analytics cookies (Google Analytics for traffic analysis), functional cookies (remember your preferences), and marketing cookies (for retargeting campaigns). You can control cookie preferences through your browser settings."
+      },
+      {
+        subtitle: "5.3 Third-Party Analytics",
+        text: "We use Google Analytics, Google Tag Manager, and other analytics tools to understand how users interact with our website. These tools collect information anonymously and report website trends without identifying individual visitors."
+      }
+    ]
+  },
+  {
+    icon: Globe,
+    title: "6. Your Rights and Choices",
+    content: [
+      {
+        subtitle: "6.1 Access and Correction",
+        text: "You have the right to access, update, or correct your personal information at any time. Contact us at bleeding.tech77@gmail.com to request access to your data or make corrections."
+      },
+      {
+        subtitle: "6.2 Data Deletion",
+        text: "You may request deletion of your personal information, subject to legal and contractual obligations. We will respond to deletion requests within 30 days and permanently remove your data from our active systems."
+      },
+      {
+        subtitle: "6.3 Marketing Opt-Out",
+        text: "You can unsubscribe from our marketing communications at any time by clicking the 'unsubscribe' link in our emails or contacting us directly. Please note that you will continue to receive essential service-related communications."
+      },
+      {
+        subtitle: "6.4 Cookie Management",
+        text: "You can disable cookies through your browser settings, though this may affect website functionality. Most browsers allow you to refuse cookies or delete existing cookies."
+      }
+    ]
+  },
+  {
+    icon: Shield,
+    title: "7. Children's Privacy",
+    content: [
+      {
+        subtitle: "",
+        text: "Bleeding Tech's services are not directed to individuals under the age of 18. We do not knowingly collect personal information from children. If we become aware that we have collected information from a child without parental consent, we will take immediate steps to delete that information from our servers."
+      }
+    ]
+  },
+  {
+    icon: Mail,
+    title: "8. International Data Transfers",
+    content: [
+      {
+        subtitle: "",
+        text: "Your information may be transferred to and processed in countries other than your country of residence. These countries may have data protection laws that differ from your jurisdiction. We ensure appropriate safeguards are in place to protect your personal information in accordance with this privacy policy and applicable laws."
+      }
+    ]
+  }
+];
+
 export { 
   testimonials, 
   clients, 
@@ -932,10 +1053,11 @@ export {
   projects,
   services,
   stats,
-  blogs,
   caseStudies,
   packageCategories,
   technologies,
   packageFaqs,
   serviceFaqs,
+  termSections,
+  privacySections,
 };

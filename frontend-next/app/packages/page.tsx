@@ -7,16 +7,31 @@ import { packageFaqs } from "@/src/data/data";
 export const metadata: Metadata = {
   title: "Packages",
   description:
-    "Web development, mobile apps, SEO optimization, UI/UX design, ads and custom systems by Bleeding Tech.",
+    "Explore affordable IT packages for web development, mobile apps, SEO optimization, UI/UX design, digital marketing, and custom software solutions. Tailored packages to fit your business needs.",
   alternates: { canonical: "/packages" },
+  openGraph: {
+    type: "website",
+    url: "https://bleedingtech.com.np/packages",
+    siteName: "Bleeding Tech",
+    title: "Packages - Bleeding Tech",
+    description:
+      "Explore affordable IT packages for web development, mobile apps, SEO optimization, UI/UX design, digital marketing, and custom software solutions. Tailored packages to fit your business needs.",
+    images: [{ url: "/og.jpg", width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Packages - Bleeding Tech",
+    description:
+      "Explore affordable IT packages for web development, mobile apps, SEO optimization, UI/UX design, digital marketing, and custom software solutions.",
+    images: ["/og.jpg"],
+  },
 };
-
-
 
 const faqJsonLd = buildFaqJsonLd(packageFaqs);
 
 export default function Page() {
-  return <>
+  return (
+    <>
       <Script
         id="packages-faq-jsonld"
         type="application/ld+json"
@@ -24,6 +39,6 @@ export default function Page() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
       <Packages packageFaqs={packageFaqs} />
-  </>
-  ;
+    </>
+  );
 }

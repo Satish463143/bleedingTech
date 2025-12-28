@@ -2,13 +2,16 @@
 import { useEffect, useState } from "react";
 import { motion, useAnimation,type Variants } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import { CheckCircle, Sparkles } from "lucide-react";
-import { services } from "../../../src/data/data";
+import { CheckCircle} from "lucide-react";
 import "./ServiceOverview.css";
+import Heading from "@/components/common/Heading/Heading";
+import {useListAllQuery} from '@/components/api/services.api'
 
 const ServiceOverview = () => {
   const controls = useAnimation();
   const [ref, inView] = useInView({ threshold: 0.05, triggerOnce: true });
+  const { data , isLoading, isError } = useListAllQuery({page: 1, limit:999, });
+  const services = data?.details || [];
 
   useEffect(() => {
     if (inView) controls.start("visible");
@@ -103,43 +106,7 @@ const ServiceOverview = () => {
 
       <div className="container mx-auto px-6 lg:px-12 relative z-10">
         {/* Section Header */}
-        <motion.div
-          className="text-center mb-16 lg:mb-20"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-        >
-          <motion.div
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full border backdrop-blur-md mb-6"
-            style={{
-              background: "hsl(var(--primary) / 0.08)",
-              borderColor: "hsl(var(--primary) / 0.2)",
-            }}
-          >
-            <Sparkles className="w-4 h-4" style={{ color: "hsl(var(--primary))" }} />
-            <span
-              className="text-sm font-semibold"
-              style={{ color: "hsl(var(--primary))" }}
-            >
-              Our Expertise
-            </span>
-          </motion.div>
-
-          <h2
-            className="text-3xl lg:text-4xl xl:text-5xl font-bold mb-4"
-            style={{ color: "hsl(var(--foreground))" }}
-          >
-            Comprehensive Digital Solutions
-          </h2>
-          <p
-            className="text-base lg:text-lg max-w-3xl mx-auto"
-            style={{ color: "hsl(var(--muted-foreground))" }}
-          >
-            From strategy to execution, we deliver end-to-end services that transform your digital presence and accelerate business growth.
-          </p>
-        </motion.div>
-
+        <Heading head=' Our Expertise' subhead="Comprehensive" title="Digital Solutions" desc="From strategy to execution, we deliver end-to-end services that transform your digital presence and accelerate business growth." />
         {/* Services List */}
         <motion.div
           className="space-y-16 lg:space-y-24"
@@ -147,9 +114,9 @@ const ServiceOverview = () => {
           initial="hidden"
           animate={controls}
         >
-          {services.map((service, index) => (
+          {services.map((service:any, index:number) => (
             <ServiceItem
-              key={service.id}
+              key={service._id}
               service={service}
               index={index}
               isReversed={index % 2 !== 0}
@@ -162,7 +129,7 @@ const ServiceOverview = () => {
 };
 
 type ServiceItemProps = {
-  service: typeof services[number];
+  service: any;
   index: number;
   isReversed: boolean;
 }
@@ -197,27 +164,25 @@ const ServiceItem = ({ service, index, isReversed }: ServiceItemProps) => {
         {/* Service Number & Icon */}
         <div className="flex items-center gap-4">
           <motion.div
-            className={`w-16 h-16 rounded-2xl flex items-center justify-center bg-gradient-to-br ${service.gradient}`}
+            className={`w-16 h-16 rounded-2xl flex items-center justify-center bg-gradient-to-br from-green-500 to-emerald-400`}
             style={{
-              boxShadow: `0 8px 30px ${service.color}`,
+              boxShadow: `0 8px 30px rgb(34, 197, 94, 0.5)`,
             }}
             animate={{ scale: isHovered ? 1.1 : 1 }}
             transition={{ type: "spring", stiffness: 400, damping: 25 }}
           >
-            <Icon className="w-8 h-8 text-white" />
+            <img src={service.icon} className="w-8 h-8 text-white" />
           </motion.div>
-
           <span
             className="text-sm font-bold px-3 py-1 rounded-full"
             style={{
-              background: `${service.color}30`,
+              background: `rgb(34, 197, 94, 0.5)30`,
               color: "hsl(var(--primary))",
             }}
           >
             0{index + 1}
           </span>
         </div>
-
         {/* Title */}
         <h3
           className="text-2xl lg:text-3xl xl:text-4xl font-bold leading-tight"
@@ -238,7 +203,7 @@ const ServiceItem = ({ service, index, isReversed }: ServiceItemProps) => {
         <motion.div
           className="w-16 h-1 rounded-full"
           style={{
-            background: `linear-gradient(90deg, ${service.glowColor}, transparent)`,
+            background: `linear-gradient(90deg, rgb(34, 197, 94, 0.4), transparent)`,
           }}
           initial={{ scaleX: 0, originX: 0 }}
           whileInView={{ scaleX: 1 }}
@@ -246,19 +211,17 @@ const ServiceItem = ({ service, index, isReversed }: ServiceItemProps) => {
           transition={{ duration: 0.8, delay: 0.3 }}
         />
       </div>
-
       {/* Features Side */}
       <div className={`${isReversed ? "lg:order-1" : "lg:order-2"}`}>
         {/* Glow effect */}
         <motion.div
           className="absolute -inset-4 rounded-3xl blur-3xl -z-10"
           style={{
-            background: `radial-gradient(circle, ${service.color}, transparent 70%)`,
+            background: `radial-gradient(circle, rgb(34, 197, 94, 0.5), transparent 70%)`,
           }}
           animate={{ opacity: isHovered ? 0.3 : 0 }}
           transition={{ duration: 0.3 }}
         />
-
         {/* Features Card */}
         <motion.div
           className="relative p-6 lg:p-8 rounded-3xl backdrop-blur-xl border overflow-hidden"
@@ -274,7 +237,7 @@ const ServiceItem = ({ service, index, isReversed }: ServiceItemProps) => {
           <motion.div
             className="absolute top-0 left-0 right-0 h-[2px]"
             style={{
-              background: `linear-gradient(90deg, transparent, ${service.glowColor}, transparent)`,
+              background: `linear-gradient(90deg, transparent, rgb(34, 197, 94, 0.4), transparent)`,
             }}
             animate={{ opacity: isHovered ? 1 : 0.4 }}
             transition={{ duration: 0.3 }}
@@ -287,10 +250,9 @@ const ServiceItem = ({ service, index, isReversed }: ServiceItemProps) => {
           >
             What's Included
           </h4>
-
           {/* Features List */}
           <div className="space-y-4">
-            {service.features.map((feature, idx) => (
+            {service.features.map((feature:any, idx:number) => (
               <motion.div
                 key={idx}
                 className="flex items-start gap-3"
@@ -302,7 +264,7 @@ const ServiceItem = ({ service, index, isReversed }: ServiceItemProps) => {
                 <div
                   className="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center mt-0.5"
                   style={{
-                    background: `${service.color}30`,
+                    background: `rgb(34, 197, 94, 0.5)30`,
                   }}
                 >
                   <CheckCircle
@@ -319,12 +281,11 @@ const ServiceItem = ({ service, index, isReversed }: ServiceItemProps) => {
               </motion.div>
             ))}
           </div>
-
           {/* Corner accent */}
           <motion.div
             className="absolute bottom-0 right-0 w-32 h-32 opacity-20 pointer-events-none"
             style={{
-              background: `radial-gradient(circle at bottom right, ${service.color}, transparent 70%)`,
+              background: `radial-gradient(circle at bottom right, rgb(34, 197, 94, 0.5), transparent 70%)`,
             }}
             animate={{ opacity: isHovered ? 0.4 : 0.15 }}
             transition={{ duration: 0.3 }}
@@ -334,5 +295,7 @@ const ServiceItem = ({ service, index, isReversed }: ServiceItemProps) => {
     </motion.div>
   );
 };
+
+
 
 export default ServiceOverview;

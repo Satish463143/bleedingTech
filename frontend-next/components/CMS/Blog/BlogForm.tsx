@@ -135,6 +135,20 @@ const BlogForm = ({submitEvent,loading,value,detail}:{submitEvent: (data: any) =
                 />
             </div>
             <div>
+                <label htmlFor="name">Read Time</label><br />
+                <TextInputComponent
+                    name="readTime"
+                    placeholder='e.g., "5 min read"'
+                    className=''
+                    style={{}}
+                    control={control}
+                    type='text'
+                    defaultValue=''
+                    errMsg={errors?.readTime?.message as string}
+                    required={true}
+                />
+            </div>
+            <div>
                 <label htmlFor="name">Blog Content</label><br />
                 <DescriptionInput
                     name="content"
@@ -180,83 +194,76 @@ const BlogForm = ({submitEvent,loading,value,detail}:{submitEvent: (data: any) =
                     required={true}
                 />
             </div>
-            <div>                
-                <label htmlFor="thumbnail"> Thumbnail Image</label><br />
-                <input
-                    type='file'
-                    onChange={(e) => {
-                        const image = (e.target as HTMLInputElement).files?.[0] as File
-                        setValue('thumbnail' as any, image)
-                    }}
-                /><br />
+            
             </div>
-            <div>                
-                <label htmlFor="heroImage"> Hero Image</label><br />
-                <input
-                    type='file'
-                    onChange={(e) => {
-                        const image = (e.target as HTMLInputElement).files?.[0] as File
-                        setValue('heroImage' as any, image)
-                    }}
-                /><br />
+            <h3 style={{marginTop:'30px',fontSize:'20px', fontWeight:'bold'}}>Images</h3>
+            <div className="from_grid">
+                <div>                
+                    <label htmlFor="thumbnail"> Thumbnail Image</label><br />
+                    <input
+                        type='file'
+                        onChange={(e) => {
+                            const image = (e.target as HTMLInputElement).files?.[0] as File
+                            setValue('thumbnail' as any, image)
+                        }}
+                    /><br />
+                </div>
+                <div>                
+                    <label htmlFor="heroImage"> Hero Image</label><br />
+                    <input
+                        type='file'
+                        onChange={(e) => {
+                            const image = (e.target as HTMLInputElement).files?.[0] as File
+                            setValue('heroImage' as any, image)
+                        }}
+                    /><br />
+                </div>            
             </div>
-            <div>
-                <label htmlFor="name">Read Time</label><br />
-                <TextInputComponent
-                    name="readTime"
-                    placeholder='e.g., "5 min read"'
-                    className=''
-                    style={{}}
-                    control={control}
-                    type='text'
-                    defaultValue=''
-                    errMsg={errors?.readTime?.message as string}
-                    required={true}
-                />
-            </div>
-            <div>
-                <label htmlFor="name">Author Name</label><br />
-                <TextInputComponent
-                    name={`authorName`}
-                    placeholder='Enter Author Name'
-                    className=''
-                    style={{}}
-                    control={control}
-                    type='text'
-                    defaultValue=''
-                    errMsg={errors?.authorName?.message as string}
-                    required={true}
-                />
-            </div>
-            <div>
-                <label htmlFor="name">Author Bio</label><br />
-                <TextInputComponent
-                    name={`authorBio`}
-                    placeholder='Enter Author Bio'
-                    className=''
-                    style={{}}
-                    control={control}
-                    type='text'
-                    defaultValue=''
-                    errMsg={errors?.authorBio?.message as string}
-                    required={true}
-                />
-            </div>
-            <div>
-                <label htmlFor="name">Author Role</label><br />
-                <TextInputComponent
-                    name={`authorRole`}
-                    placeholder='Enter Author Role'
-                    className=''
-                    style={{}}
-                    control={control}
-                    type='text'
-                    defaultValue=''
-                    errMsg={errors?.authorRole?.message as string}
-                    required={true}
-                />
-            </div>
-            <div>
+            <h3 style={{marginTop:'30px',fontSize:'20px', fontWeight:'bold'}}>Author Details</h3>
+            <div className="from_grid">
+                <div>
+                    <label htmlFor="name">Author Name</label><br />
+                    <TextInputComponent
+                        name={`authorName`}
+                        placeholder='Enter Author Name'
+                        className=''
+                        style={{}}
+                        control={control}
+                        type='text'
+                        defaultValue=''
+                        errMsg={errors?.authorName?.message as string}
+                        required={true}
+                    />
+                </div>
+                <div>
+                    <label htmlFor="name">Author Bio</label><br />
+                    <TextInputComponent
+                        name={`authorBio`}
+                        placeholder='Enter Author Bio'
+                        className=''
+                        style={{}}
+                        control={control}
+                        type='text'
+                        defaultValue=''
+                        errMsg={errors?.authorBio?.message as string}
+                        required={true}
+                    />
+                </div>
+                <div>
+                    <label htmlFor="name">Author Role</label><br />
+                    <TextInputComponent
+                        name={`authorRole`}
+                        placeholder='Enter Author Role'
+                        className=''
+                        style={{}}
+                        control={control}
+                        type='text'
+                        defaultValue=''
+                        errMsg={errors?.authorRole?.message as string}
+                        required={true}
+                    />
+                </div>
+                <div>
                 <label htmlFor="name">Author Image</label><br />
                 <input
                     type='file'
@@ -265,8 +272,8 @@ const BlogForm = ({submitEvent,loading,value,detail}:{submitEvent: (data: any) =
                         setValue('authorAvatar' as any, image)
                     }}
                 /><br />
+                </div>
             </div>
-        </div>
         <div style={{ display: 'flex', justifyContent: 'center',  }}>            
             <input className='submit_btn' type="submit" value={value} disabled={loading} style={{cursor:'pointer'}}/>
         </div>

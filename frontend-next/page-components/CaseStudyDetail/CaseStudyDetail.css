@@ -423,3 +423,17 @@
   }
 }
 
+@media (max-width: 450px) {
+  .results-grid {
+    width:100%;
+    grid-template-columns: 45% 45%;
+    gap:20px;
+  }
+  .result-card{
+    padding:2rem 10px;
+  }
+  .result-metric{
+    font-size: 18px;   
+  }
+
+}

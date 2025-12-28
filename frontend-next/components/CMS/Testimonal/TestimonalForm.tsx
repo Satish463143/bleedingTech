@@ -16,8 +16,8 @@ const TestimonalForm = ({submitEvent,loading,value,detail}:{submitEvent: (data: 
         review: Yup.string().required('Review is required'),
         rating: Yup.number().min(1).max(5).required('Rating is required'),
         category: Yup.object({
-            value: Yup.string().matches(/^(true|false|Web Development|Mobile App Development|UI-UX Design|SEO|Content Writing|Graphic Design)$/, 'Category must be Seleted'),
-            label: Yup.string().matches(/^(True|False|Web Development|Mobile App Development|UI-UX Design|SEO|Content Writing|Graphic Design)$/, 'Category must be Seleted'),
+            value: Yup.string().matches(/^(Web Development|Mobile Apps|UI-UX|E-Commerce|Custom Systems)$/, 'Category must be Seleted'),
+            label: Yup.string().matches(/^(Web Development|Mobile Apps|UI-UX|E-Commerce|Custom Systems)$/, 'Category must be Seleted'),
         }).required('Category is required'),
     })
     const { control, handleSubmit, setValue,  formState: { errors } } = useForm({

@@ -127,11 +127,70 @@ export const BlogApi = createApi({
             providesTags: (result, error, id) => [
                 { type: 'Blog', id: `${id}_PREFETCH` }
             ],
+        }),
+
+        // Like a blog
+        likeBlog: builder.mutation({
+            query: (id) => ({
+                url: `/blogs/${id}/like`,
+                method: "POST",
+            }),
+            // Optimistically update the cache
+            onQueryStarted: async (id, { dispatch, queryFulfilled }) => {
+                try {
+                    const { data } = await queryFulfilled;
+                    // Update the cache with the new blog data from backend
+                    dispatch(
+                        BlogApi.util.updateQueryData('showById', id, (draft) => {
+                            if (draft?.details && data?.details) {
+                                // Update with the latest data from server
+                                draft.details = data.details;
+                            }
+                        })
+                    );
+                } catch {}
+            },
+            invalidatesTags: (result, error, id) => [
+                { type: 'Blog', id }
+            ],
+        }),
+
+        // Track blog view
+        viewBlog: builder.mutation({
+            query: (id) => ({
+                url: `/blogs/${id}/view`,
+                method: "POST",
+            }),
+            // Update cache with new view count
+            onQueryStarted: async (id, { dispatch, queryFulfilled }) => {
+                try {
+                    const { data } = await queryFulfilled;
+                    // Update the cache with the new blog data from backend
+                    dispatch(
+                        BlogApi.util.updateQueryData('showById', id, (draft) => {
+                            if (draft?.details && data?.details) {
+                                // Update with the latest data from server
+                                draft.details = data.details;
+                            }
+                        })
+                    );
+                } catch {}
+            },
         })
 
     })
 })
-export const { useListAllQuery, useCreateBlogMutation, useShowByIdQuery, useUpdateBlogMutation, useDeleteBlogMutation, usePrefetchHomeQuery, usePrefetchBlogQuery } = BlogApi;
+export const { 
+    useListAllQuery, 
+    useCreateBlogMutation, 
+    useShowByIdQuery, 
+    useUpdateBlogMutation, 
+    useDeleteBlogMutation, 
+    usePrefetchHomeQuery, 
+    usePrefetchBlogQuery,
+    useLikeBlogMutation,
+    useViewBlogMutation
+} = BlogApi;
 
 // Export utility functions for manual cache management
 export const {

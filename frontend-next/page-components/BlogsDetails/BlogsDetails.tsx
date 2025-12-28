@@ -6,7 +6,7 @@ import { useSearchParams, useRouter } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 
 import "./BlogsDetails.css";
-import { useShowByIdQuery } from "@/components/api/blog.api";
+import { useShowByIdQuery, useLikeBlogMutation, useViewBlogMutation } from "@/components/api/blog.api";
 
 
 import {
@@ -37,12 +37,22 @@ export default function BlogsDetails() {
   
   
   const {data, isLoading, error} = useShowByIdQuery(id)
+  const [likeBlog] = useLikeBlogMutation()
+  const [viewBlog] = useViewBlogMutation()
 
 
   
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
-  }, [id]);
+    
+    // Track page view when blog is loaded
+    if (id && !isLoading && !error) {
+      viewBlog(id).catch(() => {
+        // Silently fail - view tracking shouldn't block user experience
+      });
+    }
+  }, [id, isLoading, error, viewBlog]);
+  
   // Map _id to id for consistency
   const blog = useMemo(() => data?.details ? { ...data.details, id: data.details._id } : null, [data]);
 
@@ -50,6 +60,42 @@ export default function BlogsDetails() {
   const [liked, setLiked] = useState(false);
   const [saved, setSaved] = useState(false);
   const [copied, setCopied] = useState(false);
+
+  // Handle like functionality
+  const handleLike = async () => {
+    if (!id) return;
+    
+    try {
+      // Check if already liked (from localStorage)
+      const likedBlogs = JSON.parse(localStorage.getItem('likedBlogs') || '[]');
+      const isAlreadyLiked = likedBlogs.includes(id);
+      
+      if (isAlreadyLiked) {
+        // Already liked, show feedback
+        return;
+      }
+      
+      // Call the API
+      await likeBlog(id).unwrap();
+      
+      // Update local state
+      setLiked(true);
+      
+      // Store in localStorage to prevent multiple likes
+      likedBlogs.push(id);
+      localStorage.setItem('likedBlogs', JSON.stringify(likedBlogs));
+    } catch (err) {
+      console.error('Failed to like blog:', err);
+    }
+  };
+
+  // Check if blog is already liked on mount
+  useEffect(() => {
+    if (id) {
+      const likedBlogs = JSON.parse(localStorage.getItem('likedBlogs') || '[]');
+      setLiked(likedBlogs.includes(id));
+    }
+  }, [id]);
 
 
   const handleCopyLink = async () => {
@@ -191,7 +237,7 @@ if (!blog) {
       <HeroImage
         blog={blog}
         liked={liked}
-        setLiked={setLiked}
+        setLiked={handleLike}
         saved={saved}
         setSaved={setSaved}
         copied={copied}
@@ -200,7 +246,7 @@ if (!blog) {
       <MetaInfo
         blog={blog}
         liked={liked}
-        setLiked={setLiked}
+        setLiked={handleLike}
         saved={saved}
         setSaved={setSaved}
         copied={copied}
@@ -210,7 +256,7 @@ if (!blog) {
       <ArticleContent
         blog={blog}
         liked={liked}
-        setLiked={setLiked}
+        setLiked={handleLike}
         saved={saved}
         setSaved={setSaved}
         copied={copied}
@@ -220,7 +266,7 @@ if (!blog) {
       <AuthorSection
         blog={blog}
         liked={liked}
-        setLiked={setLiked}
+        setLiked={handleLike}
         saved={saved}
         setSaved={setSaved}
         copied={copied}

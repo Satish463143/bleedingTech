@@ -405,3 +405,9 @@
     height: 300px;
   }
 }
+
+@media(max-width:400px){
+  .case-study-card {
+    height: 370px;
+  }
+}

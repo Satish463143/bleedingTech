@@ -7,6 +7,7 @@ import Link from "next/link";
 import { useListAllQuery } from "@/components/api/project.api";
 const NewProjectCard = lazy(() => import("../../common/NewProjectCard/NewProjectCard"));
 import "./MiniPortfolioPreview.css";
+import Heading from "@/components/common/Heading/Heading";
 
 
 const MiniPortfolioPreview = () => {
@@ -71,42 +72,9 @@ const MiniPortfolioPreview = () => {
 
       <div className="container mx-auto px-6 lg:px-12 relative z-10">
         {/* Section Header */}
-        <motion.div
-          className="text-center mb-14"
-          initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
-        >
-          <motion.div
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full border backdrop-blur-md mb-6"
-            style={{
-              background: "hsl(var(--primary) / 0.08)",
-              borderColor: "hsl(var(--primary) / 0.2)",
-            }}
-          >
-            <Sparkles className="w-4 h-4" style={{ color: "hsl(var(--primary))" }} />
-            <span
-              className="text-sm font-semibold"
-              style={{ color: "hsl(var(--primary))" }}
-            >
-              Our Work
-            </span>
-          </motion.div>
+      
+        <Heading head='Our Work' subhead="Featured " title="Project" desc=" A glimpse of our recent work showcasing our expertise across different domains." />
 
-          <h2
-            className="text-3xl lg:text-4xl xl:text-5xl font-bold mb-4"
-            style={{ color: "hsl(var(--foreground))" }}
-          >
-            Featured Projects
-          </h2>
-
-          <p
-            className="text-base lg:text-lg max-w-2xl mx-auto"
-            style={{ color: "hsl(var(--muted-foreground))" }}
-          >
-            A glimpse of our recent work showcasing our expertise across different domains.
-          </p>
-        </motion.div>
 
         {/* Projects Grid */}
         <motion.div
@@ -116,7 +84,7 @@ const MiniPortfolioPreview = () => {
           animate={controls}
         >
           {featuredProjects.map((project: any, index: number) => (
-            <NewProjectCard key={project.id} project={project} index={index} />
+            <NewProjectCard key={project._id} project={project} index={index} />
           ))}
         </motion.div>
 

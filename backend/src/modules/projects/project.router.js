@@ -15,7 +15,7 @@ router.route('/')
     .get(projectController.index)
 
 router.route('/:id')
-    .get(loginCheck, hasPermission("admin"),projectController.showById)
+    .get(projectController.showById)
     .put(loginCheck, hasPermission("admin"),setPath("project"), uplaodFile(FileFilterType.IMAGE).
     fields([
         { name: 'image', maxCount: 1 }

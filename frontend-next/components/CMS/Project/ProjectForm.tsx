@@ -10,22 +10,22 @@ const ProjectForm = ({submitEvent,loading,value,detail}:{submitEvent: (data: any
 
     
     const projectDTO = Yup.object().shape({
-        title: Yup.string().required('Title is required'),
+        title: Yup.string().min(3,'Title must be at least 3 characters').max(50,'Title must be less than 10 characters').required('Title is required'),
         subtitle: Yup.string().required('Subtitle is required'),
         image: Yup.mixed().required('Image is required'),
         tech: Yup.array().of(Yup.string()).required('Tech is required'),
         description: Yup.string().required('Description is required'),
         features: Yup.array().of(Yup.string()).required('Features is required'),
         achievements: Yup.array().of(Yup.string()).required('Achievements is required'),
-        liveLink: Yup.string().required('Live Link is required'),
-        caseStudyLink: Yup.string().required('Case Study Link is required'),       
+        liveLink: Yup.string().optional().nullable(),
+        caseStudyLink: Yup.string().optional().nullable(),       
         isFeatured: Yup.object({
             value: Yup.string().matches(/^(true|false)$/, 'Is Featured must be either true or false'),
             label: Yup.string().matches(/^(True|False)$/, 'Is Featured must be either true or false'),
         }).required('Is Featured is required'),
         category: Yup.object({
-            value: Yup.string().matches(/^(true|false|Web Development|Mobile App Development|UI-UX Design|SEO|Content Writing|Graphic Design)$/, 'Category must be Seleted'),
-            label: Yup.string().matches(/^(True|False|Web Development|Mobile App Development|UI-UX Design|SEO|Content Writing|Graphic Design)$/, 'Category must be Seleted'),
+            value: Yup.string().matches(/^(Web Development|Mobile Apps|UI-UX|E-Commerce|Custom Systems)$/, 'Category must be Seleted'),
+            label: Yup.string().matches(/^(Web Development|Mobile Apps|UI-UX|E-Commerce|Custom Systems)$/, 'Category must be Seleted'),
         }).required('Category is required'),
         
     })
@@ -97,34 +97,7 @@ const ProjectForm = ({submitEvent,loading,value,detail}:{submitEvent: (data: any
                     required={true}
                 />
             </div>
-            <div>
-                <label htmlFor="name">Live Link</label><br />
-                <TextInputComponent
-                    name="liveLink"
-                    placeholder='Enter Live Link'
-                    className=''
-                    style={{}}
-                    control={control}
-                    type='text'
-                    defaultValue=''
-                    errMsg={errors?.liveLink?.message as string}
-                    required={true}
-                />
-            </div>
-            <div>
-                <label htmlFor="name">Case Study Link</label><br />
-                <TextInputComponent
-                    name="caseStudyLink"
-                    placeholder='Enter Case Study Link'
-                    className=''
-                    style={{}}
-                    control={control}
-                    type='text'
-                    defaultValue=''
-                    errMsg={errors?.caseStudyLink?.message as string}
-                    required={true}
-                />
-            </div>
+            
             <div>
                 <label htmlFor="name">Description</label><br />
                 <TextInputComponent
@@ -139,34 +112,37 @@ const ProjectForm = ({submitEvent,loading,value,detail}:{submitEvent: (data: any
                     required={true}
                 />
             </div>
-
-            <div>
-                <label htmlFor="name">Features</label><br />
-                {featuresFields.map((item: any, index: number)=>(
-                    <div key={item.id}>                    
-                        <TextInputComponent                            
-                            name={`features.${index}`}
-                            placeholder='Features :"Digital Transformation", "Business Strategy",etc'
-                            className=''
-                            style={{}}
-                            control={control}
-                            type='text'
-                            defaultValue=''
-                            errMsg={errors?.features?.[index]?.message as string}
-                            required={true}
-                        />
-                        <button type="button" onClick={() => featuresRemove(index)} style={{background:'#d74747', padding:'5px 10px', borderRadius:'5px'}}>
-                            Remove Feature
+            </div>
+            <h3 style={{marginTop:'30px',fontSize:'20px', fontWeight:'bold'}}>Features</h3>
+                <div className="from_grid">
+                    <div>
+                        {featuresFields.map((item: any, index: number)=>(
+                            <div key={item.id}>                    
+                                <TextInputComponent                            
+                                    name={`features.${index}`}
+                                    placeholder='Features :"Digital Transformation", "Business Strategy",etc'
+                                    className=''
+                                    style={{}}
+                                    control={control}
+                                    type='text'
+                                    defaultValue=''
+                                    errMsg={errors?.features?.[index]?.message as string}
+                                    required={true}
+                                />
+                                <button type="button" onClick={() => featuresRemove(index)} style={{background:'#d74747', padding:'5px 10px', borderRadius:'5px'}}>
+                                    Remove Feature
+                                </button>
+                            </div>
+                        ))}                
+                        <br />
+                        <button type="button" onClick={() => featuresAppend('')} style={{background:'#babaeb', padding:'5px 10px', borderRadius:'5px'}}>
+                            Add Another Feature
                         </button>
                     </div>
-                ))}                
-                <br />
-                <button type="button" onClick={() => featuresAppend('')} style={{background:'#babaeb', padding:'5px 10px', borderRadius:'5px'}}>
-                    Add Another Feature
-                </button>
-            </div>
-            <div>
-                <label htmlFor="name">Tech</label><br />
+                </div>
+            <h3 style={{marginTop:'30px',fontSize:'20px', fontWeight:'bold'}}>Technologies</h3>
+            <div className="from_grid">
+                <div>
                 {techFields.map((item: any, index: number)=>(
                     <div key={item.id}>                    
                         <TextInputComponent                            
@@ -190,8 +166,10 @@ const ProjectForm = ({submitEvent,loading,value,detail}:{submitEvent: (data: any
                     Add Another Tech
                 </button>
             </div>
+            </div>
+            <h3 style={{marginTop:'30px',fontSize:'20px', fontWeight:'bold'}}>Achievements</h3>
+            <div className="from_grid">
             <div>
-                <label htmlFor="name">Achievements</label><br />
                 {achievementsFields.map((item: any, index: number)=>(
                     <div key={item.id}>                    
                         <TextInputComponent                            
@@ -215,8 +193,41 @@ const ProjectForm = ({submitEvent,loading,value,detail}:{submitEvent: (data: any
                     Add Another Achievement
                 </button>
             </div>
-
-
+            </div>
+            
+            <h3 style={{marginTop:'30px',fontSize:'20px', fontWeight:'bold'}}>Links (Provide at least one Link)</h3>
+            <div className="from_grid">
+                <div>
+                    <label htmlFor="name">Live Link</label><br />
+                    <TextInputComponent
+                        name="liveLink"
+                        placeholder='Enter Live Link'
+                        className=''
+                        style={{}}
+                        control={control}
+                        type='text'
+                        defaultValue=''
+                        errMsg={errors?.liveLink?.message as string}
+                        required={false}
+                    />
+                </div>
+                <div>
+                    <label htmlFor="name">Case Study Link</label><br />
+                    <TextInputComponent
+                        name="caseStudyLink"
+                        placeholder='Enter Case Study Link'
+                        className=''
+                        style={{}}
+                        control={control}
+                        type='text'
+                        defaultValue=''
+                        errMsg={errors?.caseStudyLink?.message as string}
+                        required={false}
+                    />
+                </div>
+            </div>
+            <h3 style={{marginTop:'30px',fontSize:'20px', fontWeight:'bold'}}>Other Details</h3>
+            <div className="from_grid">
             <div>
                 <label htmlFor="name">Is Featured</label><br />
                 <OptionsComponent
@@ -247,7 +258,9 @@ const ProjectForm = ({submitEvent,loading,value,detail}:{submitEvent: (data: any
                     }}
                 /><br />
             </div>
-        </div>
+            </div>
+            
+        
         <div style={{ display: 'flex', justifyContent: 'center',  }}>            
             <input className='submit_btn' type="submit" value={value} disabled={loading} style={{cursor:'pointer'}}/>
         </div>

@@ -1,5 +1,5 @@
 const projectService = require('./project.service')
-const { deleteFile } = require("../../utils/helper")
+const slugify = require('slugify')
 
 class ProjectController{
     project;

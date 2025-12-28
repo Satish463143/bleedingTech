@@ -3,6 +3,7 @@ import React, { useEffect, useState} from "react";
 import { motion, useAnimation, useMotionValue, useTransform, useSpring } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { ArrowRight, Zap, Sparkles, Play } from "lucide-react";
+import { useRouter } from "next/navigation";
 import "./Banner.css";
 
 const Banner: React.FC = () => {
@@ -10,6 +11,7 @@ const Banner: React.FC = () => {
   const [ref, inView] = useInView({ threshold: 0.15, triggerOnce: true });
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
+  const router = useRouter();
 
   // Fix hydration: Generate particles only on client side
   const [particles, setParticles] = useState<Array<{
@@ -241,7 +243,7 @@ const Banner: React.FC = () => {
             >
               <Sparkles className="w-4 h-4" style={{ color: "hsl(var(--primary))" }} />
               <span className="text-sm font-semibold" style={{ color: "hsl(var(--primary))" }}>
-                Next-Gen Technology
+                Smart Solutions for Modern Businesses
               </span>
               <motion.div
                 className="w-2 h-2 rounded-full"
@@ -257,7 +259,7 @@ const Banner: React.FC = () => {
                 className="text-4xl md:text-5xl lg:text-6xl font-black leading-[1.1] tracking-tight"
                 style={{ color: "hsl(var(--foreground))" }}
               >
-                Build the
+                Turning Ideas Into
                 <br />
                 <span
                   className="bg-gradient-to-r from-[hsl(var(--primary))] to-[hsl(var(--primary-accent))] bg-clip-text text-transparent"
@@ -266,7 +268,7 @@ const Banner: React.FC = () => {
                     WebkitTextFillColor: "transparent",
                   }}
                 >
-                  Future of AI
+                  Intelligent Digital Products
                 </span>
               </h1>
             </motion.div>
@@ -277,8 +279,7 @@ const Banner: React.FC = () => {
               style={{ color: "hsl(var(--muted-foreground))" }}
               variants={fadeUpVariants}
             >
-              Unleash the power of intelligent automation, real-time analytics, and cutting-edge cloud orchestration.
-              Transform your vision into reality.
+             From web applications to AI-powered systems, we create reliable, scalable, and user-focused digital products tailored to your business needs.
             </motion.p>
 
             {/* CTA Buttons */}
@@ -292,6 +293,7 @@ const Banner: React.FC = () => {
                 }}
                 whileHover={{ scale: 1.05, boxShadow: "0 15px 50px hsl(var(--glow))" }}
                 whileTap={{ scale: 0.98 }}
+                onClick={() => router.push("/contact-us")}
               >
                 <span className="relative z-10 flex items-center gap-2">
                   Get Started
@@ -310,6 +312,7 @@ const Banner: React.FC = () => {
                   color: "hsl(var(--foreground))",
                   background: "hsl(var(--background) / 0.5)",
                 }}
+                onClick={() => router.push("/services")}
                 whileHover={{
                   scale: 1.05,
                   borderColor: "hsl(var(--primary))",
@@ -323,7 +326,7 @@ const Banner: React.FC = () => {
                 >
                   <Play className="w-5 h-5" style={{ color: "hsl(var(--primary))" }} />
                 </div>
-                Watch Demo
+                Explore Solutions
               </motion.button>
             </motion.div>
 

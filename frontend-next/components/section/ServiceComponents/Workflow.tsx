@@ -12,6 +12,7 @@ import {
   Headphones,
 } from "lucide-react";
 import "./Workflow.css";
+import Heading from "@/components/common/Heading/Heading";
 
 const iconMap = {
   MessageSquare,
@@ -150,36 +151,8 @@ const Workflow = ({
 
       <div className="container mx-auto px-6 lg:px-12 relative z-10">
         {/* Header */}
-        <motion.div
-          className="text-center mb-16 lg:mb-20"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-        >
-          <motion.span
-            className="inline-block px-4 py-2 rounded-full text-sm font-semibold mb-4"
-            style={{
-              background: "hsl(var(--primary) / 0.1)",
-              color: "hsl(var(--primary))",
-              border: "1px solid hsl(var(--primary) / 0.2)",
-            }}
-          >
-            How We Work
-          </motion.span>
-          <h2
-            className="text-3xl lg:text-4xl xl:text-5xl font-bold mb-4"
-            style={{ color: "hsl(var(--foreground))" }}
-          >
-            {title}
-          </h2>
-          <p
-            className="text-base lg:text-lg max-w-2xl mx-auto"
-            style={{ color: "hsl(var(--muted-foreground))" }}
-          >
-            {subtitle}
-          </p>
-        </motion.div>
+        <Heading head='How We Work' subhead="Our Development " title="Process" desc="From concept to launch, we follow a proven methodology that ensures quality, transparency, and on-time delivery." />
+
 
         {/* Timeline */}
         <motion.div

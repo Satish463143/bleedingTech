@@ -9,14 +9,15 @@ const FullProject = () => {
   const [activeFilter, setActiveFilter] = useState("All");
   const { data , isLoading, isError } = useListAllQuery({page: 1, limit: 12});
   const projects = data?.details || [];
+  console.log(projects);
 
   // Filter categories
   const categories = [
     "All",
     "Web Development",
     "Mobile Apps",
-    "E-commerce",
-    "UI/UX",
+    "E-Commerce",
+    "UI-UX",
     "Custom Systems",
   ];
 

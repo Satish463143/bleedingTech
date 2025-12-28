@@ -9,8 +9,9 @@ import Link from "next/link";
 const MotionImage = motion(Image);
 
 type Project = {
-  id?: number | string;
+  _id?: number | string;
   title: string;
+  slug:string;
   description: string;
   image: string;
   tech: string[];
@@ -49,6 +50,12 @@ export default function ProjectCard({ project, index }: Props) {
     mouseX.set(0);
     mouseY.set(0);
     setIsHovered(false);
+  };
+  const truncateContent = (content = '', wordLimit: number) => {
+    const words = content.split(' ');
+    return words.length > wordLimit
+      ? words.slice(0, wordLimit).join(' ') + '...'
+      : content;
   };
 
   const cardVariants: Variants = {
@@ -140,9 +147,9 @@ export default function ProjectCard({ project, index }: Props) {
         </div>
 
         <div className="p-6 lg:p-8">
-          {project.id ? (
+          {project._id ? (
             <Link
-              href={`/project-details?slug=${project.title.toLowerCase().replace(/\s+/g, "-")}&id=${project.id}`}
+              href={`/project-details?slug=${project.slug}&id=${project._id}`}
               className="group/title"
             >
               <h3 className="text-2xl font-bold mb-3 leading-tight transition-colors group-hover/title:text-[hsl(var(--primary))]" style={{ color: "hsl(var(--foreground))" }}>
@@ -156,7 +163,7 @@ export default function ProjectCard({ project, index }: Props) {
           )}
 
           <p className="text-sm leading-relaxed mb-5" style={{ color: "hsl(var(--muted-foreground))" }}>
-            {project.description}
+            {truncateContent(project.description, 20)}
           </p>
 
           <div className="flex flex-wrap gap-2 mb-5">
@@ -203,10 +210,9 @@ export default function ProjectCard({ project, index }: Props) {
             ))}
           </div>
 
-          <div className="flex flex-wrap gap-3">
-            {project.id ? (
+          <div className="flex flex-wrap gap-3">            
               <Link
-                href={`/project-details?slug=${project.title.toLowerCase().replace(/\s+/g, "-")}&id=${project.id}`}
+                href={`/project-details?slug=${project.slug}&id=${project._id}`}
                 className="group/btn flex-1 min-w-[140px] px-5 py-3 rounded-xl font-semibold text-sm flex items-center justify-center gap-2 transition-all duration-300 hover:scale-[1.03] active:scale-[0.98]"
                 style={{
                   background: "linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-accent)))",
@@ -215,60 +221,7 @@ export default function ProjectCard({ project, index }: Props) {
               >
                 <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
                 View Details
-              </Link>
-            ) : (
-              <a
-                href={project.liveLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="cursor-pointer group/btn flex-1 min-w-[140px] px-5 py-3 rounded-xl font-semibold text-sm flex items-center justify-center gap-2 transition-all duration-300 hover:scale-[1.03] active:scale-[0.98]"
-                style={{
-                  background: "linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-accent)))",
-                  color: "white",
-                }}
-              >
-                <ExternalLink className="w-4 h-4 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
-                View Live
-              </a>
-            )}
-
-            {project.liveLink && project.liveLink !== "#" && project.id && (
-              <a
-                href={project.liveLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="cursor-pointer group/btn flex-1 min-w-[120px] px-4 py-3 rounded-xl font-semibold text-sm flex items-center justify-center gap-2 border backdrop-blur-md transition-all duration-300"
-                style={{
-                  borderColor: "hsl(var(--border))",
-                  color: "hsl(var(--foreground))",
-                  background: "hsl(var(--background) / 0.5)",
-                }}
-              >
-                <ExternalLink className="w-4 h-4 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
-                Live
-              </a>
-            )}
-
-            {project.caseStudyLink && project.caseStudyLink !== "#" && (
-              <motion.a
-                href={project.caseStudyLink}
-                className="group/btn flex-1 min-w-[120px] px-4 py-3 rounded-xl font-semibold text-sm flex items-center justify-center gap-2 border backdrop-blur-md"
-                style={{
-                  borderColor: "hsl(var(--border))",
-                  color: "hsl(var(--foreground))",
-                  background: "hsl(var(--background) / 0.5)",
-                }}
-                whileHover={{
-                  scale: 1.03,
-                  borderColor: "hsl(var(--primary))",
-                  background: "hsl(var(--primary) / 0.05)",
-                }}
-                whileTap={{ scale: 0.98 }}
-              >
-                <FileText className="w-4 h-4 group-hover/btn:rotate-12 transition-transform" />
-                Case Study
-              </motion.a>
-            )}
+              </Link>           
           </div>
         </div>
 

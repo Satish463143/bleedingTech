@@ -125,7 +125,7 @@ export const ProjectCategoryComponent = ({control,name,errMsg,required,defaultVa
         <>
             <SelectComponent 
                 options ={
-                    [{label:"Web Development", value:"Web Development"},{label:"Mobile App Development", value:"Mobile App Development"},{label:"UI-UX Design", value:"UI-UX Design"},{label:"SEO", value:"SEO"},{label:"Content Writing", value:"Content Writing"},{label:"Graphic Design", value:"Graphic Design"}]
+                    [{label:"Web Development", value:"Web Development"},{label:"Mobile Apps", value:"Mobile Apps"},{label:"UI-UX", value:"UI-UX"},{label:"E-Commerce", value:"E-Commerce"},{label:"Custom Systems", value:"Custom Systems"}]
                 }
                 control={control}
                 name={name}

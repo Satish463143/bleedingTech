@@ -7,7 +7,8 @@ const nextConfig: NextConfig = {
   // 2. Client-side data fetching
   // 3. Server components
   // For deployment, use Vercel, Netlify, or VPS with Node.js
-  output: "export",
+  // output: "export",
+
   images: {
     unoptimized: true, // Keep for compatibility
     remotePatterns: [
@@ -32,6 +33,5 @@ const nextConfig: NextConfig = {
   // Optional but recommended
   trailingSlash: true, // helps with routing
 };
-
 
 export default nextConfig;

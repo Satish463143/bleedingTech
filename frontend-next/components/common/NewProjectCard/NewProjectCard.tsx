@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, Layers } from "lucide-react";
 import "./NewProjectCard.css";
 import Link from "next/link";
+import Image from "next/image";
 
 // Type definitions
 interface Project {
@@ -82,10 +83,10 @@ const NewProjectCard: React.FC<NewProjectCardProps> = ({ project, index = 0 }) =
           }}
           transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] as const }}
         >
-          <img
+          <Image
             src={image}
             alt={title}
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover new-project-card-image-image"
           />
           
           {/* Image Overlay Gradient */}

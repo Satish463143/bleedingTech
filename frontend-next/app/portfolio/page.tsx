@@ -1,3 +1,4 @@
+export const dynamic = "force-static";
 import Portfolio from "@/page-components/Portfolio/Portfolio";
 import type { Metadata } from "next";
 

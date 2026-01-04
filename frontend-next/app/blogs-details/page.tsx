@@ -1,3 +1,4 @@
+export const dynamic = "force-static";
 import BlogsDetails from "@/page-components/BlogsDetails/BlogsDetails";
 import type { Metadata } from "next";
 

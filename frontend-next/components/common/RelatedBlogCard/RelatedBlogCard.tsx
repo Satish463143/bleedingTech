@@ -3,6 +3,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { Calendar, Clock, ArrowRight } from "lucide-react";
+import Image from "next/image";
 
 type Blog = {
   _id: number;
@@ -26,6 +27,7 @@ const RelatedBlogCard = ({ blog, index }: Props) => {
     const handleClick = () => {
       router.push(`/blogs-details?slug=${blog.slug}&id=${blog._id}`);
     };
+    const MotionImage = motion(Image);
   
     return (
       <motion.article
@@ -39,11 +41,12 @@ const RelatedBlogCard = ({ blog, index }: Props) => {
       >
         {/* Image */}
         <div className="related-card-image">
-          <motion.img
+          <MotionImage
             src={blog.thumbnail}
             alt={blog.title}
             animate={{ scale: isHovered ? 1.1 : 1 }}
             transition={{ duration: 0.5 }}
+            className="related-card-image-image"
           />
           <motion.div
             className="related-card-overlay"

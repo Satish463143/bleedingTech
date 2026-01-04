@@ -6,6 +6,7 @@ import { CheckCircle} from "lucide-react";
 import "./ServiceOverview.css";
 import Heading from "@/components/common/Heading/Heading";
 import {useListAllQuery} from '@/components/api/services.api'
+import Image from "next/image";
 
 const ServiceOverview = () => {
   const controls = useAnimation();
@@ -171,7 +172,7 @@ const ServiceItem = ({ service, index, isReversed }: ServiceItemProps) => {
             animate={{ scale: isHovered ? 1.1 : 1 }}
             transition={{ type: "spring", stiffness: 400, damping: 25 }}
           >
-            <img src={service.icon} className="w-8 h-8 text-white" />
+            <Image src={service.icon} alt={service.title} className="w-8 h-8 text-white" />
           </motion.div>
           <span
             className="text-sm font-bold px-3 py-1 rounded-full"

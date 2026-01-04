@@ -55,7 +55,7 @@ const orgJsonLd = {
     // add your real links
     "https://www.facebook.com/yourpage",
     "https://www.instagram.com/yourpage",
-    "https://www.linkedin.com/company/yourpage",
+    "https://www.linkedin.com/in/bleeding-tech-bb96323a2/",
   ],
   contactPoint: [
     {
@@ -74,6 +74,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${inter.variable} ${dmSerif.variable}`}>
+      <head>
+        <link rel="icon" type="image/png" href="/logo.png" />
+        <meta name="theme-color" content="#3B82F6" />
+      </head>
       <body>
         <Script
           id="org-jsonld"

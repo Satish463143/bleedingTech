@@ -15,6 +15,7 @@ import { Calendar,
     Copy,
     CheckCircle, 
 } from "lucide-react";
+import Image from "next/image";
 
 // Helper function to decode HTML entities
 const decodeHTMLEntities = (text: string): string => {
@@ -58,7 +59,7 @@ export const HeroImage = ({ blog }: BlogProps) => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <img src={blog.heroImage} alt={blog.title} className="hero-image" />
+            <Image src={blog.heroImage} alt={blog.title} className="hero-image" />
             <div className="hero-image-overlay" />
             <span className="hero-category">{blog.category}</span>
           </motion.div>
@@ -222,7 +223,7 @@ export   const AuthorSection = ({ blog }: BlogProps) => {
               visible: { opacity: 1, y: 0, transition: { duration: 0.8 } },
             }}
           >
-            <img
+            <Image
               src={blog.authorAvatar}
               alt={blog.authorName}
               className="author-avatar"

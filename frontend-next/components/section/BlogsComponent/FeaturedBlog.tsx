@@ -6,11 +6,13 @@ import { useRouter } from "next/navigation";
 import { ArrowRight, Calendar, Clock, Eye, Heart, Star } from "lucide-react";
 import "./FeaturedBlog.css";
 import { useListAllQuery } from '../../api/blog.api';
+import Image from "next/image";
 
 // Get the featured blog from blogs data
 
 
 const FeaturedBlog = () => {
+  const MotionImage = motion(Image);
   const controls = useAnimation();
   const [ref, inView] = useInView({ threshold: 0.2, triggerOnce: true });
   const [isHovered, setIsHovered] = useState(false);
@@ -87,11 +89,12 @@ const FeaturedBlog = () => {
 
           {/* Image Section */}
           <div className="featured-card-image">
-            <motion.img
+            <MotionImage
               src={featuredBlog?.thumbnail}
               alt={featuredBlog?.title}
               animate={{ scale: isHovered ? 1.05 : 1 }}
               transition={{ duration: 0.6 }}
+              className="featured-card-image-image"
             />
             <motion.div
               className="featured-image-overlay"
@@ -158,7 +161,7 @@ const FeaturedBlog = () => {
             <div className="featured-footer">
               {/* Author */}
               <div className="featured-author">
-                <img
+                <Image
                   src={featuredBlog?.authorAvatar}
                   alt={featuredBlog?.authorName}
                   className="author-avatar"

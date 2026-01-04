@@ -1,6 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 
 type Service = {
   id: number;
@@ -84,7 +85,7 @@ const ServiceCard: React.FC<Props> = ({ service, index }) => {
             }}
             transition={{ duration: 0.5 }}
           >
-            <img src={service.icon as string} alt={service.title} className="w-8 h-8 text-white" />
+            <Image src={service.icon as string} alt={service.title} className="w-8 h-8 text-white" />
   
             {/* Icon glow pulse */}
             <motion.div

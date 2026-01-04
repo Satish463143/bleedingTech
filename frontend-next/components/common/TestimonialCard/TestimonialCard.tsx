@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { motion, useMotionValue, useTransform } from "framer-motion";
 import { Star, Quote, Sparkles } from "lucide-react";
+import Image from "next/image";
 
 type Testimonial = {
   id: number;
@@ -163,7 +164,7 @@ const TestimonialCard: React.FC<Props> = ({ testimonial, index }) => {
               style={{ borderColor: 'rgb(168, 85, 247, 0.4)' }}
               whileHover={{ scale: 1.1 }}
             >
-              <img
+              <Image
                 src={testimonial.image}
                 alt={testimonial.name}
                 className="w-full h-full object-cover"

@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 // Type definitions
 interface Client {
@@ -33,6 +34,7 @@ export const GridLogo: React.FC<GridLogoProps> = ({ client, index, size }) => {
   // Individual floating animation delay
   const floatDelay = index * 0.2;
   const floatDuration = 4 + (index % 3);
+  const MotionImage = motion(Image);
 
   return (
     <motion.div
@@ -85,7 +87,7 @@ export const GridLogo: React.FC<GridLogoProps> = ({ client, index, size }) => {
             }}
           >
             {/* Logo image with rounded corners */}
-            <motion.img
+            <MotionImage
               src={client.logo}
               alt={client.name}
               className="w-full h-auto object-contain rounded-xl"
@@ -185,7 +187,7 @@ const MarqueeLogo: React.FC<MarqueeLogoProps> = ({ client, index }) => {
           }}
         >
           {/* Logo with rounded corners */}
-          <img
+          <Image
             src={client.logo}
             alt={client.name}
             className="w-full h-auto object-contain rounded-lg filter drop-shadow-sm"

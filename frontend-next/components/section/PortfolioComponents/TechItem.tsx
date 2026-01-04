@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 type TechItemProps = {
   tech: any;
@@ -8,6 +9,7 @@ type TechItemProps = {
 }
 const TechItem = ({ tech, variants }: TechItemProps) => {
     const [isHovered, setIsHovered] = useState(false);
+    const MotionImage = motion(Image);
   
     return (
       <motion.div
@@ -40,7 +42,7 @@ const TechItem = ({ tech, variants }: TechItemProps) => {
           transition={{ type: "spring", stiffness: 400, damping: 25 }}
         >
           {/* Icon */}
-          <motion.img
+          <MotionImage
             src={tech.icon}
             alt={tech.name}
             className="w-10 h-10 lg:w-12 lg:h-12 object-contain"

@@ -17,7 +17,7 @@
 }
 
 /* Smooth image transition */
-.new-project-card img {
+.new-project-card-image-image{
   transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
 

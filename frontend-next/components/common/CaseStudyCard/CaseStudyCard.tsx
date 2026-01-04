@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion, type Variants } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { ArrowRight } from "lucide-react";
+import Image from "next/image";
 
 type Study = {
   id: string | number;
@@ -24,7 +25,7 @@ type Props = {
 export default function CaseStudyCard({ study, index }: Props) {
   const [isHovered, setIsHovered] = useState(false);
   const router = useRouter();
-
+  const MotionImage = motion(Image);
   const handleViewCaseStudy = () => {
     router.push(`/case-study-detail?slug=${study.slug}&id=${study.id}`);
   };
@@ -72,7 +73,7 @@ export default function CaseStudyCard({ study, index }: Props) {
           }}
           transition={{ duration: 0.5, ease: "easeOut" }}
         >
-          <motion.img
+          <MotionImage
             src={study.image}
             alt={study.projectName}
             className="card-image"
@@ -100,7 +101,7 @@ export default function CaseStudyCard({ study, index }: Props) {
             animate={{ y: isHovered ? 0 : 20, opacity: isHovered ? 1 : 0 }}
             transition={{ duration: 0.4, delay: 0.15 }}
           >
-            <img src={study.logo} alt={study.companyName} className="company-logo" />
+            <Image src={study.logo} alt={study.companyName} className="company-logo" />
             <span className="company-name">{study.companyName}</span>
           </motion.div>
 
@@ -157,7 +158,7 @@ export default function CaseStudyCard({ study, index }: Props) {
           <span className="default-category">{study.category}</span>
 
           <div className="default-company">
-            <img src={study.logo} alt={study.companyName} className="default-logo" />
+            <Image src={study.logo} alt={study.companyName} className="default-logo" />
             <span className="default-company-name">{study.companyName}</span>
           </div>
 

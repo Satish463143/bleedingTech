@@ -4,6 +4,7 @@ import { useInView } from "react-intersection-observer";
 import { useEffect } from "react";
 import { Users, Clock, Calendar, CheckCircle, Target, TrendingUp, Quote } from "lucide-react";
 import { useAnimation } from "framer-motion";
+import Image from "next/image";
 
 type Study = {
   id: number;
@@ -46,7 +47,7 @@ export const HeroImage = ({ study }: Props) => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <img src={study.heroImage} alt={study.projectName} className="hero-image" />
+            <Image src={study.heroImage} alt={study.projectName} className="hero-image" />
             <div className={`hero-image-overlay bg-gradient-to-t from-green-500 to-emerald-400`} />
           </motion.div>
         </div>
@@ -338,7 +339,7 @@ export const HeroImage = ({ study }: Props) => {
               "{study.testimonialQuote}"
             </blockquote>
             <div className="testimonial-author">
-              <img
+              <Image
                 src={study.testimonialAvatar}
                 alt={study.testimonialAuthor}
                 className="author-avatar"

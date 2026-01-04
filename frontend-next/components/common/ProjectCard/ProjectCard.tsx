@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, useMotionValue, useTransform, type Variants } from "framer-motion";
-import { Sparkles, ExternalLink, FileText, Check, ArrowRight } from "lucide-react";
+import { Sparkles, Check, ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 

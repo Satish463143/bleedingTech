@@ -1,3 +1,4 @@
+export const dynamic = "force-static";
 import type { Metadata } from "next";
 import Script from "next/script";
 import Services from "@/page-components/Services/Services";

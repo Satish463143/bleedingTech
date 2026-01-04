@@ -3,6 +3,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { Calendar, Clock, Eye, Heart, ArrowRight } from "lucide-react";
+import Image from "next/image";
 
 type Blog = {
   _id: string | number;
@@ -26,6 +27,7 @@ const BlogItem = ({ blog, index }: Props) => {
     const [isHovered, setIsHovered] = useState(false);
     const router = useRouter();
     const isEven = index % 2 === 0;
+    const MotionImage = motion(Image);
   
     const handleReadMore = () => {
       router.push(`/blogs-details?slug=${blog.slug}&id=${blog._id}`);
@@ -62,7 +64,7 @@ const BlogItem = ({ blog, index }: Props) => {
           }}
           transition={{ duration: 0.4 }}
         >
-          <motion.img
+          <MotionImage
             src={blog.thumbnail}
             alt={blog.title}
             animate={{

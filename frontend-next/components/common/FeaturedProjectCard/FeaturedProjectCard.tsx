@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { CheckCircle, ExternalLink } from "lucide-react";
+import Image from "next/image";
 
 // Type definitions
 interface Project {
@@ -27,6 +28,7 @@ interface FeaturedProjectCardProps {
 }
 
 const FeaturedProjectCard: React.FC<FeaturedProjectCardProps> = ({ project, index, isReversed }) => {
+  const MotionImage = motion(Image);
     const [isHovered, setIsHovered] = useState(false);
     // Use color from project or fallback to glowColor
     const projectColor = project.color || project.glowColor || "rgb(59, 130, 246, 0.5)";
@@ -91,7 +93,7 @@ const FeaturedProjectCard: React.FC<FeaturedProjectCardProps> = ({ project, inde
               animate={{ opacity: isHovered ? 1 : 0.5 }}
             />
   
-            <motion.img
+            <MotionImage
               src={project.image}
               alt={project.title}
               className="w-full aspect-[4/3] object-cover"

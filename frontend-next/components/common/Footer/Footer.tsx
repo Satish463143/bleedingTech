@@ -34,14 +34,14 @@ export default function Footer() {
   ];
 
   const serviceLinks: SimpleLink[] = [
-    { name: "Web Development", href: "#" },
-    { name: "App Development", href: "#" },
-    { name: "WordPress Development", href: "#" },
-    { name: "SEO & Optimization", href: "#" },
-    { name: "UI/UX Design", href: "#" },
-    { name: "System Design", href: "#" },
-    { name: "Digital Marketing", href: "#" },
-    { name: "Google/Meta Ads", href: "#" },
+    { name: "Web Development", href: "/services#web-development" },
+    { name: "App Development", href: "/services#app-development" },
+    { name: "WordPress Development", href: "/services#wordpress-development" },
+    { name: "SEO & Optimization", href: "/services#seo-optimization" },
+    { name: "UI/UX Design", href: "/services#ui-ux-design" },
+    { name: "System Design", href: "/services#system-design" },
+    { name: "Digital Marketing", href: "/services#digital-marketing" },
+    { name: "Google/Meta Ads", href: "/services#google-meta-ads" },
   ];
 
   const quickLinks: SimpleLink[] = [

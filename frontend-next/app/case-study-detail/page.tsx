@@ -1,3 +1,4 @@
+export const dynamic = "force-static";
 import CaseStudyDetail from "@/page-components/CaseStudyDetail/CaseStudyDetail";
 import type { Metadata } from "next";
 

@@ -1,5 +1,6 @@
 "use client";
 import { Quote,Star } from "lucide-react";
+import Image from "next/image";
 
 type TestimonialCardProps = {
     testimonial: any;
@@ -40,7 +41,7 @@ const TestimonialCard = ({ testimonial }: TestimonialCardProps) => {
             className="relative w-20 h-20 rounded-full overflow-hidden border-2"
             style={{ borderColor: cardColor }}
           >
-            <img
+            <Image
               src={testimonial.image}
               alt={testimonial.name}
               className="w-full h-full object-cover"

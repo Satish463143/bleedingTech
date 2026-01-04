@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion, type Variants } from "framer-motion";
 import { Linkedin, Github, Mail, Instagram } from "lucide-react";
+import Image from "next/image";
 
 type Member = {
   id: number;
@@ -37,6 +38,7 @@ const variants: Variants = {
 
 export default function TeamMemberCard({ member, index }: Props) {
   const [isHovered, setIsHovered] = useState(false);
+  const MotionImage = motion(Image);
 
   return (
     <motion.div
@@ -120,7 +122,7 @@ export default function TeamMemberCard({ member, index }: Props) {
               className="relative w-48 h-48 lg:w-64 lg:h-64 rounded-full overflow-hidden border-4"
               style={{ borderColor: "hsl(var(--border))" }}
             >
-              <motion.img
+              <MotionImage
                 src={member.image}
                 alt={member.name}
                 className="w-full h-full object-cover"

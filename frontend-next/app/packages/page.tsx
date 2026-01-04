@@ -1,3 +1,4 @@
+export const dynamic = "force-static";
 import Packages from "@/page-components/Packages/Packages";
 import type { Metadata } from "next";
 import { buildFaqJsonLd } from "@/lib/faqJsonLd";

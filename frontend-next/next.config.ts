@@ -8,6 +8,19 @@ const nextConfig: NextConfig = {
   // 3. Server components
   // For deployment, use Vercel, Netlify, or VPS with Node.js
   // output: "export",
+  async headers() {
+    return [
+      {
+        source: '/(.*)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=0, s-maxage=31536000, immutable',
+          },
+        ],
+      },
+    ]
+  },
 
   images: {
     unoptimized: true, // Keep for compatibility

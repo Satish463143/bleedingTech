@@ -42,6 +42,8 @@ const TestimonialCard = ({ testimonial }: TestimonialCardProps) => {
             style={{ borderColor: cardColor }}
           >
             <Image
+              loading="lazy"
+              priority
               src={testimonial.image}
               alt={testimonial.name}
               className="w-full h-full object-cover"

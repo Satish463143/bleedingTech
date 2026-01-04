@@ -84,6 +84,8 @@ const NewProjectCard: React.FC<NewProjectCardProps> = ({ project, index = 0 }) =
           transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] as const }}
         >
           <Image
+            loading="lazy"
+            priority
             src={image}
             alt={title}
             className="w-full h-full object-cover new-project-card-image-image"

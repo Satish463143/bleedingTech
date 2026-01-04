@@ -42,6 +42,8 @@ const RelatedBlogCard = ({ blog, index }: Props) => {
         {/* Image */}
         <div className="related-card-image">
           <MotionImage
+            loading="lazy"
+            priority
             src={blog.thumbnail}
             alt={blog.title}
             animate={{ scale: isHovered ? 1.1 : 1 }}

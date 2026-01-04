@@ -94,6 +94,8 @@ const FeaturedProjectCard: React.FC<FeaturedProjectCardProps> = ({ project, inde
             />
   
             <MotionImage
+              loading="lazy"
+              priority
               src={project.image}
               alt={project.title}
               className="w-full aspect-[4/3] object-cover"

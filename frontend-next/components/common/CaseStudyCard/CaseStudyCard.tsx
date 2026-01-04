@@ -74,6 +74,8 @@ export default function CaseStudyCard({ study, index }: Props) {
           transition={{ duration: 0.5, ease: "easeOut" }}
         >
           <MotionImage
+            loading="lazy"
+            priority
             src={study.image}
             alt={study.projectName}
             className="card-image"

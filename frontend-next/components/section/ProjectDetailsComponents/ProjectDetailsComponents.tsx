@@ -45,7 +45,7 @@ export const HeroImage = ({ project }: Props) => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <Image src={project.image} alt={project.title} className="hero-image" />
+          <Image src={project.image} loading="lazy" priority alt={project.title} className="hero-image" />
           <div
             className={`hero-image-overlay bg-gradient-to-t from-blue-500 to-cyan-400`}
           />

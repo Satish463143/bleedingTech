@@ -123,6 +123,8 @@ export default function TeamMemberCard({ member, index }: Props) {
               style={{ borderColor: "hsl(var(--border))" }}
             >
               <MotionImage
+                loading="lazy"
+                priority
                 src={member.image}
                 alt={member.name}
                 className="w-full h-full object-cover"

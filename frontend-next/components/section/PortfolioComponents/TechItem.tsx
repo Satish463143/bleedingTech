@@ -43,6 +43,8 @@ const TechItem = ({ tech, variants }: TechItemProps) => {
         >
           {/* Icon */}
           <MotionImage
+            loading="lazy"
+            priority
             src={tech.icon}
             alt={tech.name}
             className="w-10 h-10 lg:w-12 lg:h-12 object-contain"

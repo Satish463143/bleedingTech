@@ -88,6 +88,8 @@ export const GridLogo: React.FC<GridLogoProps> = ({ client, index, size }) => {
           >
             {/* Logo image with rounded corners */}
             <MotionImage
+              loading="lazy"
+              priority
               src={client.logo}
               alt={client.name}
               className="w-full h-auto object-contain rounded-xl"
@@ -188,6 +190,8 @@ const MarqueeLogo: React.FC<MarqueeLogoProps> = ({ client, index }) => {
         >
           {/* Logo with rounded corners */}
           <Image
+            loading="lazy"
+            priority
             src={client.logo}
             alt={client.name}
             className="w-full h-auto object-contain rounded-lg filter drop-shadow-sm"

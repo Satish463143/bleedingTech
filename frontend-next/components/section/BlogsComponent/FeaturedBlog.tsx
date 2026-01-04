@@ -90,6 +90,8 @@ const FeaturedBlog = () => {
           {/* Image Section */}
           <div className="featured-card-image">
             <MotionImage
+              loading="lazy"
+              priority
               src={featuredBlog?.thumbnail}
               alt={featuredBlog?.title}
               animate={{ scale: isHovered ? 1.05 : 1 }}

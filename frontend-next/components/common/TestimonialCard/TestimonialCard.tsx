@@ -165,6 +165,8 @@ const TestimonialCard: React.FC<Props> = ({ testimonial, index }) => {
               whileHover={{ scale: 1.1 }}
             >
               <Image
+                loading="lazy"
+                priority
                 src={testimonial.image}
                 alt={testimonial.name}
                 className="w-full h-full object-cover"

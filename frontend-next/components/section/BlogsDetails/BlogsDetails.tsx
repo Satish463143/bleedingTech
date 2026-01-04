@@ -59,7 +59,7 @@ export const HeroImage = ({ blog }: BlogProps) => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <Image src={blog.heroImage} alt={blog.title} className="hero-image" />
+            <Image src={blog.heroImage} loading="lazy" priority alt={blog.title} className="hero-image" />
             <div className="hero-image-overlay" />
             <span className="hero-category">{blog.category}</span>
           </motion.div>

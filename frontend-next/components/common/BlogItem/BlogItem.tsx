@@ -65,6 +65,8 @@ const BlogItem = ({ blog, index }: Props) => {
           transition={{ duration: 0.4 }}
         >
           <MotionImage
+            loading="lazy"
+            priority
             src={blog.thumbnail}
             alt={blog.title}
             animate={{

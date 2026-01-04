@@ -112,9 +112,10 @@ export default function ProjectCard({ project, index }: Props) {
 
         <div className="relative h-64 overflow-hidden">
           <MotionImage
+            loading="lazy"
+            priority
             src={project.image}
             alt={project.title}
-            priority={true}
             className="w-full h-full object-cover"
             whileHover={{ scale: 1.08 }}
             transition={{ duration: 0.6, ease: "easeOut" }}

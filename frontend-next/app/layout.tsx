@@ -76,6 +76,9 @@ export default function RootLayout({
     <html lang="en" className={`${inter.variable} ${dmSerif.variable}`}>
       <head>
         <link rel="icon" type="image/png" href="/logo.png" />
+        <link rel="preconnect" href="https://bleeding-tech.s3.eu-north-1.amazonaws.com"/>
+        <link rel="preconnect" href="https://fonts.googleapis.com"/>
+        <link rel="preload" href="https://fonts.googleapis.com/css?family=Roboto&display=swap" as="style"/>
         <meta name="theme-color" content="#3B82F6" />
       </head>
       <body>

@@ -9,7 +9,27 @@ export const metadata: Metadata = {
   title: "Packages",
   description:
     "Explore affordable IT packages for web development, mobile apps, SEO optimization, UI/UX design, digital marketing, and custom software solutions. Tailored packages to fit your business needs.",
-  alternates: { canonical: "/packages" },
+  keywords: [
+    "web development packages",
+    "software development packages",
+    "SEO packages Nepal",
+    "digital marketing packages",
+    "custom software packages",
+    "website development packages Nepal",
+    "React website development pricing",
+    "Next.js development packages",
+    "startup website packages",
+    "enterprise software packages",
+    "UI UX design packages",
+    "IT service packages Nepal",
+    "affordable web development packages",
+    "how much does a website cost in Nepal",
+    "what is included in web development package",
+    "which package is best for startups",
+    "website maintenance cost Nepal",
+    "SEO package cost Nepal",
+  ],
+    alternates: { canonical: "https://bleedingtech.com.np/packages" },
   openGraph: {
     type: "website",
     url: "https://bleedingtech.com.np/packages",
@@ -18,6 +38,17 @@ export const metadata: Metadata = {
     description:
       "Explore affordable IT packages for web development, mobile apps, SEO optimization, UI/UX design, digital marketing, and custom software solutions. Tailored packages to fit your business needs.",
     images: [{ url: "/og.jpg", width: 1200, height: 630 }],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
   },
   twitter: {
     card: "summary_large_image",
@@ -28,17 +59,16 @@ export const metadata: Metadata = {
   },
 };
 
-const faqJsonLd = buildFaqJsonLd(packageFaqs);
-
 export default function Page() {
+  const faqJsonLd = buildFaqJsonLd(packageFaqs);
   return (
     <>
       <Script
-        id="packages-faq-jsonld"
-        type="application/ld+json"
-        strategy="afterInteractive"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
-      />
+          id="packages-jsonld"
+          type="application/ld+json"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+        />
       <Packages packageFaqs={packageFaqs} />
     </>
   );

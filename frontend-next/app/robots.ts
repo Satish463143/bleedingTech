@@ -1,15 +1,17 @@
+import type { MetadataRoute } from "next";
+
 export const dynamic = "force-static";
 export const revalidate = false;
 
-import type { MetadataRoute } from "next";
-
 export default function robots(): MetadataRoute.Robots {
   return {
-    rules: {
-      userAgent: "*",
-      allow: "/",
-      disallow: ["/admin", "/dashboard", "/api"],
-    },
-    sitemap: "https://bleedingtech.com.np/sitemap.xml",
+    rules: [
+      {
+        userAgent: "*",
+        allow: "/",
+        disallow: ["/admin", "/dashboard"],
+      },
+    ],
+    sitemap: "https://www.bleedingtech.com.np/sitemap.xml",
   };
 }

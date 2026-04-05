@@ -6,11 +6,7 @@ class ContactController {
 
             const inquiry  = await ContactService.sendInquery(data)
 
-            res.json({
-                details:inquiry,
-                message:"Inquiry sent successfully",
-                meta:null
-            })
+            
 
             // Send confirmation email to customer
             await ContactService.sendMail({name:data.name, email:data.email})
@@ -21,6 +17,11 @@ class ContactController {
                 email:data.email,
                 phone:data.phone,
                 message:data.message
+            })
+            res.json({
+                details:inquiry,
+                message:"Inquiry sent successfully",
+                meta:null
             })
 
         }catch(exception){

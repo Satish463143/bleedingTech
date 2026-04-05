@@ -25,7 +25,7 @@ const AboutUs = () => {
       <WhoWeAre />
       <MissionVision />
       <Values />
-      {/* <OurTeam/> */}
+      <OurTeam/>
       <WorkingProcess />
       <Achievements />      
       <ContactCTA />

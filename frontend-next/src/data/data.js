@@ -8,7 +8,7 @@ import {
   Target,
   Briefcase, Users, Clock, ThumbsUp, Megaphone,
   Globe, AlertCircle, DollarSign, RefreshCw, Ban, CheckCircle, Award , FileText,
-   Scale, Shield, Lock, Eye, Database, Mail,
+  Scale, Shield, Lock, Eye, Database, Mail,
 } from "lucide-react";
 
   const clients = [
